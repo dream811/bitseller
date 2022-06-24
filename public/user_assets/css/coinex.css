@@ -11949,10 +11949,11 @@ body.offcanvas-active {
 
 .custom-form-floating-sm > .form-control,
 .custom-form-floating-sm > .form-select {
-  height: calc(2.7rem + 2px); }
+  height: calc(2.1rem + 2px); }
 
 .custom-form-floating-sm > label {
   height: unset;
+  font-size:13px;
   -webkit-transform: scale(1.125) translateY(0.25rem) translateX(0.5rem);
           transform: scale(1.125) translateY(0.25rem) translateX(0.5rem);
   padding: 0.1rem 0.5rem; }

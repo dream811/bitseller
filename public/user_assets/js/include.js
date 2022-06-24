@@ -143,11 +143,11 @@ function RecvAdminLiveData(packet)
 {
 
 }
-
-function RecvDataPacket(packet)
-{
-    //재정의되는 함수
-}
+//재정의되는 함수
+// function RecvDataPacket(packet)
+// {
+//     //재정의되는 함수
+// }
 
 function alertError(strMsg)
 {
