@@ -1,7 +1,5 @@
 const constants = require('../constants');
 class CoinProcess {
-    
-
     constructor(app) {
         this.app = app;
         let self = this;
@@ -112,9 +110,9 @@ class CoinProcess {
         
         //SendPacket(PKT_ADMIN_WITHDRAW_CONFIRM, JSON.stringify(packet));
         //관리자에게 전송
-        ws.send(JSON.stringify({m_nCmd: PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
         //유저에게 전송
-        this.app.socketServer.sendMessageByUserId(packet.user_id, JSON.stringify({m_nCmd: PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        this.app.socketServer.sendMessageByUserId(packet.user_id, JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
     }
 
     //admin
@@ -142,9 +140,9 @@ class CoinProcess {
         await this.exeQuery(query);
         console.log("환전신청취소가 완료되였습니다.");
         //ws.send("환전신청취소가 완료되였습니다.");
-        ws.send(JSON.stringify({m_nCmd: PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
         //유저에게 전송
-        this.app.socketServer.sendMessageByUserId(packet.user_id, JSON.stringify({m_nCmd: PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        this.app.socketServer.sendMessageByUserId(packet.user_id, JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
     }
     //admin
     async admDepositConfirm(ws, strValue){
