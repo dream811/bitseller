@@ -69,26 +69,26 @@ class Scrapper {
                         var arr_yesterday_info = yesterday_info.split('\n');
                         scrap_data.yp = arr_yesterday_info[0];
                         scrap_data.ya = arr_yesterday_info[1];
-                        // scrap_data.ya1 = scrap_data.ya.replaceAll(',', '');
+                        scrap_data.ya1 = scrap_data.ya.replaceAll(',', '');
 
-                        // var highest_info = columns[4].innerText.trim();
-                        // var arr_highest_info = highest_info.split('%');
-                        // scrap_data.hp = arr_highest_info[0];
-                        // scrap_data.ha = arr_highest_info[1];
-                        // scrap_data.ha1 = scrap_data.ha.replaceAll(',', '');
+                        var highest_info = columns[4].innerText.trim();
+                        var arr_highest_info = highest_info.split('%');
+                        scrap_data.hp = arr_highest_info[0];
+                        scrap_data.ha = arr_highest_info[1];
+                        scrap_data.ha1 = scrap_data.ha.replaceAll(',', '');
 
-                        // var lowest_info = columns[5].innerText.trim();
-                        // var arr_lowest_info = lowest_info.split('%');
-                        // scrap_data.lp = arr_lowest_info[0];
-                        // scrap_data.la = arr_lowest_info[1];
-                        // scrap_data.la1 = scrap_data.la.replaceAll(',', '');
+                        var lowest_info = columns[5].innerText.trim();
+                        var arr_lowest_info = lowest_info.split('%');
+                        scrap_data.lp = arr_lowest_info[0];
+                        scrap_data.la = arr_lowest_info[1];
+                        scrap_data.la1 = scrap_data.la.replaceAll(',', '');
 
                         var trade_info = columns[6].innerText.trim();
                         var arr_trade_info = trade_info.split('\n');
                         scrap_data.t1 = arr_trade_info[0];
-                        // scrap_data.t11 = scrap_data.t1.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
+                        scrap_data.t11 = scrap_data.t1.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
                         scrap_data.t2 = arr_trade_info.length > 1 ? arr_trade_info[1] : "";
-                        // scrap_data.t21 = scrap_data.t2.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
+                        scrap_data.t21 = scrap_data.t2.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
                         //if(scrap_data.ne == "WEMIX")
                         return scrap_data;
                     });
