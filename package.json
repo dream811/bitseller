@@ -24,7 +24,7 @@
     "dependencies": {
         "cheerio": "^1.0.0-rc.11",
         "express": "^4.18.1",
-        "moment": "^2.29.3",
+        "moment": "^2.29.4",
         "mysql": "^2.18.1",
         "pretty": "^2.0.0",
         "puppeteer": "^14.4.1",

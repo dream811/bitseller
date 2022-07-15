@@ -8,6 +8,62 @@
     <div class="row">
         <div class="col-lg-8">
             <div class="row">
+            <style type="text/css">
+        .pop02_popup1 {position:absolute; z-index:1000000000;}
+        .pop02_popup2 {position:absolute; z-index:1000000000;}
+        .pop02_popup_wrap {float:left;z-index:1000000000;}
+        .pop02_popup_btn_wrap {float:right;z-index:1000000000;}
+        .pop02_popup_btn_wrap ul li {float:left; margin:0 0 0 5px;}
+        .pop02_popup_btn {float:right; background:#6421d4; min-width:60px; height:36px; line-height:40px; padding:0 15px 0 15px; text-align:center; display:inline-block; font-family:nanumgothic, sans-serif; color:#fff; font-size:12px; font-weight:600;}
+        .pop02_popup_box {float:left; border:5px solid #6421d4;clear:both;z-index:1000000000;background:#000 left top no-repeat; background-size:cover;}
+        .pop02_popup_text {float:left; width:100%;z-index:1000000000;}
+        .pop02_popup_font1 {float:left; width:100%; font-family:'nanumsquare', sans-serif; font-size:18px; letter-spacing:-1px; font-weight:700; color:#ffffff; line-height:40px;}
+        .pop02_popup_font2 {float:left; width:100%; font-family:'nanumgothic', sans-serif; font-size:12px; letter-spacing:-1px; font-weight:400; color:#ffffff; line-height:28px;}
+    </style>
+    @if (Auth::check() && Auth::user()->level < 9)
+        @foreach($lstNotice as $key => $infoNotice)
+        
+        <div class="pop02_popup1 draggable02" id="divpopup{{ $infoNotice->id }}" style="position:absolute;top:{{ 150 + $key * 20 }}px; left:{{ 300 + $key * 60 }}px; display:none;z-index:1000;">
+            <div class="pop02_popup_wrap">
+                <div class="pop02_popup_btn_wrap">
+                    <ul style="list-style: none">
+                        <li><a href="#"><span class="pop02_popup_btn" onClick="closePopup('{{ $infoNotice->id }}');">오늘 하루 이 창을 열지 않음</span></a></li>
+                        <li><a href="#"><span class="pop02_popup_btn" onClick="closePopup1('{{ $infoNotice->id }}');">닫기 X</span></a></li>            
+                    </ul>
+                </div>
+                <div class="pop02_popup_box">
+                    <div class="pop02_popup_text" style="padding:10px;width:350px">
+                        <span class="text-center pop02_popup_font1" style="border-bottom:2px solid #fff;margin-bottom:15px">★{{ $infoNotice->subject }}★</span>
+                        <span class="pop02_popup_font2">
+                            {!! $infoNotice->content !!}
+                        </span> 
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript">
+            $(document).ready(function(){
+                if ( document.cookie.indexOf("divpopup{{ $infoNotice->id }}=close") < 0 ){
+                    $("#divpopup{{ $infoNotice->id }}").show();
+                }
+            });
+        </script>
+        @endforeach
+        <script type="text/javascript">
+        function setCookie( name, value, expiredays ) {
+            var todayDate = new Date();
+                todayDate.setDate( todayDate.getDate() + expiredays );
+                    document.cookie = name + "=" + escape( value ) + "; path=/; expires=" + todayDate.toGMTString() + ";"
+                }
+            function closePopup1(popupid) {
+                $("#divpopup" + popupid).hide();
+            }
+            function closePopup(popupid) {
+                setCookie( "divpopup" + popupid, "close" , 1 );
+                $("#divpopup" + popupid).hide();
+            }
+        </script>
+    @endif
                 <div class="col-lg-12">
                     <div class="card">
                         {{-- <div class="card-header d-flex justify-content-between flex-wrap">
@@ -54,7 +110,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="col-lg-12">
                     <div class="card card-block card-stretch custom-scroll">
                         <div class="card-header d-flex flex-wrap justify-content-between align-items-center">
@@ -74,7 +129,7 @@
                                     color: white !important;
                                 }
                             </style>
-                            <table id="example" class="display nowrap table-dark table-bordered" style="width:100%">
+                            <table id="main_table" class="display nowrap table-dark table-bordered" style="width:100%">
                                 <thead style="background-color: #19191A;">
                                     <tr>
                                         <th>이름</th>
@@ -89,78 +144,78 @@
                                 <tbody style="text-align:right">
                                     <tr ng-repeat="info in lstCoinData" >
                                         <td style="text-align:left;">
-                                            <img style="vertical-align: baseline; display: inline-block;" src="!%info.img_coin%!" class="img-fluid avatar avatar-30 avatar-rounded" alt="">
+                                            <img style="vertical-align: baseline; display: inline-block;" src="{{asset('user_assets/images/coins').'/'}}!%info.ic%!" class="img-fluid avatar avatar-30 avatar-rounded" alt="">
                                             <span  style="display: inline-block;">
-                                                <div>!%info.name_kor%!</div>
-                                                <div>!%info.name_eng%!</div>
+                                                <div>!%info.nk%!</div>
+                                                <div>!%info.ne%!</div>
                                             </span>
                                         </td>
                                         <td>
-                                            <div>!%info.cur_price1%!</div>
-                                            <div>!%info.cur_price2%!</div>
+                                            <div>!%info.c1%!</div>
+                                            <div>!%info.c2%!</div>
                                         </td>
                                         <td>
                                             <div>
-                                                <svg ng-show="info.kimp_per_1 < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.kp1 < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 4.5L0.535898 0L7.4641 0L4 4.5Z" fill="#FF2E2E"></path>
                                                 </svg>
-                                                <svg ng-show="info.kimp_per_1 > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.kp1 > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 0.5L7.4641 5H0.535898L4 0.5Z" fill="#00EC42"></path>
                                                 </svg>
-                                                <span ng-class="{'text-danger' : info.kimp_per_1 < 0, 'text-success' : info.kimp_per_1 > 0}">!%(Math.abs(info.kimp_per_1))%!%</span>
+                                                <span ng-class="{'text-danger' : info.kp1 < 0, 'text-success' : info.kp1 > 0}">!%(Math.abs(info.kp1))%!%</span>
                                             </div>
                                             <div>
-                                                <span class="text-gray">!%(info.kimp_amt)%!</span>
+                                                <span class="text-gray">!%(info.ka)%!</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div>
-                                                <svg ng-show="info.comp_yesterday_per < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.yp < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 4.5L0.535898 0L7.4641 0L4 4.5Z" fill="#FF2E2E"></path>
                                                 </svg>
-                                                <svg ng-show="info.comp_yesterday_per > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.yp > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 0.5L7.4641 5H0.535898L4 0.5Z" fill="#00EC42"></path>
                                                 </svg>
-                                                <span ng-class="{'text-danger' : info.comp_yesterday_per < 0, 'text-success' : info.comp_yesterday_per > 0}">!%(Math.abs(info.comp_yesterday_per))%!%</span>
+                                                <span ng-class="{'text-danger' : info.yp < 0, 'text-success' : info.yp > 0}">!%(Math.abs(info.yp))%!%</span>
                                             </div>
                                             <div>
-                                                <span class="text-gray">!%(info.comp_yesterday_amt)%!</span>
+                                                <span class="text-gray">!%(info.ya)%!</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div>
-                                                <svg ng-show="info.comp_highest_per < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.hp < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 4.5L0.535898 0L7.4641 0L4 4.5Z" fill="#FF2E2E"></path>
                                                 </svg>
-                                                <svg ng-show="info.comp_highest_per > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.hp > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 0.5L7.4641 5H0.535898L4 0.5Z" fill="#00EC42"></path>
                                                 </svg>
-                                                <span ng-class="{'text-danger' : info.comp_highest_per < 0, 'text-success' : info.comp_highest_per > 0}">!%(Math.abs(info.comp_highest_per))%!%</span>
+                                                <span ng-class="{'text-danger' : info.hp < 0, 'text-success' : info.hp > 0}">!%(Math.abs(info.hp))%!%</span>
                                             </div>
                                             <div>
-                                                <span class="text-gray">!%(info.comp_highest_amt)%!</span>
+                                                <span class="text-gray">!%(info.ha)%!</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div>
-                                                <svg ng-show="info.comp_lowest_per < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.lp < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 4.5L0.535898 0L7.4641 0L4 4.5Z" fill="#FF2E2E"></path>
                                                 </svg>
-                                                <svg ng-show="info.comp_lowest_per > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                <svg ng-show="info.lp > 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 0.5L7.4641 5H0.535898L4 0.5Z" fill="#00EC42"></path>
                                                 </svg>
-                                                <span ng-class="{'text-danger' : info.comp_lowest_per < 0, 'text-success' : info.comp_lowest_per > 0}">!%(Math.abs(info.comp_lowest_per))%!%</span>
+                                                <span ng-class="{'text-danger' : info.lp < 0, 'text-success' : info.lp > 0}">!%(Math.abs(info.lp))%!%</span>
                                             </div>
                                             <div>
-                                                <span class="text-gray">!%(info.comp_lowest_amt)%!</span>
+                                                <span class="text-gray">!%(info.la)%!</span>
                                             </div>
                                         </td>
                                         <td>
                                             <div>
-                                                <span class="text-gray">!%(info.trade_amt1)%!</span>
+                                                <span class="text-gray">!%(info.t1)%!</span>
                                             </div>
                                             <div>
-                                                <span class="text-gray">!%(info.trade_amt2)%!</span>
+                                                <span class="text-gray">!%(info.t2)%!</span>
                                             </div>
                                         </td>
                                     </tr>
@@ -168,7 +223,7 @@
                             </table>
                             <script>
                                 $(document).ready(function () {
-                                    $('#example').DataTable(
+                                    $('#main_table').DataTable(
                                         {
                                             paging: false,
                                             info: false,
@@ -197,47 +252,28 @@
                                 <div class="navbar-brand dis-none align-items-center justify-content-center">
                                     <h4 style="color:#fff" class="logo-title pt-2 text-center">코인주문</h4>
                                 </div>
-                                {{-- <div>
-                                    <h6 class="card-title">입금계좌</h6>
-                                    <p class="card-text">하나은행</p>
-                                </div>
-                                    <div>
-                                    <h6 class="card-title">본인계좌</h6>
-                                    <p class="card-text">농협은행</p>
-                                </div>
-                                <br> --}}
                                 <form>
                                     <div class="input-group input-group-sm mb-3">
                                         <span class="input-group-text input-group-text-sm" id="basic-addon1">구입코인</span>
                                         <!-- <input type="text" class="form-control form-control-sm" placeholder="" aria-label="Username" aria-describedby="basic-addon1"> -->
-                                        <select id="coin_type" ng-change="ChangeCoinType()" name="coin_type" ng-model="filterCondition.value" class="form-select form-select-sm">
-                                            <option
-                                                ng-selected="info.name_eng == filterCondition.value"
-                                                ng-repeat="info in lstCoinData"
-                                                value="!%info.name_eng%!" 
-                                            >!%info.name_kor%!</option>
-                                            
+                                        <select id="coin_type" ng-model="filterCondition.key" name="coin_type" class="form-select form-select-sm">
+                                        <option
+                                                ng-selected="info.ne == lstCoinData[filterCondition.key].ne"
+                                                ng-repeat="(key, info) in lstCoinData"
+                                                value="!%key%!" 
+                                            >!%info.nk%!</option>
                                         </select>
                                     </div>
-                                    
-                                    <!-- <div class="form-floating custom-form-floating custom-form-floating-sm form-group mb-3" >
-                                        <input id="amount" value="1000" class="form-control form-control-sm" type="number" placeholder=".form-control-sm" aria-label=".form-control-sm example" disabled>
-                                        <label for="amount" style="z-index:-10000">보유머니</label>
-                                    </div> -->
                                     <div class="input-group input-group-sm mb-3">
                                         <span id="amount" class="form-control form-control-sm" type="text" placeholder="" aria-label="">
-                                        !% orderAmount / lstCoinData[filterCondition.key].cur_price1_1 %!
+                                        !% floatFormat (orderAmount / lstCoinData[filterCondition.key].c11) %!
                                         </span>
-                                        <span class="input-group-text input-group-text-sm" id="coin-type">!%filterCondition.value%!</span>
+                                        <span class="input-group-text input-group-text-sm" id="coin-type">!%lstCoinData[filterCondition.key].ne%!</span>
                                     </div>
-                                    <!-- <div class="form-floating custom-form-floating custom-form-floating-sm form-group mb-3">
-                                        <input id="amount" class="form-control form-control-sm" type="number" placeholder=".form-control-sm" aria-label=".form-control-sm example">
-                                        <label for="amount">주문코인</label>
-                                    </div> -->
-                                    
+                                     
                                     <div class="input-group input-group-sm mb-3">
                                         <span id="amount" class="form-control form-control-sm" type="text"  placeholder="" aria-label="">
-                                        !% lstCoinData[filterCondition.key].cur_price1_1 %!
+                                        !% lstCoinData[filterCondition.key].c11 %!
                                         </span>
                                         <span class="input-group-text input-group-text-sm" id="coin-type">매수가격</span>
                                     </div>
@@ -249,7 +285,7 @@
                                         <button type="button" class="btn btn-warning btn-xs mr-2" onclick="moneyPlus('reset');">정정</button>
                                     </div> 
                                     <div class="form-floating custom-form-floating custom-form-floating-sm form-group mt-4 mb-3">
-                                        <input id="order_amount" name="order_amount" class="form-control form-control-sm" type="number" placeholder=".form-control-sm" aria-label=".form-control-sm example">
+                                        <input onkeyup="moneyPlusManual(this.value);" id="order_amount" name="order_amount" class="form-control form-control-sm" type="number" placeholder=".form-control-sm" aria-label=".form-control-sm example">
                                         <label for="order_amount" style="font-size:12px;">주문금액</label>
                                     </div>
                                     <div class="text-center">
@@ -289,10 +325,20 @@
                                         <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
                                         <label for="email">메일</label>
                                     </div>
-                                        <div class="form-floating mb-2">
+                                    @error('email')
+                                        <span class="invalid-feedback" style="display:block" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
+                                    <div class="form-floating mb-2">
                                         <input type="password" class="form-control" name="password" id="password" placeholder="Password">
                                         <label for="password">비번</label>
                                     </div>
+                                    @error('password')
+                                        <span class="invalid-feedback" style="display:block" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                     <div class="d-flex justify-content-between  align-items-center flex-wrap">
                                         <div class="form-group">
                                             <div class="form-check">
@@ -308,11 +354,9 @@
                                     </div>
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">로그인</button>
-                                        <button type="button" class="btn btn-danger">회원가입</button>
-                                    </div>
-                                    
-                                </form>
-                                
+                                        <a href="{{route('register')}}"  class="btn btn-danger">회원가입</a>
+                                    </div>                                    
+                                </form>                                
                             </div>
                         </div>
                     </div>

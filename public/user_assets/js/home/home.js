@@ -9,22 +9,25 @@ function initialize() {
   scope.onUserLetterUpdate = onUserLetterUpdate;
   scope.onDeleteUserLetter = onDeleteUserLetter;
   scope.userInfo = {
-    id: document.getElementById('user_id').value,
-    password: document.getElementById('user_password').value,
-    money: document.getElementById('user_money').value
-  }
-  ;
+    id: document.getElementById('user_id')? document.getElementById('user_id').value : 0,
+    password: document.getElementById('user_password') ? document.getElementById('user_password').value :"",
+    money: document.getElementById('user_money') ? document.getElementById('user_money').value : 0
+  };
+
   getUserLetterList();
   scope.Math = Math;
   scope.lstCoinData;
   scope.filterCondition = {
-    value: 'WAVES',
+    value: '',
     key: 0
   };
+
   scope.ChangeCoinType = ChangeCoinType;
   scope.orderAmount = 0;
 
   scope.BuyCoin = BuyCoin;
+
+  scope.floatFormat = floatFormat;
 }
 
 function getUserLetterList() {
@@ -44,7 +47,8 @@ function RecvDataPacket(packet)
 {
   if(packet.m_nCmd == PKT_USER_COIN_DATA)
   {
-      scope.lstCoinData = packet.m_strPacket;
+    scope.lstCoinData = packet.m_strPacket;
+    //scope.filterCondition.value = scope.lstCoinData[0].ne;
   }
   // else if(packet.m_nCode == SOCKET_ADMIN_PARTLETTER_DELETE)
   // {
@@ -109,8 +113,8 @@ function moneyPlus(amount)
 
 //-> 배팅금액수동입력
 function moneyPlusManual(amount) {
-  this_money = amount.replace(/,/g,"");
-  $j("#order_amount").val((this_money));
+  scope.amount = this_money = amount.replace(/,/g,"");
+  $("#order_amount").val((this_money));
   calHitMoney();
 }
 
@@ -121,10 +125,11 @@ function calHitMoney() {
 
 function ChangeCoinType() {
   var lstCoinInfo = scope.lstCoinData;
-  lstCoinInfo.forEach((element,key) =>{
-    if(element.name_eng == scope.filterCondition.value)
-      scope.filterCondition.key = key;
-  })
+  // lstCoinInfo.forEach((element,key) =>{
+  //   if(element.ne == scope.lstCoinData[scope.filterCondition.key].ne)
+  //     scope.filterCondition.key = key;
+  //     scope.filterCondition.value = element.ne;
+  // })
 }
 
 function MoneyFormat(str)
@@ -163,7 +168,7 @@ function MoneyFormat(str)
 function BuyCoin() {
   if(confirm('코인을 구매하시겠습니까?')){
     var packet = {
-        "coin_type"         :   scope.filterCondition.value,
+        "coin_type"         :   scope.lstCoinData[scope.filterCondition.key].ne,
         "coin_id"           :   scope.filterCondition.key,
         "user_id"           :   scope.userInfo.id,
         "user_password"     :   scope.userInfo.password,
@@ -171,4 +176,8 @@ function BuyCoin() {
     }
     SendPacket(PKT_USER_COIN_BUY, JSON.stringify(packet));
   }
+}
+
+function floatFormat(value, decimal = 6) {
+  return parseFloat(value).toFixed(decimal);
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Notice;
 
 class HomeController extends Controller
 {
@@ -24,6 +25,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('user.home');
+        $lstNotice = Notice::where('is_del', 0)->where('is_popup', 1)->get();
+        return view('user.home', compact('lstNotice'));
     }
 }

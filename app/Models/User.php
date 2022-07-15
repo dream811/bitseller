@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'nickname', 'email', 'password', 'str_id', 'level', 'type', 'is_use', 'is_del', 'phone', 'bank_id', 'bank_user', 'bank_account', 'money', 'buy_sum', 'deposit_sum', 'withdraw_sum', 'referer'
     ];
 
     /**
@@ -37,4 +37,29 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        return ($this->type == 'ADMIN') ? true : false; // this looks for an admin column in your users table
+    }
+
+    public function userLevel()
+    {
+        return $this->belongsTo(UserLevel::class, 'level', 'level');
+    }
+
+    public function userBank()
+    {
+        return $this->belongsTo(Bank::class, 'bank_id', 'id');
+    }
+
+    public function messages()
+    {
+        return $this->hasMany(Message::class, 'receiver_id', 'id');
+    }
+
+    public function new_messages()
+    {
+        return $this->messages()->where('is_read','=', 0);
+    }
 }

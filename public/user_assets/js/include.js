@@ -77,34 +77,64 @@ function SendPacket(nCmd, strPacket)
 
 function SendAuthPacket()
 {
-    if(document.getElementById("id_main") != null)
+    //메인페이지
+    if(document.getElementById("main_table") != null)
     {
-        if(document.getElementById("id_adminSn") != null)
+        //실유저
+        if(document.getElementById("user_id") != null)
         {
-            var adminSn = document.getElementById("id_adminSn").value;
-            scope.SendPacket(PKT_ADMIN_ACT_MAIN_AUTH, adminSn);
+            var user_id = document.getElementById("user_id").value;
+            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, user_id);
         }
-        else if(document.getElementById("id_agentSn") != null)
+        else//게스트
         {
-            var agentSn = document.getElementById("id_agentSn").value;
-            scope.SendPacket(PKT_AGENT_ACT_MAIN_AUTH, agentSn);
+            var user_id = Date.now();
+            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, user_id);
         }
     }
     else
     {
-        if(document.getElementById("id_adminSn") != null)
+        //실유저
+        if(document.getElementById("user_id") != null)
         {
-            var adminSn = document.getElementById("id_adminSn").value;
-            scope.SendPacket(PKT_ADMIN_ACT_CHILD_AUTH, adminSn);
+            var user_id = document.getElementById("user_id").value;
+            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, user_id);
         }
-        else if(document.getElementById("id_agentSn") != null)
+        else//게스트
         {
-            var agentSn = document.getElementById("id_agentSn").value;
-            scope.SendPacket(PKT_AGENT_ACT_CHILD_AUTH, agentSn);
+            var user_id = Date.now();
+            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, user_id);
         }
     }
 }
 
+var strSocketMessage = ""; // 파켓렬
+function ReceiveSplitData(strPacket)
+{
+    try {
+        var objPacket = JSON.parse(strPacket);
+        if(objPacket.nCode == -1) {
+            if(objPacket.strPacket == "") {
+                scope.ReceiveData(objPacket.strPacket);
+            } else {
+                if(objPacket.nEnd == 0) {
+                    strSocketMessage += objPacket.strPacket;
+                } else if(objPacket.nEnd == 1) {
+                    var strMessage = strSocketMessage + objPacket.strPacket;
+                    strSocketMessage = "";
+                    scope.ReceiveData(strMessage);
+                }
+            }
+        }
+        else
+        {
+            scope.ReceiveData(strPacket);
+        }
+    }
+    catch(err) {
+        console.log(err.message);
+    }
+}
 
 function RecvPacket(strPacket)
 {
@@ -113,18 +143,20 @@ function RecvPacket(strPacket)
 
     switch(nCmd)
     {
-        case PKT_ADMIN_REV_SERVER_TIME:
+        // case PKT_ADMIN_REV_SERVER_TIME:
+        //     scope.strServerTime = packet.strValue;
+        //     break;
+
+        // case PKT_ADMIN_REV_LIVE_DATA:
+        //     RecvAdminLiveData(packet);
+        //     break;
+
+        // case PKT_ADMIN_ACT_MAIN_AUTH:
+        //     RecvAdminMainAuth(packet);
+        //     break;
+        case 0x9999:
             scope.strServerTime = packet.strValue;
             break;
-
-        case PKT_ADMIN_REV_LIVE_DATA:
-            RecvAdminLiveData(packet);
-            break;
-
-        case PKT_ADMIN_ACT_MAIN_AUTH:
-            RecvAdminMainAuth(packet);
-            break;
-
         default:
             RecvDataPacket(packet);
             break;

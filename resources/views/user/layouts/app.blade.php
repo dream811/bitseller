@@ -4,6 +4,8 @@
  <head>
     <meta charset="utf-8">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <!-- CSRF Token -->
+      <meta name="csrf-token" content="{{ csrf_token() }}">
       <title>COINEX</title>
       <!-- Favicon -->
       <link rel="shortcut icon" href="{{asset('user_assets/images/favicon.ico')}}" />
@@ -11,15 +13,18 @@
       <link rel="stylesheet" href="{{asset('user_assets/css/coinex.css?v=1.0.0')}}">
       <script src="/plugins/jquery/jquery.min.js"></script>
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="/plugins/angular.min.js"></script>
-    <script type="text/javascript" src="/plugins/moment.js"></script>
-    <script type="text/javascript" src="/plugins/numeral.min.js"></script>
-    <script type="text/javascript" src="/js/constant.js?{{ time() }}"></script>
-    <script type="text/javascript" src="/js/include.js?{{ time() }}"></script>
-    <script src="/plugins/jquery/jquery.min.js"></script>
-    @yield('third_party_stylesheets')        
-    @stack('page_css')
+      <!-- summernote -->
+      <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
+
+      <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
+      <script type="text/javascript" src="/plugins/angular.min.js"></script>
+      <script type="text/javascript" src="/plugins/moment.js"></script>
+      <script type="text/javascript" src="/plugins/numeral.min.js"></script>
+      <script type="text/javascript" src="/js/constant.js?{{ time() }}"></script>
+      <script type="text/javascript" src="/user_assets/js/include.js?{{ time() }}"></script>
+      <script src="/plugins/jquery/jquery.min.js"></script>
+      @yield('third_party_stylesheets')
+      @stack('page_css')
 </head>
   <body ng-app="myApp" ng-controller="myController" class="">
     <!-- loader Start -->
@@ -49,8 +54,7 @@
                     </g>
                 </svg>
                 <h4 style="color:#fff" style="float:left;" class="logo-title pt-2">OINEX</h4>
-            </a>
-            
+            </a>            
         </div>
         <!--로고 End-->
         @include('user.layouts.menu')
@@ -73,7 +77,24 @@
           </div>
         </footer>
     </main>
-     
+    <div id="back-to-top" style="display: none;">
+        <a class="btn btn-primary btn-xs p-0 position-fixed top" id="top" href="#top">
+            <svg width="30" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 15.5L12 8.5L19 15.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+        </a>
+    </div>
+    <div class="middle" style="display: none;">
+        <button data-trigger="left-side-bar" class="d-xl-none btn btn-xs mid-menu" type="button">
+            <i class="icon">
+                <svg width="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19.75 11.7256L4.75 11.7256" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                    <path d="M13.7002 5.70124L19.7502 11.7252L13.7002 17.7502" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+                </svg>
+            </i>
+        </button>
+    </div>
+    <script src="/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- Backend Bundle JavaScript -->
     <script src="{{asset('user_assets/js/libs.min.js')}}"></script>
     <!-- widgetchart JavaScript -->

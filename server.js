@@ -67,46 +67,46 @@ const puppeteer = require('puppeteer');
       return Array.from(rows, row => {
         const columns = row.querySelectorAll('td');
         var scrap_data = {};
-        scrap_data.name_kor = columns[0].querySelector('div > div').textContent;
-        scrap_data.name_eng = columns[0].querySelector('div > div:nth-child(2)').textContent;
-        scrap_data.img_coin = columns[0].querySelector('div > div:nth-child(1) > img').src;
+        scrap_data.nk = columns[0].querySelector('div > div').textContent;
+        scrap_data.ne = columns[0].querySelector('div > div:nth-child(2)').textContent;
+        scrap_data.ic = columns[0].querySelector('div > div:nth-child(1) > img').src;
         
         var cur_price = columns[1].innerText.trim();
         var arr_cur_price = cur_price.split('\n');
-        scrap_data.cur_price1 = arr_cur_price[0];
-        scrap_data.cur_price1_1 = scrap_data.cur_price1.replaceAll(',', '');
-        scrap_data.cur_price2 = arr_cur_price.length > 1 ? arr_cur_price[1] : "";
-        scrap_data.cur_price2_1 = scrap_data.cur_price2.replaceAll(',', '');
+        scrap_data.c1 = arr_cur_price[0];
+        scrap_data.c11 = scrap_data.c1.replaceAll(',', '');
+        scrap_data.c2 = arr_cur_price.length > 1 ? arr_cur_price[1] : "";
+        scrap_data.c21 = scrap_data.c2.replaceAll(',', '');
 
-        scrap_data.kimp_per = columns[2].querySelector('div:nth-child(1)').textContent;
-        scrap_data.kimp_per_1 = scrap_data.kimp_per.replace('%', '');
-        scrap_data.kimp_amt = columns[2].querySelector('div:nth-child(2)').textContent;
-        scrap_data.kimp_amt_1 = scrap_data.kimp_amt.replaceAll(',', '');
+        scrap_data.kp = columns[2].querySelector('div:nth-child(1)').textContent;
+        scrap_data.kp1 = scrap_data.kp.replace('%', '');
+        scrap_data.ka = columns[2].querySelector('div:nth-child(2)').textContent;
+        scrap_data.ka1 = scrap_data.ka.replaceAll(',', '');
 
         var yesterday_info = columns[3].innerText.trim().replace('%', '');
         var arr_yesterday_info = yesterday_info.split('\n');
-        scrap_data.comp_yesterday_per = arr_yesterday_info[0];
-        scrap_data.comp_yesterday_amt = arr_yesterday_info[1];
-        scrap_data.comp_yesterday_amt_1 = scrap_data.comp_yesterday_amt.replaceAll(',', '');
+        scrap_data.yp = arr_yesterday_info[0];
+        scrap_data.ya = arr_yesterday_info[1];
+        scrap_data.ya1 = scrap_data.ya.replaceAll(',', '');
 
         var highest_info = columns[4].innerText.trim();
         var arr_highest_info = highest_info.split('%');
-        scrap_data.comp_highest_per = arr_highest_info[0];
-        scrap_data.comp_highest_amt = arr_highest_info[1];
-        scrap_data.comp_highest_amt_1 = scrap_data.comp_highest_amt.replaceAll(',', '');
+        scrap_data.hp = arr_highest_info[0];
+        scrap_data.ha = arr_highest_info[1];
+        scrap_data.ha1 = scrap_data.ha.replaceAll(',', '');
 
         var lowest_info = columns[5].innerText.trim();
         var arr_lowest_info = lowest_info.split('%');
-        scrap_data.comp_lowest_per = arr_lowest_info[0];
-        scrap_data.comp_lowest_amt = arr_lowest_info[1];
-        scrap_data.comp_lowest_amt_1 = scrap_data.comp_lowest_amt.replaceAll(',', '');
+        scrap_data.lp = arr_lowest_info[0];
+        scrap_data.la = arr_lowest_info[1];
+        scrap_data.la1 = scrap_data.la.replaceAll(',', '');
 
         var trade_info = columns[6].innerText.trim();
         var arr_trade_info = trade_info.split('\n');
-        scrap_data.trade_amt1 = arr_trade_info[0];
-        scrap_data.trade_amt1_1 = scrap_data.trade_amt1.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
-        scrap_data.trade_amt2 = arr_trade_info.length > 1 ? arr_trade_info[1] : "";
-        scrap_data.trade_amt2_1 = scrap_data.trade_amt2.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
+        scrap_data.t1 = arr_trade_info[0];
+        scrap_data.t11 = scrap_data.t1.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
+        scrap_data.t2 = arr_trade_info.length > 1 ? arr_trade_info[1] : "";
+        scrap_data.t21 = scrap_data.t2.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
         //if(scrap_data.name_eng == "WEMIX")
           return scrap_data;
       });
@@ -127,12 +127,14 @@ const WebSocketServer = require('ws');
  
 // Creating a new websocket server
 const wss = new WebSocketServer.Server({ port: 8080 });
-const clients = new Map();
+var clients = {};
 // Creating connection using websocket
-wss.on("connection", ws => {
+wss.on("connection", (ws, req) => {
     console.log("new client connected");
-    client_id = Date.now();
-    clients.set(client_id, ws);
+    var id = req.headers['sec-websocket-key'];
+    var user_id = 0;
+    clients[id] = {user_id,  ws};
+    console.log(clients)
     // sending message
     ws.on('message', function(message) {
         //wss.broadcast(JSON.stringify(message));
@@ -143,12 +145,12 @@ wss.on("connection", ws => {
       });
     ws.on("close", () => {
         console.log("the client has connected");
-        clients.delete(ws);
+        delete clients[req.headers['sec-websocket-key']];
     });
     ws.onerror = function () {
         console.log("Some Error occurred")
     }
-    // ws.send('You successfully connected to the websocket.');
+    ws.send('You successfully connected to the websocket.');
 });
 
 wss.broadcast = function broadcast(msg) {
@@ -158,12 +160,19 @@ wss.broadcast = function broadcast(msg) {
    });
 };
 
-// setInterval(() => wss.broadcast(JSON.stringify({m_strPacket : coin_data, m_nCmd : constants.PKT_USER_COIN_DATA})), 500);
+setInterval(() => wss.broadcast(JSON.stringify({m_strPacket : coin_data, m_nCmd : constants.PKT_USER_COIN_DATA})), 500);
 console.log("The WebSocket server is running on port 8080");
 
 function BetFunc (ws, message) {
   console.log(message);
-  if(message.m_nCmd == constants.PKT_USER_COIN_BUY){
+  if(message.m_nCmd == constants.PKT_USER_ACT_MAIN_AUTH){
+    clients.forEach((val, key)=>{
+      if(val.user_id== 0)
+        val.ws.send("제기랄");
+    });
+  }
+  else if(message.m_nCmd == constants.PKT_USER_COIN_BUY)
+  {
     BuyCoin(ws, message.strValue);
   }
   //ws.send('success');
@@ -187,7 +196,7 @@ function BuyCoin(ws, strValue){
       ws.send(JSON.stringify(rows[0]));
       if(rows[0].money < req_info.order_amount){
         var packet = {
-          m_nCmd              : scope.filterCondition.value,
+          m_nCmd              : '',
           strValue            : "주문금액이 보유머니를 초과할수 없습니다."          
         }
         ws.send(JSON.stringify(packet));
