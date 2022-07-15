@@ -95,7 +95,7 @@ class ResultController extends Controller
                 //     $btn .= '<button type="button" data-state="2" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-warning btnState">적특</button>';
                 //     return $btn;
                 // })
-                ->editColumn('state', function ($row) {
+                ->addColumn('state_info', function ($row) {
                     $state = "미지급";
                     if($row->state == 0){
                         $state = "미지급";

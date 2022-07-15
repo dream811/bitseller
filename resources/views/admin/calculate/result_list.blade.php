@@ -61,7 +61,7 @@
             scrollY: "620px",
             pageLength: 100,
             ajax: {
-                url: "{{ route('admin.calculate.trading_list') }}"
+                url: "{{ route('admin.calculate.result_list') }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, width: '50px', 'searchable' : false, 'exportable' : false, 'printable'  : true},
@@ -74,7 +74,7 @@
                 {title: "총구매액", data: 'order_amount', name: 'order_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "배당금", data: 'add_amount', name: 'add_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "지급내역", data: 'payout_amount', name: 'payout_amount',  orderable: false, searchable: false, className: "text-center"},
-                {title: "지급상태", data: 'state', name: 'state', width: '140px', orderable: false, searchable: false, className: "text-center"},
+                {title: "지급상태", data: 'state_info', name: 'state_info', width: '140px', orderable: false, searchable: false, className: "text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
