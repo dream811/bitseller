@@ -40,7 +40,7 @@ class ScheduleController extends Controller
                 ->addIndexColumn()
                 ->addColumn('chk-is-use', function ($row) {
                     $checked = $row->is_use ? "checked" : "";
-                    $btn='<div class="form-group" style="padding-top:15px;">
+                    $btn='<div >
                         <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input chk-is-use" '.$checked.' data-id="'.$row->id.'" id="chkUse_'.$row->id.'">
                         <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>

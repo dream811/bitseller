@@ -41,7 +41,7 @@ class LevelController extends Controller
                 
                 ->editColumn('can_buy', function ($row) {
                     $checked = $row->can_buy == 1 ? "checked" : "";
-                    $btn='<div class="form-group">
+                    $btn='<div>
                         <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input chk-can-buy" '.$checked.' data-id="'.$row->id.'" id="chkBuy_'.$row->id.'">
                         <label class="custom-control-label" for="chkBuy_'.$row->id.'"></label>

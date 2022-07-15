@@ -59,7 +59,7 @@ class SettingController extends Controller
                 })
                 ->editColumn('is_use', function ($row) {
                     $checked = $row->is_use == 1 ? "checked" : "";
-                    $btn='<div class="form-group">
+                    $btn='<div>
                         <div class="custom-control custom-switch">
                         <input type="checkbox" class="custom-control-input" '.$checked.' id="chkUse_'.$row->id.'">
                         <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>
