@@ -160,7 +160,7 @@
               </div>
               <div class="card-body">
                 <div class="chart"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                  <canvas id="lineChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%; display: block; width: 745px;" width="745" height="350" class="chartjs-render-monitor"></canvas>
+                  <canvas id="barChart" style="min-height: 300px; height: 300px; max-height: 300px; max-width: 100%; display: block; width: 745px;" width="745" height="350" class="chartjs-render-monitor"></canvas>
                 </div>
               </div>
               <!-- /.card-body -->
@@ -184,7 +184,7 @@
   // $('#revenue-chart').get(0).getContext('2d');
 
   var salesChartData = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+    labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
     datasets: [
       {
         label: 'Digital Goods',
@@ -238,5 +238,78 @@
     data: salesChartData,
     options: salesChartOptions
   })
+
+var areaChartData = {
+  labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
+  datasets: [
+    {
+      label               : '구매액',
+      backgroundColor     : 'rgba(60,141,188,0.9)',
+      borderColor         : 'rgba(60,141,188,0.8)',
+      pointRadius          : false,
+      pointColor          : '#3b8bba',
+      pointStrokeColor    : 'rgba(60,141,188,1)',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(60,141,188,1)',
+      data                : [28, 48, 40, 19, 86, 27, 90]
+    },
+    {
+      label               : '지급액',
+      backgroundColor     : 'rgba(210, 214, 222, 1)',
+      borderColor         : 'rgba(210, 214, 222, 1)',
+      pointRadius         : false,
+      pointColor          : 'rgba(210, 214, 222, 1)',
+      pointStrokeColor    : '#c1c7d1',
+      pointHighlightFill  : '#fff',
+      pointHighlightStroke: 'rgba(220,220,220,1)',
+      data                : [65, 59, 80, 81, 56, 55, 40]
+    },
+  ]
+}
+
+var areaChartOptions = {
+  maintainAspectRatio : false,
+  responsive : true,
+  legend: {
+    display: false
+  },
+  scales: {
+    xAxes: [{
+      gridLines : {
+        display : false,
+      }
+    }],
+    yAxes: [{
+      gridLines : {
+        display : false,
+      }
+    }]
+  }
+}
+
+
+
+    //-------------
+    //- BAR CHART -
+    //-------------
+    var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    var barChartData = $.extend(true, {}, areaChartData)
+    var temp0 = areaChartData.datasets[0]
+    var temp1 = areaChartData.datasets[1]
+    barChartData.datasets[0] = temp1
+    barChartData.datasets[1] = temp0
+
+    var barChartOptions = {
+      responsive              : true,
+      maintainAspectRatio     : false,
+      datasetFill             : false
+    }
+
+    new Chart(barChartCanvas, {
+      type: 'bar',
+      data: barChartData,
+      options: barChartOptions
+    })
+
 </script>
 @endpush
