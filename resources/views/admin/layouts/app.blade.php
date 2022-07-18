@@ -10,6 +10,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <title>TP Admin</title>
         <!-- CSRF Token -->
         <meta name="csrf-token" content="{{ csrf_token() }}">
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
         <!-- Font Awesome Icons -->
         <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
         <!-- daterange picker -->
@@ -314,6 +315,20 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 else if(response.nRetCode == 0x01)
                 {
                     scope.toastSuccess(response.strValue);
+                }
+            });
+        }
+        setTimeout(getRealTimeInfo, 5000);
+        function getRealTimeInfo(){
+            var action = '/admin/realtime_info';
+            $.ajax({
+                url: action,
+                type: "GET",
+                dataType: 'json',
+                success: function ({status, data}) {
+                    console.log(data);
+                },
+                error: function (data) {
                 }
             });
         }

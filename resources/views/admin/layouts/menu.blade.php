@@ -28,6 +28,14 @@
 						</a>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
+								<a href="{{ route('admin.user.new_list') }}" class="nav-link">
+									<i class="far fa-circle nav-icon"></i>
+									<p>신규회원목록</p>
+								</a>
+							</li>
+						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
 								<a href="{{ route('admin.user.list') }}" class="nav-link">
 									<i class="far fa-circle nav-icon"></i>
 									<p>회원목록</p>

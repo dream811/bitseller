@@ -102,6 +102,7 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'referer' => $data['referer'],
             'password' => Hash::make($data['password']),
+            'is_use' => 2, //신규회원
         ]);
     }
 

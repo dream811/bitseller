@@ -4,13 +4,14 @@ namespace App\Http\Controllers\Admin\User;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\UserLevel;
+use App\Models\User;
+use App\Models\Bank;
 use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
-class LevelController extends Controller
+class NewUserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -30,51 +31,81 @@ class LevelController extends Controller
     public function index(Request $request)
     {
 
-        $title = "등급관리";
+        $title = "신규회원";
 
         if ($request->ajax()) {
-            $users = UserLevel::where('is_del', 0)
-                ->orderBy('id');
+            $users = User::where('type', 'USER')
+                ->where('level', '<', 9)
+                ->where('is_use', 2)
+                ->where('is_del', 0)
+                ->orderBy('name');
 
             return DataTables::of($users)
                 ->addIndexColumn()
-                
-                ->editColumn('can_buy', function ($row) {
-                    $checked = $row->can_buy == 1 ? "checked" : "";
+                // ->addColumn('level', function ($row) {
+                //     $level = "신규";
+                //     switch ($row->level) {
+                //         case 0:
+                //             $level = "신규";
+                //             break;
+                //         case 1:
+                //             $level = "브론즈";
+                //             break;
+                //         case 2:
+                //             $level = "실버";
+                //             break;
+                //         case 3:
+                //             $level = "골드";
+                //             break;
+                //         case 3:
+                //             $level = "VIP";
+                //             break;
+                //         default:
+                //             $level = "";
+                //             break;
+                //     }
+                //     return $level;
+                // })
+                ->editColumn('is_use', function ($row) {
+                    $checked = $row->is_use == 2 ?  "" : "checked";
                     $btn='<div>
                         <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input chk-can-buy" '.$checked.' data-id="'.$row->id.'" id="chkBuy_'.$row->id.'">
-                        <label class="custom-control-label" for="chkBuy_'.$row->id.'"></label>
+                        <input type="checkbox" class="custom-control-input chk-is-use" '.$checked.' data-id="'.$row->id.'" id="chkUse_'.$row->id.'">
+                        <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>
                         </div>
                     </div>';
                     return $btn;
                 })
-                ->addColumn('action', function ($row) {
-                    $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
-                    // $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
-                    return $btn;
+                ->addColumn('bank_name', function ($row) {
+                    $bank_name = Bank::find($row->bank_id)->name;
+                    
+                    return $bank_name;
                 })
-                ->rawColumns(['action', 'level', 'can_buy'])
+                // ->addColumn('action', function ($row) {
+                //     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
+                //     $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
+                //     return $btn;
+                // })
+                ->rawColumns(['is_use'])
                 ->make(true);
         }
-        return view('admin.user.level_list', compact('title'));
+        return view('admin.user.new_list', compact('title'));
     }
 
     //수정하려는 유저 선택(post)
-    public function edit($levelId = 0)
+    public function edit($userId = 0)
     {
         $title = "수정";
-        if ($levelId == 0) {
+        if ($userId == 0) {
             $title = "추가";
         }
 
-        $level = UserLevel::where('is_del', 0)
-            ->where('id', $levelId)
+        $user = User::where('is_del', 0)
+            ->where('id', $userId)
             ->firstOrNew();
-        
-        return view('admin.user.level_detail', compact('title', 'levelId', 'level'));
+        $bank_list = Bank::where('is_use', 1)->get();
+        return view('admin.user.detail', compact('title', 'userId', 'user', 'bank_list'));
     }
-    
     public function save(Request $request)
     {
         //$path = $request->post('beforeImage');
@@ -90,41 +121,57 @@ class LevelController extends Controller
         //     $path = url('storage') . '/' . $request->file('fileImage')->storeAs('/uploads/profile_images', $new_name, 'public');
         // }
         $data = [
-            'name' => $request->post('name'),
-            'pay_percent' => $request->post('pay_percent'),
-            'levelup_amount' => $request->post('levelup_amount'),
-            'min_limit' => $request->post('min_limit'),
-            'max_limit' => $request->post('max_limit'),
-            'can_buy' => $request->post('can_buy'),
-            //'is_del' => 0,
+            'name' => $request->post('mb_name'),
+            'str_id' => $request->post('str_id'),
+            'email' => $request->post('email'),
+            'phone' => $request->post('phone'),
+            //'mb_profile' => $path,
+            //'bIsAdmin' => $request->post('selRole') == "ADMIN" ? 1 : 0,
+            'level' => $request->post('level'),
+            'money' => $request->post('money'),
+            'nickname' => $request->post('nickname'),
+            'referer' => $request->post('referer'),
+            'is_use' => $request->post('is_use'),
+            'type' => 'USER',
+            'bank_id' => $request->post('bank_id'),
+            'bank_account' => $request->post('bank_account'),
+            'bank_user' => $request->post('bank_user'),
+            // 'business_number' => $request->post('txtBusinessNumber'),
+            // 'business_phone' => $request->post('txtBusinessPhone'),
+            // 'business_type' => $request->post('txtBusinessType'),
+            // 'business_kind' => $request->post('txtBusinessKind'),
+            // 'mb_zip1' => $request->post('mb_zip1'),
+            // 'mb_addr1' => $request->post('mb_addr1'),
+            // 'mb_addr2' => $request->post('mb_addr2'),
+            // 'bIsUsed' => $request->post('rdoIsUsed'),
+            'is_del' => 0,
         ];
-        
-        $level = UserLevel::updateOrCreate(
+        // if ($request->post('id') == 0) {
+        //     $data['password']  = Hash::make($request->post('password'));
+        // }
+        if ($request->post('password') != "") {
+            $data['password']  = Hash::make($request->post('password'));
+        }
+        // $date = new DateTime;
+        // if ($request->post('is_use') == 0) {
+        //     $data['mb_intercept_date']  = $date->format('Ymd');
+        // }
+        $user = User::updateOrCreate(
             ['id' => $request->post('id')],
             $data
         );
-        return response()->json(["status" => "success", "data" => $level]);
+        //$user->image = asset('storage/'. $user->image);
+        return response()->json(["status" => "success", "data" => $user]);
     }
     //사용상태 변경
-    public function state($levelId, Request $request)
+    public function state($userId, Request $request)
     {
         $status = $request->post('status');
-        $level = UserLevel::where('id', $levelId)
+        $user = User::where('id', $userId)
             ->update(            
                 ['is_use' => $status]
-            );        
-        return response()->json(["status" => "success", "data" => $level]);
-    }
-
-    //판매상태 변경
-    public function buy_state($levelId, Request $request)
-    {
-        $status = $request->post('status');
-        $level = UserLevel::where('id', $levelId)
-            ->update(            
-                ['can_buy' => $status]
-            );        
-        return response()->json(["status" => "success", "data" => $level]);
+            );
+        return response()->json(["status" => "success", "data" => $user]);
     }
 
     public function check(Request $request)

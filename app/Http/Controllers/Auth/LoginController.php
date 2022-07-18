@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 
 class LoginController extends Controller
 {
@@ -36,5 +38,26 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+
+    // Custom code for Auth process
+    protected function credentials( Request $request )
+    {
+        $credentials = $request->only($this->username(), 'password');
+
+        $credentials['is_use'] = 1;
+
+        return $credentials;
+
+    }
+
+    protected function sendFailedLoginResponse(Request $request)
+    {
+          
+        throw ValidationException::withMessages([
+            // $this->username() => [trans('auth.falied')],
+            $this->username() => [trans('auth.failed')],
+        ]);
+        
     }
 }

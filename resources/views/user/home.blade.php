@@ -136,9 +136,9 @@
                                         <th>현재가</th>
                                         <th>마켓가</th>
                                         <th>전일대비</th>
-                                        <th class="min-phone-l">고가대비(52주)</th>
+                                        <!-- <th class="min-phone-l">고가대비(52주)</th>
                                         <th class="min-phone-l">저가대비(52주)</th>
-                                        <th>거래액(일)</th>
+                                        <th>거래액(일)</th> -->
                                     </tr>
                                 </thead>
                                 <tbody style="text-align:right">
@@ -182,7 +182,7 @@
                                                 <span class="text-gray">!%(info.ya)%!</span>
                                             </div>
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <div>
                                                 <svg ng-show="info.hp < 0" width="10" height="8" viewBox="0 0 8 5" fill="none" xmlns="http://www.w3.org/2000/svg">
                                                     <path d="M4 4.5L0.535898 0L7.4641 0L4 4.5Z" fill="#FF2E2E"></path>
@@ -209,15 +209,15 @@
                                             <div>
                                                 <span class="text-gray">!%(info.la)%!</span>
                                             </div>
-                                        </td>
-                                        <td>
+                                        </td> -->
+                                        <!-- <td>
                                             <div>
                                                 <span class="text-gray">!%(info.t1)%!</span>
                                             </div>
                                             <div>
                                                 <span class="text-gray">!%(info.t2)%!</span>
                                             </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                 </tbody>
                             </table>
@@ -254,9 +254,16 @@
                                 </div>
                                 <form>
                                     <div class="input-group input-group-sm mb-3">
-                                        <span class="input-group-text input-group-text-sm" id="basic-addon1">구입코인</span>
+                                        <span class="input-group-text input-group-text-sm" id="basic-addon1">보유머니</span>
+                                        <span id="money" class="form-control form-control-sm" type="text" placeholder="" aria-label="">
+                                        {{Auth::user()->money}}
+                                        </span>
+                                    </div>
+                                    <div class="input-group input-group-sm mb-3">
+                                        <span class="input-group-text input-group-text-sm"  id="basic-addon1">구입코인</span>
                                         <!-- <input type="text" class="form-control form-control-sm" placeholder="" aria-label="Username" aria-describedby="basic-addon1"> -->
-                                        <select id="coin_type" ng-model="filterCondition.key" name="coin_type" class="form-select form-select-sm">
+                                        <select id="coin_type" ng-model="filterCondition.key" name="coin_type" class="form-select form-select-sm" style="appearance: auto;">
+                                        <option value="-1" selected>선택해주세요</option>
                                         <option
                                                 ng-selected="info.ne == lstCoinData[filterCondition.key].ne"
                                                 ng-repeat="(key, info) in lstCoinData"

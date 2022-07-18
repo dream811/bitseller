@@ -76,8 +76,13 @@ Auth::routes();
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(
     function () {
         Route::get('/',                             [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+        Route::get('/realtime_info',                [App\Http\Controllers\Admin\HomeController::class, 'realtime_info'])->name('realtime_info');
         Route::get('/home_admin',                   [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
         Route::get('user/roleManage',               [App\Http\Controllers\Admin\User\RoleManageController::class, 'index'])->name('user.RoleManage');
+        //신규회원관리
+        Route::get('user/new_list',                     [App\Http\Controllers\Admin\User\NewUserController::class, 'index'])->name('user.new_list');
+        Route::post('user/new_state/{userId}',          [App\Http\Controllers\Admin\User\NewUserController::class, 'state'])->name('user.new_state');
+        
         //사용자관리
         Route::get('user/list',                     [App\Http\Controllers\Admin\User\UserController::class, 'index'])->name('user.list');
         Route::get('user/edit/{userId}',            [App\Http\Controllers\Admin\User\UserController::class, 'edit'])->name('user.edit');
