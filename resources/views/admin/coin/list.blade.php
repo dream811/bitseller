@@ -66,10 +66,10 @@
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false, 'exportable' : false, 'printable'  : true},
-                {title: "코인명", data: 'kor_name', name: 'kor_name'},
-                {title: "구매제한(%)", data: 'sell_limit', name: 'sell_limit'},
-                {title: "아이디", data: 'key', name: 'key'},
                 {title: "이미지", data: 'image', name: 'image', width:"40px", orderable:false, searchable: false, },
+                {title: "코인명", data: 'kor_name', name: 'kor_name'},
+                {title: "아이디", data: 'key', name: 'key'},
+                {title: "구매제한(%)", data: 'sell_limit', name: 'sell_limit'},
                 {title: "사용상태", data: 'is_use', name: 'is_use', orderable:false, width: "50px", searchable: false},
                 {title: "조작", data: 'action', name: 'action', orderable:false, searchable: false, width: "40px", className: "text-center"},
             ],

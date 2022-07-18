@@ -72,6 +72,7 @@
                 {title: "매수가격", data: 'cur_price', name: 'cur_price', orderable: false, searchable: false, className: "text-center"},
                 {title: "매수수량", data: 'coin_quantity', name: 'coin_quantity', orderable: false, searchable: false, className: "text-center"},
                 {title: "총구매액", data: 'order_amount', name: 'order_amount',  orderable: false, searchable: false, className: "text-center"},
+                {title: "배당율", data: 'payout_rate', name: 'payout_rate', orderable: false, searchable: false, className: "text-center"},
                 {title: "배당금", data: 'add_amount', name: 'add_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "지급내역", data: 'payout_amount', name: 'payout_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "지급상태", data: 'state_info', name: 'state_info', width: '140px', orderable: false, searchable: false, className: "text-center"},

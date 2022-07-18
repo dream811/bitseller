@@ -168,22 +168,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link"><span style="font-size:12px;">신규회원:</span><code style="font-weight:700;">0명</code></a>
+                        <a href="" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명</a>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link"><span style="font-size:12px;">레벨업:</span><code style="font-weight:700;">0명</code></a>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link"><span style="font-size:12px;">입금신청:</span><code style="font-weight:700;">0건</code></a>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link"><span style="font-size:12px;">출금신청:</span><code style="font-weight:700;">0건</code></a>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">출금신청:</span><code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link"><span style="font-size:12px;">1:1문의:</span><code style="font-weight:700;">0건</code></a>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">1:1문의:</span><code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
-                    <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="nav-link"><span style="font-size:12px;">계좌문의:</span><code style="font-weight:700;">0건</code></a>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
                     
                 </ul>
@@ -217,7 +217,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                     class="img-circle elevation-2"
                                     alt="User Image">
                                 <p>
-                                    {{ Auth::user()->mb_name }}
+                                    {{ Auth::user()->name }}
                                     <small>가입날짜: {{ Auth::user()->created_at->format('Y-m-d') }}</small>
                                 </p>
                             </li>
@@ -318,7 +318,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }
             });
         }
-        setTimeout(getRealTimeInfo, 5000);
+        getRealTimeInfo();
+        setInterval(getRealTimeInfo, 5000);
         function getRealTimeInfo(){
             var action = '/admin/realtime_info';
             $.ajax({
@@ -326,6 +327,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 type: "GET",
                 dataType: 'json',
                 success: function ({status, data}) {
+                    $('#new_user_cnt').text(data.new_users);
+                    $('#new_levelup_cnt').text(data.levelup_users);
+                    $('#new_deposit_cnt').text(data.new_deposits);
+                    $('#new_withdraw_cnt').text(data.new_withdraws);
+                    $('#new_qna_cnt').text(data.new_qnas);
+                    $('#new_acc_qna_cnt').text(data.new_acc_qnas);
+                    
                     console.log(data);
                 },
                 error: function (data) {

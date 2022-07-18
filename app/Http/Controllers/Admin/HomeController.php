@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Exchange;
+use App\Models\QNA;
 
 class HomeController extends Controller
 {
@@ -36,6 +38,13 @@ class HomeController extends Controller
     public function realtime_info()
     {
         $new_users = count(User::where('is_use', 2)->get());
-        return response()->json(["status" => "success", "data" => compact('new_users', )]);
+        $levelup_users = count(User::where('type', 'USER')->leftJoin('user_level', function($join) {
+            $join->on('user_level.level', '=', 'users.level');
+        })->where('users.buy_sum', '>', 'user_level.levelup_amount')->get());
+        $new_deposits = count(Exchange::where('type', 0)->where('state', 0)->get());
+        $new_withdraws = count(Exchange::where('type', 1)->where('state', 0)->get());
+        $new_qnas = count(QNA::where('type', 0)->where('is_answer', 0)->get());
+        $new_acc_qnas = count(QNA::where('type', 1)->where('is_answer', 0)->get());
+        return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas')]);
     }
 }

@@ -49,7 +49,7 @@ class CoinController extends Controller
                     return $btn;
                 })
                 ->editColumn('image', function ($row) {
-                    return '<img style="vertical-align: baseline; display: inline-block;" src="'.asset('user_assets/images/coins'.'/'.$row->image).'" class="img-fluid avatar avatar-10 avatar-rounded" alt="">';
+                    return '<img style="vertical-align: baseline;" src="'.asset('user_assets/images/coins'.'/'.$row->image).'" class="img-fluid avatar avatar-10 avatar-rounded" alt="">';
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';

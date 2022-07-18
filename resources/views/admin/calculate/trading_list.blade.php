@@ -66,11 +66,12 @@
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, width: '50px', 'searchable' : false, 'exportable' : false, 'printable'  : true},
                 {title: "구매시간", data: 'created_at', name: 'created_at', width: '120px',},
-                {title: "등급", data: 'level', name: 'end_time',width: '50px',},
+                {title: "등급", data: 'level', name: 'level',width: '50px',},
                 {title: "회원", data: 'user_info', name: 'user_info', },
                 {title: "코인종목", data: 'coin_type', name: 'coin_type', orderable: false, searchable: false, className: "text-center"},
                 {title: "매수가격", data: 'cur_price', name: 'cur_price', orderable: false, searchable: false, className: "text-center"},
                 {title: "매수수량", data: 'coin_quantity', name: 'coin_quantity', orderable: false, searchable: false, className: "text-center"},
+                {title: "배당율", data: 'payout_rate', name: 'payout_rate', orderable: false, searchable: false, className: "text-center"},
                 {title: "총구매액", data: 'order_amount', name: 'order_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "조작", data: 'action', name: 'action', width: '140px', orderable: false, searchable: false, className: "text-center"},
             ],

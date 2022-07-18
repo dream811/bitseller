@@ -74,7 +74,7 @@
                 {title: "예금주", data: 'bank_user', name: 'bank_user'},
                 {title: "예치금", data: 'money', name: 'money'},
                 // {title: "등급", data: 'level', name: 'level', className: "text-center"},
-                {title: "사용상태", data: 'is_use', name: 'is_use', className: "text-right"},
+                {title: "승인상태", data: 'is_use', name: 'is_use', className: "text-right"},
                 // {title: "조작", data: 'action', name: 'action', orderable:false, searchable: false, className: "text-center"},
             ],
             responsive: true, lengthChange: true,
@@ -87,7 +87,7 @@
         });
         $('body').on('change', '.chk-is-use', function () {
             var status = $(this).is(':checked') ? 1 : 0;
-            if(!confirm('사용상태를 변경하시겠습니까?')){$(this).prop('checked', status == 1 ? false : true);return}
+            if(!confirm('정식회원으로 등록하시겠습니까?')){$(this).prop('checked', status == 1 ? false : true);return}
             var userId = $(this).attr('data-id');
             var action = '/admin/user/state/' + userId;
             
@@ -98,9 +98,10 @@
                 dataType: 'json',
                 success: function ({status, data}) {
                     if(status == "success"){
-                        alert('사용상태가 변경되였습니다.');
+                        refreshTable();
+                        alert('정식회원으로 등록하였습니다.');
                     }else{
-                        alert('사용상태 변경에 실패하였습니다.');
+                        alert('정식회원등록에 실패하였습니다.');
                     }
                 },
                 error: function (data) {
