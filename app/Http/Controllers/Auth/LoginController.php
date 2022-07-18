@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
+use Auth;
 
 class LoginController extends Controller
 {
@@ -60,4 +61,25 @@ class LoginController extends Controller
         ]);
         
     }
+
+    // /**
+    //  * Write code on Method
+    //  *
+    //  * @return response()
+    //  */
+    // public function login(Request $request)
+    // {
+    //     $request->validate([
+    //         'email' => 'required',
+    //         'password' => 'required',
+    //     ]);
+     
+    //     $credentials = $request->only('email', 'password');
+    //     if (Auth::attempt($credentials)) {
+  
+    //         return redirect()->route('home');
+    //     }
+    
+    //     return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
+    // }
 }

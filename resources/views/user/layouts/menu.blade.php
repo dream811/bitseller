@@ -161,7 +161,7 @@
                 </div> -->
             </li>
             @guest
-                <li class="nav-item dropdown ms-auto" style="float: right;">
+                {{--<li class="nav-item dropdown ms-auto" style="float: right;">
                     <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     
                     <div class="caption ms-3 ">
@@ -170,7 +170,7 @@
                     </div>
                     </a>
                     
-                </li>
+                </li>--}}
             @else
                 <li class="nav-item dropdown ms-auto" style="float: right;">
                     <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">

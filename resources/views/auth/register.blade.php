@@ -31,7 +31,7 @@
                         <div class="card">
                            <div class="card-body">
                               <div class="auth-form">
-                                    <h2 class="text-center mb-4">회원가입</h2>
+                                    <h2 class="text-center mb-4">회원등록</h2>
                                     <!-- <a href="../../dashboard/index.html" class="navbar-brand dis-none align-items-center justify-content-center">
                                        <svg width="36" class="text-primary" viewBox="0 0 128 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                                           <g>
