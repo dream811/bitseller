@@ -171,22 +171,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="{{route('admin.user.new_list')}}" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
+                        <a href="{{route('admin.user.list')}}" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.cash.cash_list', 0)}}" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">출금신청:</span><code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.cash.cash_list', 1)}}" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">출금신청:</span><code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">1:1문의:</span><code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.qna.list')}}" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">1:1문의:</span><code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.qna.list')}}" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="" class="btn btn-outline-dark btn-block btn-sm"><i class="far fa-bell"></i><i class="fa fa-book"></i><span style="font-size:12px;">코인구매:</span><code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-dark btn-block btn-sm"><!--<i class="far fa-bell"></i>--><i class="fa fa-book"></i><span style="font-size:12px;">코인구매:</span><code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
                 </ul>
                 <!-- Right navbar links -->
