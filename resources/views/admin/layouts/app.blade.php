@@ -168,7 +168,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명</a>
+                        <a href="{{route('admin.user.new_list')}}" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
@@ -185,7 +185,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
                     </li>
-                    
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="" class="btn btn-outline-dark btn-block btn-sm"><i class="far fa-bell"></i><i class="fa fa-book"></i><span style="font-size:12px;">코인구매:</span><code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                    </li>
                 </ul>
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
@@ -333,6 +335,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#new_withdraw_cnt').text(data.new_withdraws);
                     $('#new_qna_cnt').text(data.new_qnas);
                     $('#new_acc_qna_cnt').text(data.new_acc_qnas);
+                    $('#new_trading_cnt').text(data.new_tradings);
                     
                     console.log(data);
                 },

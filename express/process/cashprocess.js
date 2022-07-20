@@ -103,7 +103,7 @@ class CoinProcess {
         
         var query = `UPDATE exchange_list SET state = 1, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
-        console.log("환전신청이 완료되였습니다.");
+        console.log("환전신청이 승인되였습니다.");
         var packet = {
             "id":packet.id
         }
@@ -167,8 +167,8 @@ class CoinProcess {
 
         var query = `UPDATE users SET money = money+${packet.amount} WHERE id = ${packet.user_id};`;
         await this.exeQuery(query);
-        console.log("환전신청이 완료되였습니다.");
-        ws.send("환전신청이 완료되였습니다.");
+        console.log("입금신청이 승인되였습니다.");
+        ws.send("입금신청이 승인되였습니다.");
     }
     //admin
     async admDepositCancel(ws, strValue){
@@ -193,8 +193,8 @@ class CoinProcess {
 
         var query = `UPDATE users SET money = money+${packet.amount} WHERE id = ${packet.user_id};`;
         await this.exeQuery(query);
-        console.log("환전신청이 완료되였습니다.");
-        ws.send("환전신청이 완료되였습니다.");
+        console.log("입금신청이 취소되였습니다.");
+        ws.send("입금신청이 취소되였습니다.");
     }
 }
 

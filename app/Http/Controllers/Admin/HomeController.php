@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Exchange;
+use App\Models\Trading;
 use App\Models\QNA;
 
 class HomeController extends Controller
@@ -45,6 +46,7 @@ class HomeController extends Controller
         $new_withdraws = count(Exchange::where('type', 1)->where('state', 0)->get());
         $new_qnas = count(QNA::where('type', 0)->where('is_answer', 0)->get());
         $new_acc_qnas = count(QNA::where('type', 1)->where('is_answer', 0)->get());
-        return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas')]);
+        $new_tradings = count(Trading::where('state', 0)->get());
+        return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas', 'new_tradings')]);
     }
 }

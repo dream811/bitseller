@@ -60,13 +60,14 @@ class SocketServer {
     }
 
     sendMessageByKey(key, message){
-        self.clients[key].ws.send(message);
+        this.clients[key].ws.send(message);
     }
 
     sendMessageByUserId(user_id, message){
-        for (const key in self.clients) {
-            if (self.clients[key].user_id == user_id){
-                self.clients[key].ws.send(message);
+        for (const key in this.clients) {
+            if (this.clients[key].user_id == user_id){
+                this.clients[key].ws.send(message);
+                console.log('sendMessageByUserId')
                 console.log(user_id);
             }
         }
