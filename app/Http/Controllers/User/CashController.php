@@ -120,7 +120,9 @@ class CashController extends Controller
                 ->editColumn('state', function ($row) {
                     return $row->state == 0 ? "구매" : ($row->state == 1 ? "정산" : "실격");
                 })
-
+                ->editColumn('coin_type', function ($row) {
+                    return $row->coin->kor_name."($row->coin_type)";
+                })
                 ->make(true);
         }
         return view('user.trading_history', compact('title'));

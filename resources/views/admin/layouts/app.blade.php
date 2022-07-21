@@ -336,8 +336,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#new_qna_cnt').text(data.new_qnas);
                     $('#new_acc_qna_cnt').text(data.new_acc_qnas);
                     $('#new_trading_cnt').text(data.new_tradings);
-                    
-                    console.log(data);
                 },
                 error: function (data) {
                 }

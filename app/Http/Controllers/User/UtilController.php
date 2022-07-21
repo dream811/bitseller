@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Setting;
 use App\Models\Bank;
+use App\Models\User;
 use Yajra\DataTables\DataTables;
 
 class UtilController extends Controller
@@ -30,9 +31,17 @@ class UtilController extends Controller
      */
     public function bank_info()
     {
-        $title="입금신청";
         $bank_list = Bank::where('is_use', 1)->get();
         return response()->json(["status" => "success", "data" => compact('bank_list')]);
     }    
     
+    public function referer_check(Request $request)
+    {
+        $cnt = count(User::where('str_id', $request->get('referer'))->get());
+        if ($cnt > 0){
+            return response()->json(["status" => "success", "data" => '']);
+        }else{
+            return response()->json(["status" => "failed", "data" => '추천인이 유효하지 않습니다.']);
+        }
+    }  
 }

@@ -9,7 +9,7 @@
       <title>COINEX</title>
       <!-- Favicon -->
       <link rel="shortcut icon" href="{{asset('user_assets/images/favicon.ico')}}" />
-      <link rel="stylesheet" href="{{asset('user_assets/css/libs.min.css')}}">
+      <!-- <link rel="stylesheet" href="{{asset('user_assets/css/libs.min.css')}}"> -->
       <link rel="stylesheet" href="{{asset('user_assets/css/coinex.css?v=1.0.0')}}">
       <script src="/plugins/jquery/jquery.min.js"></script>
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
@@ -42,11 +42,11 @@
                                        </svg>            
                                        <h4 class="logo-title m-0">OINEX</h4>
                                     </a> -->
-                                    <form method="POST" action="{{ route('register') }}">
+                                    <form method="POST" id="registForm" action="{{ route('register') }}">
                                     @csrf
                                        <!-- <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p> -->
                                        <div class="row">
-                                          <div class="col-md-6 mb-4">
+                                          {{--<div class="col-md-6 mb-4">
                                              <div class="form-floating mb-3">
                                                 <input type="text" class="form-control" name="str_id" id="str_id" placeholder="FirstName">
                                                 <label for="str_id">ID</label>
@@ -56,22 +56,7 @@
                                                    <strong>{{ $message }}</strong>
                                                 </span>
                                              @enderror
-                                          </div>
-                                          
-                                          <div class="col-md-6 mb-4">
-                                             <div class="form-floating mb-3">
-                                                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
-                                                <label for="email">이메일</label>
-                                             </div>
-                                             @error('email')
-                                                <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
-                                                </span>
-                                             @enderror
-                                          </div>
-                                          
-                                       </div>
-                                       <div class="row">
+                                          </div>--}}
                                           <div class="col-md-6 mb-4">
                                              <div class="form-floating mb-3">
                                                    <input type="text" class="form-control" name="name" id="name" placeholder="name">
@@ -79,10 +64,25 @@
                                              </div>
                                              @error('name')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>이름을 입력하세요{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
+                                          <div class="col-md-6 mb-4">
+                                             <div class="form-floating mb-3">
+                                                <input type="email" class="form-control" name="email" id="email" placeholder="name@example.com">
+                                                <label for="email">이메일</label>
+                                             </div>
+                                             @error('email')
+                                                <span class="invalid-feedback" style="display:block" role="alert">
+                                                   <strong>이메일을 입력해주세요{{--{{ $message }}--}}</strong>
+                                                </span>
+                                             @enderror
+                                          </div>
+                                          
+                                       </div>
+                                       <div class="row">
+                                          
                                              
                                           <div class="col-md-6 mb-4">
                                              <div class="form-floating mb-3">
@@ -91,7 +91,18 @@
                                              </div>
                                              @error('nickname')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>닉네임을 입력해주세요{{--{{ $message }}--}}</strong>
+                                                </span>
+                                             @enderror
+                                          </div>
+                                          <div class="col-md-6 mb-4">
+                                             <div class="form-floating mb-3">
+                                                <input type="text" class="form-control" name="referer" id="referer" placeholder="referer">
+                                                <label for="referer">추천인코드</label>
+                                             </div>
+                                             @error('referer')
+                                                <span class="invalid-feedback" style="display:block" role="alert">
+                                                   <strong>추천인코드를 입력해주세요{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
@@ -104,7 +115,7 @@
                                              </div>
                                              @error('password')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>비밀번호를 입력해주세요{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
@@ -113,6 +124,11 @@
                                                 <input type="text" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="password_confirmation">
                                                 <label for="password_confirmation">비밀번호 확인</label>
                                              </div>
+                                             @error('password')
+                                                <span class="invalid-feedback" style="display:block" role="alert">
+                                                   <strong>비밀번호가 일치하지 않습니다{{--{{ $message }}--}}</strong>
+                                                </span>
+                                             @enderror
                                           </div>
                                        </div>
                                        <div class="row">
@@ -127,7 +143,7 @@
                                              </div>
                                              @error('bank_id')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>은행명을 입력해주세요.{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
@@ -138,7 +154,7 @@
                                              </div>
                                              @error('bank_user')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>예금주를 입력해주세요.{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
@@ -151,7 +167,7 @@
                                              </div>
                                              @error('bank_account')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>계좌번호를 입력해주세요.{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
@@ -162,27 +178,19 @@
                                              </div>
                                              @error('phone')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>{{ $message }}</strong>
+                                                   <strong>전화번호를 입력해주세요{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
                                        </div>
-                                       <div class="row">
-                                          <div class="col-md-6 mb-4">
-                                             <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" name="referer" id="referer" placeholder="referer">
-                                                <label for="referer">추천인코드</label>
-                                             </div>
-                                          </div>
-                                          
-                                       </div>
+                                       
                                        <!-- <div class="form-check d-flex justify-content-center  mb-2">
                                           <input type="checkbox" class="form-check-input" id="agree">
                                           <label class="ms-1 form-check-label" for="agree">이용약관에 동의</label>
                                        </div> -->
                                        <div class="text-center">
                                           <a href="{{route('login')}}" class="btn btn-success">로그인</a>
-                                          <button type="submit" class="btn btn-primary">회원가입</button>
+                                          <button type="button" class="btn btn-primary submit">회원가입</button>
                                        </div>
                                        <!-- <div class="text-center mt-3">
                                           <p>or sign in with others account?</p>
@@ -259,6 +267,30 @@
                 }
             });
          }
+         $('.submit').on('click', function() {
+            
+            var form = $('#registForm');
+            //return false;
+            var action = '/referer_check';
+            var referer = $('#referer').val();
+            $.ajax({
+                url: action,
+                type: "GET",
+                data: {referer},
+                dataType: 'json',
+                success: function ({status, data}) {
+                  if(status == "success"){
+                     form.submit();
+                  }else{
+                     alert('추천인이 유효하지 않습니다');
+                     return false;
+                  }
+                },
+                error: function (data) {
+                }
+            });
+         });
       });
+      
    </script>
 </html>

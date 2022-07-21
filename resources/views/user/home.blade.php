@@ -260,7 +260,7 @@
                                         </span>
                                     </div>
                                     <div class="input-group input-group-sm mb-3">
-                                        <span class="input-group-text input-group-text-sm"  id="basic-addon1">구입코인</span>
+                                        <span class="input-group-text input-group-text-sm"  id="basic-addon1">주문코인</span>
                                         <!-- <input type="text" class="form-control form-control-sm" placeholder="" aria-label="Username" aria-describedby="basic-addon1"> -->
                                         <select id="coin_type" ng-model="filterCondition.key" name="coin_type" class="form-select form-select-sm" style="appearance: auto;">
                                         <option value="-1" selected>선택해주세요</option>
@@ -273,7 +273,7 @@
                                     </div>
                                     <div class="input-group input-group-sm mb-3">
                                         <span id="amount" class="form-control form-control-sm" type="text" placeholder="" aria-label="">
-                                        !% floatFormat (orderAmount / lstCoinData[filterCondition.key].c11) %!
+                                        !% lstCoinData[filterCondition.key] == undefined ? "" : floatFormat (orderAmount / lstCoinData[filterCondition.key].c11) %!
                                         </span>
                                         <span class="input-group-text input-group-text-sm" id="coin-type">!%lstCoinData[filterCondition.key].ne%!</span>
                                     </div>

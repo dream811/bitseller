@@ -149,7 +149,7 @@ class CoinProcess {
         var packet = JSON.parse(strValue);
 
         var sql =  `SELECT * from users where id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
-        console.log(sql);
+        
         let user_info = await this.exeQuery(sql);
         console.log(user_info)
         if(user_info.length == 0){
@@ -159,16 +159,27 @@ class CoinProcess {
         }
 
         sql =  `SELECT * from exchange_list where id = ${packet.id} LIMIT 1`;
-        console.log(sql);
+        
         let exchange_info = await this.exeQuery(sql);
 
-        var query = `UPDATE exchange_list SET state = 2, accepted_date = now() WHERE id = ${packet.id};`;
+        var query = `UPDATE exchange_list SET state = 1, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
 
-        var query = `UPDATE users SET money = money+${packet.amount} WHERE id = ${packet.user_id};`;
+        query = `UPDATE users SET money = money+${exchange_info[0].amount}, deposit_sum=deposit_sum+${exchange_info[0].amount} WHERE id = ${exchange_info[0].user_id};`;
+        console.log(query)
         await this.exeQuery(query);
         console.log("입금신청이 승인되였습니다.");
-        ws.send("입금신청이 승인되였습니다.");
+        //ws.send("입금신청이 승인되였습니다.");
+        //관리자에 전송
+        var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CONFIRM;
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "입금신청이 승인되였습니다."
+        }
+        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+        //유저에게 알림
+        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
     }
     //admin
     async admDepositCancel(ws, strValue){
@@ -191,10 +202,20 @@ class CoinProcess {
         var query = `UPDATE exchange_list SET state = 2, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
 
-        var query = `UPDATE users SET money = money+${packet.amount} WHERE id = ${packet.user_id};`;
-        await this.exeQuery(query);
-        console.log("입금신청이 취소되였습니다.");
-        ws.send("입금신청이 취소되였습니다.");
+        // var query = `UPDATE users SET money = money+${packet.amount} WHERE id = ${packet.user_id};`;
+        // await this.exeQuery(query);
+        
+        
+        //관리자에 전송
+        var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CONFIRM;
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "입금신청이 취소되였습니다."
+        }
+        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+        //유저에게 알림
+        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
     }
 }
 

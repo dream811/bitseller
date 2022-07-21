@@ -48,8 +48,8 @@ class CashController extends Controller
                 ->addColumn('action', function ($row) {
                     $element = '';
                     if ($row->state == 0){
-                        $element = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnConfirm">승인</button>';
-                        $element .= '&nbsp;&nbsp;<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-danger btnCancel">취소</button>';
+                        $element = '<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnConfirm">승인</button>';
+                        $element .= '&nbsp;&nbsp;<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-danger btnCancel">취소</button>';
                     }
                     return $element;
                 })
@@ -70,11 +70,11 @@ class CashController extends Controller
                     $name = User::find($row->user_id)->name;
                     $tags = '<li style="list-style: none;" class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px;">'.$name.'</span>
+                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px; font-size:13px;">'.$name.'</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">
-                            <span class="float-center text-muted text-sm">'.$name.' 정보수정</span>
+                            <span class="float-center text-muted">'.$name.' 정보수정</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
@@ -203,7 +203,7 @@ class CashController extends Controller
             }
             $user->update(['money' => $user->money + $money->mo_money]);
         }
-        $money->delete();
+        //$money->delete();
         return response()->json(["status" => "success", "data" => '성과적으로 삭제되었습니다.']);
     }
 }

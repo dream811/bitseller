@@ -19,7 +19,7 @@ function initialize() {
   scope.lstCoinData;
   scope.filterCondition = {
     value: '',
-    key: 0
+    key: -1
   };
 
   scope.ChangeCoinType = ChangeCoinType;
@@ -167,6 +167,7 @@ function MoneyFormat(str)
 //-> 배팅금액수동입력
 function BuyCoin() {
   if(scope.filterCondition.key == -1){ alert('구입하려는 코인을 선택해주세요.'); return;}
+  if(cope.orderAmount > $('#user_money').val()) {alert('보유머니가 부족합니다.'); return;}
   if(confirm('코인을 구매하시겠습니까?')){
     var packet = {
         "coin_type"         :   scope.lstCoinData[scope.filterCondition.key].ne,

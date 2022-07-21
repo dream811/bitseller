@@ -96,7 +96,7 @@
                 {title: "작성날짜", data: 'requested_date', name: 'requested_date', orderable  : false, className:"text-center"},
                 {title: "구분", data: 'type', name: 'type', orderable  : false, className:"text-center"},
                 {title: "답변날짜", data: 'answered_date', name: 'answered_date', orderable  : false, className:"text-center"},
-                {title: "조작", data: 'action', name: 'action', orderable  : false, className:"text-center"},
+                {title: "상태", data: 'action', name: 'action', orderable  : false, className:"text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]

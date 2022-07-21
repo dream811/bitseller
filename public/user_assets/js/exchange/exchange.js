@@ -175,6 +175,7 @@ function onDeposit() {
         "amount"            :   scope.amount
     }
     SendPacket(PKT_USER_DEPOSIT_MONEY, JSON.stringify(packet));
+    $('#amount').val(scope.amount = 0);
   }
 }
 
@@ -191,6 +192,7 @@ function onWithdraw() {
         "amount"            :   scope.amount
     }
     SendPacket(PKT_USER_WITHDRAW_MONEY, JSON.stringify(packet));
+    $('#amount').val(scope.amount = 0);
   }
 }
 

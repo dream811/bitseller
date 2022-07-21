@@ -64,6 +64,7 @@ class RegisterController extends Controller
             'bank_user' => ['required', 'string', 'max:50'],
             'bank_id' => ['required'],
             'bank_account' => ['required'],
+            'referer' => ['required'],
             'phone' => ['required', Rule::unique(User::class)],
             'email' => [
                 'required',
@@ -72,12 +73,12 @@ class RegisterController extends Controller
                 'max:255',
                 Rule::unique(User::class),
             ],
-            'str_id' => [
-                'required',
-                'string',
-                'max:255',
-                Rule::unique(User::class),
-            ],
+            // 'str_id' => [
+            //     'required',
+            //     'string',
+            //     'max:255',
+            //     Rule::unique(User::class),
+            // ],
             'password' => ['required', 'string', 'min:8', 'confirmed']//'password' => $this->passwordRules(),
         ]);
     }
@@ -91,7 +92,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'str_id' => $data['str_id'],
+            'str_id' => explode('@', $data['email'])[0],//$data['str_id'],
             'type' => 'USER',
             'name' => $data['name'],
             'nickname' => $data['nickname'],

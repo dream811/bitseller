@@ -91,8 +91,10 @@
 
         // });
         $('#content').summernote({
-            height: '500px',
+            height: '300px',
+            toolbar: [
             
+            ],
             disableResizeEditor: true,
             callbacks:{
                 onImageUpload: function(files, editor, welEditable) {

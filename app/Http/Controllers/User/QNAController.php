@@ -29,7 +29,7 @@ class QNAController extends Controller
      */
     public function index(Request $request)
     {
-        $title = "1대1문의";
+        $title = "문의내역";
 
 
         if ($request->ajax()) {

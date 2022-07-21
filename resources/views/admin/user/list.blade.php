@@ -66,7 +66,8 @@
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false, 'exportable' : false, 'printable'  : true},
-                {title: "이름", data: 'name', name: 'name'},
+                // {title: "이름", data: 'name', name: 'name'},
+                {title: "이름", data: 'nickname', name: 'nickname'},
                 {title: "메일", data: 'email', name: 'email'},
                 {title: "전화번호", data: 'phone', name: 'phone'},
                 {title: "예치금", data: 'money', name: 'money'},

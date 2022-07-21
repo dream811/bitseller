@@ -1,3 +1,4 @@
+
 function initialize() {
     scope.strSearchKey = 'strID';
     scope.strSearchValue = '';
@@ -168,6 +169,7 @@ function initialize() {
   $('body').on('click', '.btnConfirm', function () {
     if(!confirm('승인하시겠습니까?')){return}
     var id = $(this).attr('data-id');
+    var type = $(this).data('type');
     var action = '/admin/cash/cash_state/' + id;
     var status = 1;
     var packet = {
@@ -175,5 +177,5 @@ function initialize() {
       "user_id"           :   scope.userInfo.id,
       "user_password"     :   scope.userInfo.password,
     }
-  SendPacket(PKT_ADMIN_WITHDRAW_CONFIRM, JSON.stringify(packet));
+  SendPacket(type == 0 ? PKT_ADMIN_DEPOSIT_CONFIRM : PKT_ADMIN_WITHDRAW_CONFIRM, JSON.stringify(packet));
 });

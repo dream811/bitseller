@@ -32,4 +32,9 @@ class Trading extends Model
     {
         return Carbon::parse($value)->format('Y-m-d h:i:s');
     }
+
+    public function coin()
+    {
+        return $this->belongsTo(Coin::class, 'coin_type', 'key');
+    }
 }

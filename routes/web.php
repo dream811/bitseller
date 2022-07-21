@@ -25,6 +25,7 @@ Route::post('/uploadImage',                         [App\Http\Controllers\ImageC
 Route::post('/uploadImages',                        [App\Http\Controllers\ImageController::class, 'uploadImages'])->name('uploadImages');
 Route::post('/deleteImage',                         [App\Http\Controllers\ImageController::class, 'deleteImage'])->name('deleteImage');
 Route::get('/bank_info',                            [App\Http\Controllers\User\UtilController::class, 'bank_info'])->name('bank_info');
+Route::get('/referer_check',                        [App\Http\Controllers\User\UtilController::class, 'referer_check'])->name('referer_check');
 
 Route::middleware('auth')->name('user.')->group(
     function () {
