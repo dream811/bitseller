@@ -81,8 +81,8 @@ function SendAuthPacket()
     {
         if(document.getElementById("admin_id") != null)
         {
-            var adminSn = document.getElementById("admin_id").value;
-            scope.SendPacket(PKT_ADMIN_ACT_MAIN_AUTH, adminSn);
+            var user_id = document.getElementById("admin_id").value;
+            scope.SendPacket(PKT_ADMIN_ACT_MAIN_AUTH, JSON.stringify({user_id}));
         }
         // else if(document.getElementById("id_agentSn") != null)
         // {
@@ -94,8 +94,8 @@ function SendAuthPacket()
     {
         if(document.getElementById("admin_id") != null)
         {
-            var adminSn = document.getElementById("admin_id").value;
-            scope.SendPacket(PKT_ADMIN_ACT_CHILD_AUTH, adminSn);
+            var user_id = document.getElementById("admin_id").value;
+            scope.SendPacket(PKT_ADMIN_ACT_CHILD_AUTH, JSON.stringify({user_id}));
         }
         // else if(document.getElementById("id_agentSn") != null)
         // {

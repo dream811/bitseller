@@ -177,5 +177,18 @@ function initialize() {
       "user_id"           :   scope.userInfo.id,
       "user_password"     :   scope.userInfo.password,
     }
-  SendPacket(type == 0 ? PKT_ADMIN_DEPOSIT_CONFIRM : PKT_ADMIN_WITHDRAW_CONFIRM, JSON.stringify(packet));
-});
+    SendPacket(type == 0 ? PKT_ADMIN_DEPOSIT_CONFIRM : PKT_ADMIN_WITHDRAW_CONFIRM, JSON.stringify(packet));
+  });
+  $('body').on('click', '.btnCancel', function () {
+    if(!confirm('취소하시겠습니까?')){return}
+    var id = $(this).attr('data-id');
+    var type = $(this).data('type');
+    var action = '/admin/cash/cash_state/' + id;
+    var status = 2;
+    var packet = {
+      "id"                :   id,
+      "user_id"           :   scope.userInfo.id,
+      "user_password"     :   scope.userInfo.password,
+    }
+    SendPacket(type == 0 ? PKT_ADMIN_DEPOSIT_CANCEL : PKT_ADMIN_WITHDRAW_CANCEL, JSON.stringify(packet));
+  });

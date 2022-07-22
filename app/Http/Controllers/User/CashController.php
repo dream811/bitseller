@@ -141,7 +141,9 @@ class CashController extends Controller
 
             return DataTables::of($exchanges)
                 ->addIndexColumn()
-                
+                ->editColumn('coin_type', function ($row) {
+                    return $row->coin->kor_name."($row->coin_type)";
+                })
                 ->editColumn('state', function ($row) {
                     return $row->state == 0 ? "구매" : ($row->state == 1 ? "정산" : "실격");
                 })

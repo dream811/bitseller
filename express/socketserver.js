@@ -64,6 +64,7 @@ class SocketServer {
     }
 
     sendMessageByUserId(user_id, message){
+        console.log(this.clients);
         for (const key in this.clients) {
             if (this.clients[key].user_id == user_id){
                 this.clients[key].ws.send(message);
@@ -77,10 +78,10 @@ class SocketServer {
         
         if(packet.m_nCmd == constants.PKT_ADMIN_ACT_MAIN_AUTH)
         {
-            
+            var data = JSON.parse(packet.strValue);
             for (const property in this.clients) {
                 if(property == socket_id && this.clients[property].user_id == 0){
-                    this.clients[property].user_id = packet.user_id;
+                    this.clients[property].user_id = data.user_id;
                     this.clients[property].type = 1;
                 }
             }
@@ -95,9 +96,12 @@ class SocketServer {
         }
         ///User
         else if(packet.m_nCmd == constants.PKT_USER_ACT_MAIN_AUTH){
+            var data = JSON.parse(packet.strValue);
             for (const property in this.clients) {
                 if(property == socket_id && this.clients[property].user_id == 0){
-                    this.clients[property].user_id = packet.user_id;
+                    // console.log(this.clients[property]);
+                    console.log(data)
+                    this.clients[property].user_id = data.user_id;
                 }
             }
         }

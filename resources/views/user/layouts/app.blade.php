@@ -15,6 +15,8 @@
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
       <!-- summernote -->
       <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
+      <!-- Toastr -->
+      <link rel="stylesheet" href="/plugins/toastr/toastr.min.css">
 
       <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.js"></script>
       <script type="text/javascript" src="/plugins/angular.min.js"></script>
@@ -94,6 +96,8 @@
             </i>
         </button>
     </div>
+    <!-- Toastr -->
+    <script src="/plugins/toastr/toastr.min.js"></script>
     <script src="/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- Backend Bundle JavaScript -->
     <script src="{{asset('user_assets/js/libs.min.js')}}"></script>
@@ -105,6 +109,7 @@
     <script src="{{asset('user_assets/js/app.js')}}"></script>
     <!-- apexchart JavaScript -->
     <script src="{{asset('user_assets/js/charts/apexcharts.js')}}"></script>
+
     @yield('third_party_scripts')
     @yield('script')
     @stack('page_scripts')

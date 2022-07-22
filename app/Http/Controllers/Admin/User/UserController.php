@@ -75,12 +75,42 @@ class UserController extends Controller
                     </div>';
                     return $btn;
                 })
+                ->editColumn('nickname', function($row){
+                    
+                    $tags = '<li style="list-style: none;" class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px; font-size:13px;">'.$row->nickname.'</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                        <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted">'.$row->nickname.' 정보수정</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
+                            <span class="float-center text-muted text-sm " data-id="'.$row->user_id.'">입금내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm">출금내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoTrading" data-id="'.$row->user_id.'" >
+                            <span class="float-center text-muted text-sm" >구매내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoResult" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm">배당금내역</span>
+                        </a>
+                        </div>
+                    </li>';
+                    return $tags;
+                })
                 ->addColumn('action', function ($row) {
                     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
                     $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
                     return $btn;
                 })
-                ->rawColumns(['action', 'level', 'is_use'])
+                ->rawColumns(['action', 'level', 'is_use', 'nickname'])
                 ->make(true);
         }
         return view('admin.user.list', compact('title'));

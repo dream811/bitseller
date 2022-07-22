@@ -84,12 +84,13 @@ function SendAuthPacket()
         if(document.getElementById("user_id") != null)
         {
             var user_id = document.getElementById("user_id").value;
-            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, user_id);
+            
+            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id}));
         }
         else//게스트
         {
             var user_id = Date.now();
-            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, user_id);
+            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id}));
         }
     }
     else
@@ -139,14 +140,26 @@ function ReceiveSplitData(strPacket)
 function RecvPacket(strPacket)
 {
     var packet = JSON.parse(strPacket);
-    var nCmd = parseInt(packet.nCmd);
-
-    switch(nCmd)
+    var m_nCmd = parseInt(packet.m_nCmd);
+    
+    switch(m_nCmd)
     {
-        // case PKT_ADMIN_REV_SERVER_TIME:
-        //     scope.strServerTime = packet.strValue;
-        //     break;
-
+        case PKT_USER_DEPOSIT_CONFIRM:
+            var data = JSON.parse(packet.m_strPacket);
+            toastSuccess(data.message);
+            break;
+        case PKT_USER_DEPOSIT_CANCEL:
+            var data = JSON.parse(packet.m_strPacket);
+            toastError(data.message);
+            break;
+        case PKT_USER_WITHDRAW_CONFIRM:
+            var data = JSON.parse(packet.m_strPacket);
+            toastSuccess(data.message);
+            break;
+        case PKT_USER_WITHDRAW_CANCEL:
+            var data = JSON.parse(packet.m_strPacket);
+            toastError(data.message);
+            break;
         // case PKT_ADMIN_REV_LIVE_DATA:
         //     RecvAdminLiveData(packet);
         //     break;

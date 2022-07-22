@@ -47,6 +47,12 @@
                                     <input class="custom-control-input" type="radio" id="chk_all2" name="chk_all" value="0"  checked >
                                     <label for="chk_all2" class="custom-control-label pt-1" style="font-size:12px;">개별</label>
                                 </div>
+                                @foreach($levels as $level)
+                                    <div class="custom-control custom-radio custom-control-inline">
+                                        <input class="custom-control-input" type="radio" id="chk_all2" name="chk_all" value="0"  checked >
+                                        <label for="chk_all2" class="custom-control-label pt-1" style="font-size:12px;">{{}}</label>
+                                    </div>
+                                @endforeach
                             </div>
                         </div>
                         @endif

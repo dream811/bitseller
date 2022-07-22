@@ -103,7 +103,19 @@ class CoinProcess {
         
         var query = `UPDATE exchange_list SET state = 1, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
+        
         console.log("환전신청이 승인되였습니다.");
+        //관리자에 전송
+        var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CONFIRM;
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "환전신청이 승인되였습니다."
+        }
+        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+        //유저에게 알림
+        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+
         var packet = {
             "id":packet.id
         }
@@ -138,7 +150,7 @@ class CoinProcess {
 
         var query = `UPDATE users SET money = money-${exchange_info[0].amount} WHERE id = ${packet.user_id};`;
         await this.exeQuery(query);
-        console.log("환전신청취소가 완료되였습니다.");
+        console.log("환전신청이 취소되였습니다.");
         //ws.send("환전신청취소가 완료되였습니다.");
         ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
         //유저에게 전송
@@ -184,9 +196,7 @@ class CoinProcess {
     //admin
     async admDepositCancel(ws, strValue){
         var packet = JSON.parse(strValue);
-
         var sql =  `SELECT * from users where id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
-        console.log(sql);
         let user_info = await this.exeQuery(sql);
         console.log(user_info)
         if(user_info.length == 0){
@@ -207,7 +217,7 @@ class CoinProcess {
         
         
         //관리자에 전송
-        var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CONFIRM;
+        var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CANCEL;
         var packet = {
             "status"           :   1,
             "error_code"       :   0,
@@ -215,7 +225,7 @@ class CoinProcess {
         }
         ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
         //유저에게 알림
-        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CANCEL, m_strPacket:JSON.stringify(packet)}));
     }
 }
 

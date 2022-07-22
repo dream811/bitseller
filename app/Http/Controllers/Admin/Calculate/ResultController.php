@@ -52,11 +52,10 @@ class ResultController extends Controller
                 //     return $btn;
                 // })
                 ->addColumn('user_info', function ($row) {
-                    $name = User::find($row->user_id)->name;
-                    $str_id = User::find($row->user_id)->str_id;
+                    $name = $row->user->nickname;
                     $tags = '<li style="list-style: none;" class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px; font-size:14px">'.$name.'('.$str_id.')</span>
+                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px; font-size:14px">'.$name.'('.$row->user->name.')</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">

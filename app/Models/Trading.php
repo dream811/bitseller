@@ -37,4 +37,9 @@ class Trading extends Model
     {
         return $this->belongsTo(Coin::class, 'coin_type', 'key');
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 }
