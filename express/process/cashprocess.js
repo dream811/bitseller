@@ -38,7 +38,7 @@ class CoinProcess {
                 "error_code"       :   1001,
                 "message"          :   "회원정보가 정확치 않습니다."
             }
-            ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
         }
 
         sql = `INSERT INTO exchange_list (user_id, amount, type) 
@@ -200,7 +200,7 @@ class CoinProcess {
             "error_code"       :   0,
             "message"          :   "입금신청이 승인되였습니다."
         }
-        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
         //유저에게 알림
         this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
     }
@@ -234,7 +234,7 @@ class CoinProcess {
             "error_code"       :   0,
             "message"          :   "입금신청이 취소되였습니다."
         }
-        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
         //유저에게 알림
         this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CANCEL, m_strPacket:JSON.stringify(packet)}));
     }

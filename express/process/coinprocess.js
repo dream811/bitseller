@@ -63,7 +63,10 @@ class CashProcess {
             return;
         }
 
-        console.log('moved1?');
+        sql =  `SELECT * from coin_list`;
+        console.log(sql);
+        this.app.coin_list = await this.exeQuery(sql);
+
         if(this.app.coin_list){
             for (const value of this.app.coin_list) {
                 if(value.key == packet.coin_type && value.is_use == 0){
@@ -77,15 +80,7 @@ class CashProcess {
                     ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
                     return false;
                 }
-            }
-            // console.log(this.app.coin_list[2])
-            // this.app.coin_list.forEach((value, index)=>{
-            //     if(value.key == packet.coin_type && value.is_use == 0){
-            //         ws.send("구매불가능한 코인입니다.");
-            //         return false;
-            //     }
-            // })
-            //return;
+            }            
         }
        
         this.app.scrap_data.forEach(async (value, index, self) => {

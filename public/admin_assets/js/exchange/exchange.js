@@ -33,13 +33,30 @@ function initialize() {
   
   function RecvDataPacket(packet)
   {
-    
-    // else if(packet.m_nCode == SOCKET_ADMIN_PARTLETTER_DELETE)
-    // {
-    //     var objRet = JSON.parse(packet.m_strPacket);
-    //     alert(objRet.strMsg);
-    //     getUserLetterList();
-    // }
+    var m_nCmd = parseInt(packet.m_nCmd);
+    switch(m_nCmd)
+    {
+        case PKT_ADMIN_DEPOSIT_CONFIRM:
+            var data = JSON.parse(packet.m_strPacket);
+            toastSuccess(data.message);
+			refreshTable();
+            break;
+        case PKT_ADMIN_DEPOSIT_CANCEL:
+            var data = JSON.parse(packet.m_strPacket);
+            toastError(data.message);
+			refreshTable();
+            break;
+        case PKT_ADMIN_WITHDRAW_CONFIRM:
+            var data = JSON.parse(packet.m_strPacket);
+            toastSuccess(data.message);
+			refreshTable();
+            break;
+        case PKT_ADMIN_WITHDRAW_CANCEL:
+            var data = JSON.parse(packet.m_strPacket);
+            toastError(data.message);
+			refreshTable();
+            break;
+    }
   }
   
   function onSelectCustomPage(nCurPage) {

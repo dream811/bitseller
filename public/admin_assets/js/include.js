@@ -109,17 +109,17 @@ function SendAuthPacket()
 function RecvPacket(strPacket)
 {
     var packet = JSON.parse(strPacket);
-    var nCmd = parseInt(packet.nCmd);
+    var m_nCmd = parseInt(packet.m_nCmd);
 
-    switch(nCmd)
+    switch(m_nCmd)
     {
-        case PKT_ADMIN_REV_SERVER_TIME:
-            scope.strServerTime = packet.strValue;
-            break;
+        // case PKT_ADMIN_REV_SERVER_TIME:
+        //     scope.strServerTime = packet.strValue;
+        //     break;
 
-        case PKT_ADMIN_REV_LIVE_DATA:
-            RecvAdminLiveData(packet);
-            break;
+        // case PKT_ADMIN_REV_LIVE_DATA:
+        //     RecvAdminLiveData(packet);
+        //     break;
 
         case PKT_ADMIN_ACT_MAIN_AUTH:
             RecvAdminMainAuth(packet);

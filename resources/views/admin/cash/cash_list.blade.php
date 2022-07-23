@@ -106,5 +106,8 @@
             window.open('/admin/user/userManage/edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
+        function refreshTable() {
+            $('#Table').DataTable().ajax.reload();
+        }
     </script>
 @endpush
