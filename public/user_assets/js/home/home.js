@@ -50,6 +50,15 @@ function RecvDataPacket(packet)
     scope.lstCoinData = packet.m_strPacket;
     //scope.filterCondition.value = scope.lstCoinData[0].ne;
   }
+  else if(packet.m_nCmd == PKT_USER_COIN_BUY)
+  {
+    var objRet = JSON.parse(packet.m_strPacket);
+    if(objRet.status == 0)
+      toastError(objRet.message);
+    else
+      toastSuccess(objRet.message);
+    //scope.filterCondition.value = scope.lstCoinData[0].ne;
+  }
   // else if(packet.m_nCode == SOCKET_ADMIN_PARTLETTER_DELETE)
   // {
   //     var objRet = JSON.parse(packet.m_strPacket);
@@ -167,7 +176,8 @@ function MoneyFormat(str)
 //-> 배팅금액수동입력
 function BuyCoin() {
   if(scope.filterCondition.key == -1){ alert('구입하려는 코인을 선택해주세요.'); return;}
-  if(cope.orderAmount > $('#user_money').val()) {alert('보유머니가 부족합니다.'); return;}
+  if(scope.orderAmount <= 0 ) {alert('머니를 입력해주세요'); return;}
+  if(scope.orderAmount > $('#user_money').text()) {alert('보유머니가 부족합니다.'); return;}
   if(confirm('코인을 구매하시겠습니까?')){
     var packet = {
         "coin_type"         :   scope.lstCoinData[scope.filterCondition.key].ne,
@@ -177,6 +187,7 @@ function BuyCoin() {
         "order_amount"      :   scope.orderAmount
     }
     SendPacket(PKT_USER_COIN_BUY, JSON.stringify(packet));
+    $('#order_amount').val(scope.orderAmount = 0);
   }
 }
 

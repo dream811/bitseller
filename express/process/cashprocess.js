@@ -54,7 +54,7 @@ class CoinProcess {
             "error_code"       :   0,
             "message"          :   "입금신청이 완료되였습니다."
         }
-        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
+        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
     }
 
     async withdrawMoney(ws, strValue){
@@ -83,7 +83,13 @@ class CoinProcess {
         var query = `UPDATE users SET money = money-${packet.amount} WHERE id = ${packet.user_id};`;
         await this.exeQuery(query);
         console.log("환전신청이 완료되였습니다.");
-        ws.send("환전신청이 완료되였습니다.");
+        var m_nCmd = constants.PKT_USER_WITHDRAW_MONEY;
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "환전신청이 완료되였습니다."
+        }
+        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
     }
 
     //admin
@@ -100,10 +106,17 @@ class CoinProcess {
             return;
         }
 
-        
+        sql =  `SELECT * from exchange_list where id = ${packet.id} LIMIT 1`;
+        console.log(sql);
+        let exchange_info = await this.exeQuery(sql);
+
         var query = `UPDATE exchange_list SET state = 1, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
         
+        query = `UPDATE users SET withdraw_sum=withdraw_sum+${exchange_info[0].amount} WHERE id = ${exchange_info[0].user_id};`;
+        console.log(query)
+        await this.exeQuery(query);
+
         console.log("환전신청이 승인되였습니다.");
         //관리자에 전송
         var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CONFIRM;
@@ -112,19 +125,10 @@ class CoinProcess {
             "error_code"       :   0,
             "message"          :   "환전신청이 승인되였습니다."
         }
-        ws.send(JSON.stringify({m_nCmd, strValue: JSON.stringify(packet)}));
-        //유저에게 알림
-        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
-
-        var packet = {
-            "id":packet.id
-        }
-        
-        //SendPacket(PKT_ADMIN_WITHDRAW_CONFIRM, JSON.stringify(packet));
-        //관리자에게 전송
         ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
-        //유저에게 전송
-        this.app.socketServer.sendMessageByUserId(packet.user_id, JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        //유저에게 알림
+        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+
     }
 
     //admin
@@ -148,13 +152,20 @@ class CoinProcess {
         var query = `UPDATE exchange_list SET state = 2, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
 
-        var query = `UPDATE users SET money = money-${exchange_info[0].amount} WHERE id = ${packet.user_id};`;
+        var query = `UPDATE users SET money = money+${exchange_info[0].amount} WHERE id = ${packet.user_id};`;
         await this.exeQuery(query);
-        console.log("환전신청이 취소되였습니다.");
-        //ws.send("환전신청취소가 완료되였습니다.");
-        ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+
+        //관리자에 전송
+        var m_nCmd = constants.PKT_ADMIN_WITHDRAW_CANCEL;
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "환전신청이 취소되였습니다."
+        }
+
+        ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CANCEL, m_strPacket:JSON.stringify(packet)}));
         //유저에게 전송
-        this.app.socketServer.sendMessageByUserId(packet.user_id, JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
+        this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_WITHDRAW_CANCEL, m_strPacket:JSON.stringify(packet)}));
     }
     //admin
     async admDepositConfirm(ws, strValue){

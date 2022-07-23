@@ -47,6 +47,18 @@ function RecvDataPacket(packet)
     scope.lstCoinData = packet.m_strPacket;
     //scope.filterCondition.value = scope.lstCoinData[0].ne;
   }
+  else if(packet.m_nCmd == PKT_USER_DEPOSIT_MONEY)
+  {
+      var objRet = JSON.parse(packet.m_strPacket);
+      alert(objRet.message);
+      //getUserLetterList();
+  }
+  else if(packet.m_nCmd == PKT_USER_WITHDRAW_MONEY)
+  {
+      var objRet = JSON.parse(packet.m_strPacket);
+      alert(objRet.message);
+      //getUserLetterList();
+  }
   // else if(packet.m_nCode == SOCKET_ADMIN_PARTLETTER_DELETE)
   // {
   //     var objRet = JSON.parse(packet.m_strPacket);

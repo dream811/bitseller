@@ -38,8 +38,8 @@ class App {
     }
 
     async loadDB(self) {
-        self.coin_list = await this.coinProcess.exeQuery('select * from coin_list where is_use = 1');
-        self.schedule_list = await this.coinProcess.exeQuery('select * from trading_schedule where is_del = 0');
+        self.coin_list = await this.coinProcess.exeQuery('select * from coin_list ');
+        self.schedule_list = await this.coinProcess.exeQuery('select * from trading_schedule');
         console.log(self.coin_list);
         /**
          * 배렬 조합

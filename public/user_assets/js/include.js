@@ -99,12 +99,12 @@ function SendAuthPacket()
         if(document.getElementById("user_id") != null)
         {
             var user_id = document.getElementById("user_id").value;
-            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, user_id);
+            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id}));
         }
         else//게스트
         {
             var user_id = Date.now();
-            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, user_id);
+            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id}));
         }
     }
 }

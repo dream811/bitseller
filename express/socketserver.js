@@ -17,7 +17,8 @@ class SocketServer {
             var socket_id = req.headers['sec-websocket-key'];
             var user_id = 0;
             var type = 0;//user:0, admin:1
-            self.clients[socket_id] = {user_id, type, ws};
+            var page_type = 0;//main:0, sub:1
+            self.clients[socket_id] = {user_id, type, page_type, ws};
             // sending message
             console.log("new client connected");
             ws.on('message', function(message) {
@@ -48,15 +49,15 @@ class SocketServer {
                     self.clients[property].send(msg);
             }
         };
-        self.wss.broadcastToUser = function broadcastToUser(msg) {
+        self.wss.broadcastToUserMainPage = function broadcastToUser(msg) {
             
             for (const property in self.clients) {
-                if(self.clients[property].type == 0)
+                if(self.clients[property].type == 0 && self.clients[property].page_type == 0)
                     self.clients[property].ws.send(msg);
             }
         };
 
-        setInterval(() => self.wss.broadcastToUser(JSON.stringify({m_strPacket : self.app.scrap_data, m_nCmd : constants.PKT_USER_COIN_DATA})), 500);
+        setInterval(() => self.wss.broadcastToUserMainPage(JSON.stringify({m_strPacket : self.app.scrap_data, m_nCmd : constants.PKT_USER_COIN_DATA})), 500);
     }
 
     sendMessageByKey(key, message){
@@ -83,6 +84,17 @@ class SocketServer {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
                     this.clients[property].type = 1;
+                    
+                }
+            }
+        }else if(packet.m_nCmd == constants.PKT_ADMIN_ACT_CHILD_AUTH)
+        {
+            var data = JSON.parse(packet.strValue);
+            for (const property in this.clients) {
+                if(property == socket_id && this.clients[property].user_id == 0){
+                    this.clients[property].user_id = data.user_id;
+                    this.clients[property].type = 1;
+                    this.clients[property].page_type = 1;
                 }
             }
         }else if(packet.m_nCmd == constants.PKT_ADMIN_WITHDRAW_CONFIRM){
@@ -99,9 +111,16 @@ class SocketServer {
             var data = JSON.parse(packet.strValue);
             for (const property in this.clients) {
                 if(property == socket_id && this.clients[property].user_id == 0){
-                    // console.log(this.clients[property]);
-                    console.log(data)
                     this.clients[property].user_id = data.user_id;
+                }
+            }
+        }
+        else if(packet.m_nCmd == constants.PKT_USER_ACT_SUB_AUTH){
+            var data = JSON.parse(packet.strValue);
+            for (const property in this.clients) {
+                if(property == socket_id && this.clients[property].user_id == 0){
+                    this.clients[property].user_id = data.user_id;
+                    this.clients[property].page_type = 1;
                 }
             }
         }
