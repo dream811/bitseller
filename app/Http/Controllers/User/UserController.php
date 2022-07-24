@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 use App\Models\Setting;
 use App\Models\User;
+use App\Models\Message;
 use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
@@ -98,6 +99,20 @@ class UserController extends Controller
             $message = "비번이 일치하지 않습니다.";
             return response()->json(["status" => "failed", "data" => compact('message')]);
         }
+        
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function user_info(Request $request)
+    {
+        //echo Auth::id();
+        $user_info = User::find(Auth::id(), ['money', 'deposit_sum']);
+        $user_info->msg_cnt = Message::where('receiver_id', Auth::id())->count();
+        return response()->json(["status" => "success", "data" => compact('user_info')]);
         
     }
 }

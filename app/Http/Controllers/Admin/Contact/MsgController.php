@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\Message;
 use App\Models\User;
+use App\Models\UserLevel;
 use Carbon\Carbon;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -90,13 +91,14 @@ class MsgController extends Controller
         } 
         $msgInfo = Message::firstOrNew(['id' => $id]);
         $users = User::where('is_del', 0)->where('is_use', 1)->where('type', 'USER')->select('id', 'str_id', 'name', 'nickname')->get();
-        return view('admin.contact.msg_detail', compact('msgInfo', 'id', 'title', 'users'));
+        $levels = UserLevel::where('is_del', 0)->where('is_use', 1)->select('id', 'level', 'name')->get();
+        return view('admin.contact.msg_detail', compact('msgInfo', 'id', 'title', 'users', 'levels'));
     }
     //답변 저장
     public function save($id, Request $request)
     {
         
-        if($id == 0 && $request->post('chk_all') == 1){
+        if($id == 0 && $request->post('chk_all') == 'all'){
             
             $users =  User::where('is_del', 0)->where('is_use', 1)->where('type', 'USER')->select('id', 'str_id', 'name', 'nickname')->get();
             $data = array();
@@ -121,7 +123,31 @@ class MsgController extends Controller
             Message::insert($data);
                 
            
-        }else{
+        }
+        else if($id == 0 && intval($request->post('chk_all')) > 0){
+            $users =  User::where('is_del', 0)->where('is_use', 1)->where('type', 'USER')->where('level', $request->post('chk_all'))->select('id', 'str_id', 'name', 'nickname')->get();
+            $data = array();
+            foreach($users as $user)
+            {
+                if(!empty($user))
+                {
+                    $data[] =[
+                        'subject' => $request->post('subject'),
+                        'content' => $request->post('content'),
+                        'send_date' => Carbon::now(),
+                        'is_read' => '0',
+                        'sender_id' => Auth::id(),
+                        'sender_name' => Auth::user()->name,
+                        'receiver_id' => $user->id,
+                        'receiver_name' => $user->name,
+                        'is_del' => '0',
+                    ];                 
+
+                }
+            }
+            Message::insert($data);
+        }
+        else if($request->post('chk_all') == '0'){
             Message::updateOrCreate(
                 ['id' => $id],
                 [

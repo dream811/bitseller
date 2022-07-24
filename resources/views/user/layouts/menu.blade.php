@@ -177,7 +177,7 @@
                     <img src="{{asset('user_assets/images/avatars/01.png')}}" alt="User-Profile" class="img-fluid avatar avatar-30 avatar-rounded">
                     <div class="caption ms-3 ">
                         <h6 class="mb-0 caption-title text-xs" style="font-size:12px;">{{Auth::user()->name}}({{Auth::user()->userLevel->name}})</h6>
-                        <p class="mb-0 caption-sub-title text-xs" style="font-size:12px;"><span id="user_money" value="user_money">{{Auth::user()->money}}</span>원</p>
+                        <p class="mb-0 caption-sub-title text-xs" style="font-size:12px;"><span id="user_money" class="user_money" value="user_money">{{Auth::user()->money}}</span>원</p>
                         <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
                         <input type="hidden" name="user_password" id="user_password" value="{{Auth::user()->password}}">
                     </div>

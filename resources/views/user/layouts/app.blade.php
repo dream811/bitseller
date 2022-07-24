@@ -109,6 +109,36 @@
     <script src="{{asset('user_assets/js/app.js')}}"></script>
     <!-- apexchart JavaScript -->
     <script src="{{asset('user_assets/js/charts/apexcharts.js')}}"></script>
+    
+    @guest
+    @else
+    <script>
+        getRealTimeInfo();
+        setInterval(getRealTimeInfo, 5000);
+        function getRealTimeInfo(){
+            var action = '/user_info';
+            $.ajax({
+                url: action,
+                type: "GET",
+                dataType: 'json',
+                success: function ({status, data}) {
+                    console.log(data);
+                    $('.user_money').html(data.user_info.money);
+                    $('.count-mail').html(data.user_info.msg_cnt);
+                    // $('#new_user_cnt').text(data.new_users);
+                    // $('#new_levelup_cnt').text(data.levelup_users);
+                    // $('#new_deposit_cnt').text(data.new_deposits);
+                    // $('#new_withdraw_cnt').text(data.new_withdraws);
+                    // $('#new_qna_cnt').text(data.new_qnas);
+                    // $('#new_acc_qna_cnt').text(data.new_acc_qnas);
+                    // $('#new_trading_cnt').text(data.new_tradings);
+                },
+                error: function (data) {
+                }
+            });
+        }
+    </script>
+    @endguest
 
     @yield('third_party_scripts')
     @yield('script')

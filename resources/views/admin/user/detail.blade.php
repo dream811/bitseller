@@ -94,11 +94,11 @@
                         <div class="form-group row mb-0">
                             <label for="money" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">예치금<code style="color:red !important;">[필수]</code></label>
                             
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-5 col-md-3">
                             <input type="number" class="form-control form-control-sm" id="money" name="money" value="{{ $user->money }}" placeholder="예치금액을 입력하세요">
                             </div>
                             @if ($userId > 0)
-                            <div class="col-sm-6 col-md-3">
+                            <div class="col-sm-4 col-md-3">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-prepend">
                                         <button type="button" class="btn btn-sm btn-info btn-flat btnAddMoney">넣기</button>
@@ -426,7 +426,7 @@
                                 processData: false,
                                 success: function ({status, data}) {
                                     if(status="success"){
-                                        alert("성공적으로 등록되였습니다");
+                                        alert("성공적으로 등록되었습니다");
                                         $('#beforeImage').val(data.image);
                                         window.opener.refreshTable();
                                         window.close();

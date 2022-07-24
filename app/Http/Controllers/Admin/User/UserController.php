@@ -79,7 +79,7 @@ class UserController extends Controller
                     
                     $tags = '<li style="list-style: none;" class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px; font-size:13px;">'.$row->nickname.'</span>
+                        <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$row->nickname.'</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">

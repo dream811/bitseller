@@ -70,7 +70,7 @@ class CashController extends Controller
                     $name = User::find($row->user_id)->name;
                     $tags = '<li style="list-style: none;" class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="badge navbar-badge" style="padding:0px; right:unset; top:3px; font-size:13px;">'.$name.'</span>
+                        <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$name.'</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
                         <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">
@@ -116,6 +116,101 @@ class CashController extends Controller
                 ->make(true);
         }
         return view('admin.cash.cash_list', compact('title', 'type'));
+    }
+
+    /**
+     * Show the application dashboard.
+     *
+     * @return \Illuminate\Contracts\Support\Renderable
+     */
+    public function user_index($type = 0, $user_id, Request $request)
+    {
+        $title = "입금";
+        if ($type == 1)
+            $title = "출금";
+
+
+        if ($request->ajax()) {
+            $monies = Exchange::where('type', $type)->where('user_id', $user_id)
+                ->orderBy('id', 'DESC');
+
+            return DataTables::eloquent($monies)
+                ->addIndexColumn()
+                ->addColumn('check', function ($row) {
+                    $check = '<input type="checkbox" name="chkProduct[]" onclick="" value="' . $row->id . '">';
+                    return $check;
+                })
+                ->addColumn('action', function ($row) {
+                    $element = '';
+                    if ($row->state == 0){
+                        $element = '<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnConfirm">승인</button>';
+                        $element .= '&nbsp;&nbsp;<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-danger btnCancel">취소</button>';
+                    }
+                    return $element;
+                })
+                ->editColumn('requested_date', function ($row) {
+                    return date('Y-m-d', strtotime($row->requested_date));
+                })
+                ->editColumn('accepted_date', function ($row) {
+                    if($row->state == 0){
+                        return "";
+                    }else{
+                        return date('Y-m-d', strtotime($row->accepted_date));
+                    }
+                })
+                ->addColumn('bank_user', function ($row) {
+                    return $row->user->bank_user;
+                })
+                ->addColumn('user_name', function ($row) {
+                    $name = User::find($row->user_id)->name;
+                    $tags = '<li style="list-style: none;" class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$name.'</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                        <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted">'.$name.' 정보수정</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
+                            <span class="float-center text-muted text-sm " data-id="'.$row->user_id.'">입금내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm">출금내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoTrading" data-id="'.$row->user_id.'" >
+                            <span class="float-center text-muted text-sm" >구매내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoResult" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm">배당금내역</span>
+                        </a>
+                        </div>
+                    </li>';
+                    return $tags;
+                })
+                ->editColumn('accepted_date', function ($row) {
+                    if($row->state == 0){
+                        return "";
+                    }else{
+                        return date('Y-m-d', strtotime($row->accepted_date));
+                    }
+                })
+                ->editColumn('state', function ($row) {
+                    if ($row->state == 0) {
+                        return "대기";
+                    } else if ($row->state == 1) {
+                        return "승인";
+                    } else if ($row->state == 2) {
+                        return "부결";
+                    }
+                })
+                ->rawColumns(['check', 'action', 'user_name'])
+                ->make(true);
+        }
+        return view('admin.cash.cash_user_list', compact('title', 'type', 'user_id'));
     }
 
     /**
@@ -198,7 +293,7 @@ class CashController extends Controller
             }else if($request->post('state') == 2){//취소
                 $user->update(['money' => $user->money - $money->amount]);
                 $money->update([
-                    'state' => 0,                    
+                    'state' => 0,
                 ]);
             }
             $user->update(['money' => $user->money + $money->mo_money]);

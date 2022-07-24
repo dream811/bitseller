@@ -255,7 +255,7 @@
                                 <form>
                                     <div class="input-group input-group-sm mb-3">
                                         <span class="input-group-text input-group-text-sm" id="basic-addon1">보유머니</span>
-                                        <span id="money" class="form-control form-control-sm" type="text" placeholder="" aria-label="">
+                                        <span id="user_money1" class="form-control form-control-sm user_money" type="text" placeholder="" aria-label="">
                                         {{Auth::user()->money}}
                                         </span>
                                     </div>

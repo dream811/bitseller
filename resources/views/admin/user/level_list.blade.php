@@ -95,7 +95,7 @@
                 dataType: 'json',
                 success: function ({status, data}) {
                     if(status == "success"){
-                        alert('구매가능상태가 변경되였습니다.');
+                        alert('구매가능상태가 변경되었습니다.');
                     }else{
                         alert('구매가능상태 변경에 실패하였습니다.');
                     }

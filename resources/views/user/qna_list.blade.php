@@ -124,7 +124,7 @@
                 dataType: 'json',
                 success: function ({status, data}) {
                     if(status == "success"){
-                        alert('계좌문의되였습니다.');
+                        alert('계좌문의되었습니다.');
                         $('#qnaListTable').DataTable().ajax.reload();
                     }else{
                         alert(data.message);

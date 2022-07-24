@@ -100,7 +100,7 @@
                 dataType: 'json',
                 success: function ({status, data}) {
                     if(status == "success"){
-                        alert('사용상태가 변경되였습니다.');
+                        alert('사용상태가 변경되었습니다.');
                     }else{
                         alert('사용상태 변경에 실패하였습니다.');
                     }
@@ -131,7 +131,7 @@
             });
         });
         $('body').on('click', '.btnAdd', function () {
-            window.open('/admin/user/edit/0', '회원추가', 'scrollbars=1, resizable=1, width=1000, height=620');
+            window.open('/admin/user/edit/0', '회원추가', 'scrollbars=1, resizable=1, width=700, height=620');
             return false;
         });
         function refreshTable() {

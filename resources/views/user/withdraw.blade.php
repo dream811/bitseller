@@ -53,7 +53,13 @@
                                         </div>
                                     </div>
 
-                                    
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text " >보유머니</span>
+                                        <span class="form-control user_money" type="text"  placeholder="" aria-label="">
+                                            {{Auth::user()->money}}
+                                        </span>
+                                        
+                                    </div>
                                     <div class="input-group mb-3">
                                         <span class="input-group-text " >계좌번호</span>
                                         <span class="form-control" type="text"  placeholder="" aria-label="">

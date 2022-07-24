@@ -13,23 +13,25 @@ class CashProcess {
     init(self) {
     }
     trading(){
-        setInterval(this.calculateProcess, 10000, this);
+        setInterval(this.calculateProcess, 600000, this);
     }
     async calculateProcess(self){
         var dt = new Date();
-        const result = self.app.schedule_list.filter(schedule => schedule.is_use == 1 && new Date(dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+schedule.calculate_time) - new Date() < 20000 );
+        // const result = self.app.schedule_list.filter(schedule => schedule.is_use == 1 && Math.abs(new Date(dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+schedule.calculate_time) - new Date()) < 1200000 );
+        var sql = "select * from trading_schedule where is_use=1 && is_del=0 and ABS(TIME(calculate_time) - TIME('"+ dt.toLocaleTimeString() +"')) > 1200000";
+        console.log(sql);
+        var result = await self.exeQuery(sql);
         result.forEach(async(value, index) =>{
             //if(value.calculate_time)
-            var start_time = dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+value.start_time;
-            var end_time = dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+value.end_time;
-
-            var sql = "select * from coin_trade_list where is_del=0 and created_at > '"+ start_time +"' and created_at < '" + end_time +"'";
+            var sql = "select * from coin_trade_list where state=0 && is_del=0 and TIME(created_at) > TIME('"+ value.start_time +"') and TIME(created_at) < TIME('" + value.end_time +"')";
+            console.log(sql);
             var trade_list = await self.exeQuery(sql);
-            trade_list.forEach(async (value, index)=>{
-                var query = `UPDATE users SET money = money+${value.payout_amount}, profit_sum=profit_sum+${value.add_amount} WHERE id = ${packet.user_id};`;
-                await this.exeQuery(query);
-                var query = `UPDATE coin_trade_list SET state=1 WHERE id = ${value.id};`;
-                await this.exeQuery(query);
+            trade_list.forEach(async (val, idx)=>{
+                console.log(val.created_at)
+                var query = `UPDATE users SET money = money+${val.payout_amount}, profit_sum=profit_sum+${val.add_amount} WHERE id = ${val.user_id};`;
+                await self.exeQuery(query);
+                var query = `UPDATE coin_trade_list SET state=1 WHERE id = ${val.id};`;
+                await self.exeQuery(query);
             })
         });
         

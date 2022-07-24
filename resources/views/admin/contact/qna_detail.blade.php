@@ -176,7 +176,7 @@
                     processData: false,
                     success: function ({status, data}) {
                         if(status="success"){
-                            alert("성공적으로 발송되였습니다");
+                            alert("성공적으로 발송되었습니다");
                             //$('#beforeImage').val(data.image);
                             window.opener.refreshTable();
                             window.close();

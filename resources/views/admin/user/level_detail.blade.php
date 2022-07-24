@@ -156,7 +156,7 @@
                     processData: false,
                     success: function ({status, data}) {
                         if(status="success"){
-                            alert("성공적으로 등록되였습니다");
+                            alert("성공적으로 등록되었습니다");
                             //$('#beforeImage').val(data.image);
                             window.opener.refreshTable();
                             window.close();

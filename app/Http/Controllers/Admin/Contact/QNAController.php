@@ -29,8 +29,6 @@ class QNAController extends Controller
     public function index(Request $request)
     {
         $title = "1대1문의";
-
-
         if ($request->ajax()) {
             $qnas = QNA::where('is_del', 0)
                 ->orderBy('id', 'DESC');

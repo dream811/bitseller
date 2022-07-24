@@ -44,6 +44,8 @@ Route::middleware('auth')->name('user.')->group(
         Route::post('/check_password',              [App\Http\Controllers\User\UserController::class, 'check_password'])->name('check_password');
         Route::post('/change_password',             [App\Http\Controllers\User\UserController::class, 'change_password'])->name('change_password');
         Route::post('/change_info',                 [App\Http\Controllers\User\UserController::class, 'change_info'])->name('change_info');
+        //실시간 회원정보
+        Route::get('/user_info',                    [App\Http\Controllers\User\UserController::class, 'user_info'])->name('user_info');
 
         /////////////////////////////** 고객관리 **//////////////////////////////////
         //공지사항
@@ -98,7 +100,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         Route::delete('user/level_edit/{levelId}',  [App\Http\Controllers\Admin\User\LevelController::class, 'delete'])->name('user.level_delete');
         Route::post('user/level_state/{levelId}',   [App\Http\Controllers\Admin\User\LevelController::class, 'state'])->name('user.level_state');
         Route::post('user/level_buy_state/{levelId}',[App\Http\Controllers\Admin\User\LevelController::class, 'buy_state'])->name('user.level_buy_state');
-
+        //유저별 입출금
+        Route::get('cash/user_cash/{type}/{user_d}',[App\Http\Controllers\Admin\Cash\CashController::class, 'user_index'])->name('cash.user_cash_list');
+        //입출금
         Route::get('cash/cash/{type}',              [App\Http\Controllers\Admin\Cash\CashController::class, 'index'])->name('cash.cash_list');
         Route::get('cash/cash/{type}/{id}',         [App\Http\Controllers\Admin\Cash\CashController::class, 'show'])->name('cash.cash_edit');
         Route::post('cash/cash/{type}/{id}',        [App\Http\Controllers\Admin\Cash\CashController::class, 'save'])->name('cash.cash_save');
@@ -116,12 +120,16 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         Route::post('calculate/schedule_edit/{id}', [App\Http\Controllers\Admin\Calculate\ScheduleController::class, 'save'])->name('calculate.schedule_save');
         Route::delete('calculate/schedule_edit/{id}',[App\Http\Controllers\Admin\Calculate\ScheduleController::class, 'delete'])->name('calculate.schedule_delete');
         Route::post('calculate/schedule_state/{id}',[App\Http\Controllers\Admin\Calculate\ScheduleController::class, 'state'])->name('calculate.schedule_state');
+        //회원별구매내역
+        Route::get('calculate/user_trading/{userId}',[App\Http\Controllers\Admin\Calculate\TradingController::class, 'user_index'])->name('calculate.user_trading_list');
         //구매내역
         Route::get('calculate/trading',             [App\Http\Controllers\Admin\Calculate\TradingController::class, 'index'])->name('calculate.trading_list');
         Route::get('calculate/trading_edit/{id}',   [App\Http\Controllers\Admin\Calculate\TradingController::class, 'edit'])->name('calculate.trading_edit');
         Route::post('calculate/trading_edit/{id}',  [App\Http\Controllers\Admin\Calculate\TradingController::class, 'save'])->name('calculate.trading_save');
         Route::delete('calculate/trading_edit/{id}',[App\Http\Controllers\Admin\Calculate\TradingController::class, 'delete'])->name('calculate.trading_delete');
         Route::post('calculate/trading_state/{id}', [App\Http\Controllers\Admin\Calculate\TradingController::class, 'state'])->name('calculate.trading_state');
+        //배당금지급내역
+        Route::get('calculate/user_result/{userId}',[App\Http\Controllers\Admin\Calculate\ResultController::class, 'user_index'])->name('calculate.user_result_list');
         //배당금지급내역
         Route::get('calculate/result',              [App\Http\Controllers\Admin\Calculate\ResultController::class, 'index'])->name('calculate.result_list');
         Route::get('calculate/result_edit/{id}',    [App\Http\Controllers\Admin\Calculate\ResultController::class, 'edit'])->name('calculate.result_edit');

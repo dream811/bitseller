@@ -36,6 +36,16 @@ myApp.controller("myController", function($scope, $http) {
     scope.RecvPacket = RecvPacket;
 
     scope.initialize = initialize;
+    
+    scope.user_exchange_a = false;
+    scope.user_exchange = new Audio('/alram/user_exchange.mp3');
+    scope.user_exchange.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+           if(scope.user_exchange_a == true)
+               scope.user_exchange.play();
+        }, 2000);
+    }, false);
 
     if(document.getElementById("id_strAddress") != null)
         scope.ConnectSocket();

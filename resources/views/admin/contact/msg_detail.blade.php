@@ -40,17 +40,17 @@
                             <label for="" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">전체<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6 mt-1">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="custom-control-input" type="radio" id="chk_all1" name="chk_all" value="1" >
+                                    <input class="custom-control-input" type="radio" id="chk_all1" name="chk_all" value="all" >
                                     <label for="chk_all1" class="custom-control-label pt-1" style="font-size:12px;" >전체</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
                                     <input class="custom-control-input" type="radio" id="chk_all2" name="chk_all" value="0"  checked >
                                     <label for="chk_all2" class="custom-control-label pt-1" style="font-size:12px;">개별</label>
                                 </div>
-                                @foreach($levels as $level)
+                                @foreach($levels as $key=> $level)
                                     <div class="custom-control custom-radio custom-control-inline">
-                                        <input class="custom-control-input" type="radio" id="chk_all2" name="chk_all" value="0"  checked >
-                                        <label for="chk_all2" class="custom-control-label pt-1" style="font-size:12px;">{{}}</label>
+                                        <input class="custom-control-input" type="radio" id="chk_all{{2 + $loop->iteration}}" name="chk_all" value="{{$level->level}}"  checked >
+                                        <label for="chk_all2" class="custom-control-label pt-1" style="font-size:12px;">{{$level->name}}</label>
                                     </div>
                                 @endforeach
                             </div>
@@ -177,7 +177,7 @@
                     processData: false,
                     success: function ({status, data}) {
                         if(status="success"){
-                            alert("성공적으로 발송되였습니다");
+                            alert("성공적으로 발송되었습니다");
                             //$('#beforeImage').val(data.image);
                             window.opener.refreshTable();
                             window.close();

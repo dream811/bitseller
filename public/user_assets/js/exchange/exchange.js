@@ -197,6 +197,7 @@ function onWithdraw() {
     alert('금액을 정확히 입력해주세요.');
     return;
   }
+  if(scope.amount > $('#user_money').text()) {alert('보유머니가 부족합니다.'); return;}
   if(confirm('출금신청하시겠습니까?')){
     var packet = {
         "user_id"           :   scope.userInfo.id,
