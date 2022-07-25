@@ -127,6 +127,7 @@ class UserController extends Controller
         $user = User::where('is_del', 0)
             ->where('id', $userId)
             ->firstOrNew();
+        if($userId == 0) $user->type = "USER";
         $bank_list = Bank::where('is_use', 1)->get();
         return view('admin.user.detail', compact('title', 'userId', 'user', 'bank_list'));
     }

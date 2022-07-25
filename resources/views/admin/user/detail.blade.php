@@ -136,7 +136,7 @@
                             </div>
                         </div>
                         <div class="form-group row mb-0">
-                            <label for="level" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">역할<code style="color:red !important;">[필수]</code></label>
+                            <label for="level" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">등급<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6">
                                 <select class="custom-select form-control-border custom-select-sm" name="level" id="level">
                                     {{-- <option value="">= 선택 =</option>
@@ -147,6 +147,18 @@
                                     <option value="2" @if ( 2 == $user->level) selected @endif>실버</option>
                                     <option value="3" @if ( 3 == $user->level) selected @endif>골드</option>
                                     <option value="4" @if ( 4 == $user->level) selected @endif>VIP</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <label for="type" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">역할<code style="color:red !important;">[필수]</code></label>
+                            <div class="col-sm-9 col-md-6">
+                                <select class="custom-select form-control-border custom-select-sm" name="type" id="type">
+                                    
+                                    <option value="ADMIN"   @if ( 'ADMIN' == $user->type) selected @endif>관리자</option>
+                                    <option value="MANAGER" @if ( 'MANAGER' == $user->type) selected @endif>매니저</option>
+                                    <option value="PARTNER" @if ( 'PARTNER' == $user->type) selected @endif>파트너</option>
+                                    <option value="USER"    @if ( 'USER' == $user->type) selected @endif>회원</option>
                                 </select>
                             </div>
                         </div>
@@ -393,52 +405,77 @@
                 var referer = $("#referer").val();
                 var userId = $("#id").val();
                 var action ="/admin/user/check";
-                $.ajax({
-                    url: action,
-                    data: {str_id, email: txtEmail, referer },
-                    type: "POST",
-                    dataType: "json",
-                    success: function({status, data}){
-                        //console.log(data);
-                        if(status == "success"){
-                            if(data.email_check == 0){
-                                alert('중복된 메일이 존재합니다.');
-                                return;
+                if(userId != 0){
+                    action = "/admin/user/edit/"+userId;
+                    //formData.submit();
+                    $.ajax({
+                        url: action,
+                        data: formData,
+                        type: "POST",
+                        dataType: 'JSON',
+                        contentType: false,
+                        cache: false,
+                        processData: false,
+                        success: function ({status, data}) {
+                            if(status="success"){
+                                alert("성공적으로 등록되었습니다");
+                                $('#beforeImage').val(data.image);
+                                window.opener.refreshTable();
+                                window.close();
                             }
-                            if(data.referer_check == 0){
-                                alert('추천인코드가 정확하지 않습니다.');
-                                return;
-                            }
-                            if(data.str_id == 0){
-                                alert('현재 아이디를 사용할수 없습니다');
-                                return;
-                            }
-
-                            action = "/admin/user/edit/"+userId;
-                            //formData.submit();
-                            $.ajax({
-                                url: action,
-                                data: formData,
-                                type: "POST",
-                                dataType: 'JSON',
-                                contentType: false,
-                                cache: false,
-                                processData: false,
-                                success: function ({status, data}) {
-                                    if(status="success"){
-                                        alert("성공적으로 등록되었습니다");
-                                        $('#beforeImage').val(data.image);
-                                        window.opener.refreshTable();
-                                        window.close();
-                                    }
-                                },
-                                error: function (data) {
-                                }
-                            });
-                            
+                        },
+                        error: function (data) {
                         }
-                    }
-                });
+                    });
+                }else{
+                    $.ajax({
+                        url: action,
+                        data: {str_id, email: txtEmail, referer },
+                        type: "POST",
+                        dataType: "json",
+                        success: function({status, data}){
+                            //console.log(data);
+                            if(status == "success"){
+                                if(data.email_check == 0){
+                                    alert('중복된 메일이 존재합니다.');
+                                    return;
+                                }
+                                if(data.referer_check == 0){
+                                    alert('추천인코드가 정확하지 않습니다.');
+                                    return;
+                                }
+                                if(data.str_id == 0){
+                                    alert('현재 아이디를 사용할수 없습니다');
+                                    return;
+                                }
+
+                                action = "/admin/user/edit/"+userId;
+                                //formData.submit();
+                                $.ajax({
+                                    url: action,
+                                    data: formData,
+                                    type: "POST",
+                                    dataType: 'JSON',
+                                    contentType: false,
+                                    cache: false,
+                                    processData: false,
+                                    success: function ({status, data}) {
+                                        if(status="success"){
+                                            alert("성공적으로 등록되었습니다");
+                                            $('#beforeImage').val(data.image);
+                                            window.opener.refreshTable();
+                                            window.close();
+                                        }
+                                    },
+                                    error: function (data) {
+                                    }
+                                });
+                                
+                            }
+                        }
+                    });
+                }
+                
                 
             });
             
