@@ -42,27 +42,7 @@ class UserController extends Controller
             return DataTables::of($users)
                 ->addIndexColumn()
                 ->addColumn('level', function ($row) {
-                    $level = "신규";
-                    switch ($row->level) {
-                        case 0:
-                            $level = "신규";
-                            break;
-                        case 1:
-                            $level = "브론즈";
-                            break;
-                        case 2:
-                            $level = "실버";
-                            break;
-                        case 3:
-                            $level = "골드";
-                            break;
-                        case 3:
-                            $level = "VIP";
-                            break;
-                        default:
-                            $level = "";
-                            break;
-                    }
+                    $level = $row->userLevel->name;
                     return $level;
                 })
                 ->editColumn('is_use', function ($row) {
@@ -76,7 +56,6 @@ class UserController extends Controller
                     return $btn;
                 })
                 ->editColumn('nickname', function($row){
-                    
                     $tags = '<li style="list-style: none;" class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
                         <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$row->nickname.'</span>

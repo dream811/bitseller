@@ -171,7 +171,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <a href="{{route('admin.user.new_list')}}" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.user.list')}}" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
+                        <a href="{{route('admin.user.levelup_list')}}" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="{{route('admin.cash.cash_list', 0)}}" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
