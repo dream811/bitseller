@@ -68,45 +68,63 @@ class CashProcess {
         sql =  `SELECT * from coin_list`;
         console.log(sql);
         this.app.coin_list = await this.exeQuery(sql);
-
+        var sell_limit = 0;
         if(this.app.coin_list){
             for (const value of this.app.coin_list) {
-                if(value.key == packet.coin_type && value.is_use == 0){
-                    // ws.send("구매불가능한 코인입니다.");
-                    var m_nCmd = constants.PKT_USER_COIN_BUY;
-                    var data = {
-                        "status"           :   0,
-                        "error_code"       :   3,
-                        "message"          :   "구매불가능한 코인입니다."
+                if(value.key == packet.coin_type){
+                    if(value.is_use == 0){
+                        // ws.send("구매불가능한 코인입니다.");
+                        var m_nCmd = constants.PKT_USER_COIN_BUY;
+                        var data = {
+                            "status"           :   0,
+                            "error_code"       :   3,
+                            "message"          :   "구매불가능한 코인입니다."
+                        }
+                        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+                        return false;
+                    }else{
+                        sell_limit = value.sell_limit;
                     }
-                    ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
-                    return false;
                 }
             }            
         }
        
         this.app.scrap_data.forEach(async (value, index, self) => {
             if(value.ne == packet.coin_type){
-                var coin_quantity = parseFloat(packet.order_amount / value.c11).toFixed(6);
-                var query = `UPDATE users SET money = money-${packet.order_amount}, buy_sum=buy_sum+${packet.order_amount} WHERE id = ${packet.user_id};`;
-                await this.exeQuery(query);
-                
-                var add_amount = Math.floor(packet.order_amount * user_info[0].pay_percent / 100);
-                var payout_amount = packet.order_amount + add_amount;
-                query = `INSERT INTO coin_trade_list (user_id, coin_type, cur_price, coin_quantity, order_amount, payout_rate, add_amount, payout_amount) 
-                    VALUES (${packet.user_id}, '${packet.coin_type}', ${value.c11}, ${coin_quantity}, ${packet.order_amount}, ${user_info[0].pay_percent}, ${add_amount}, ${payout_amount});`;
-                await this.exeQuery(query);
-                return false;
+                if(sell_limit > value.kp1){
+                    //코인구매제한 값보다 낮은 경우
+                    var m_nCmd = constants.PKT_USER_COIN_BUY;
+                    var data = {
+                        "status"           :   0,
+                        "error_code"       :   4,
+                        "message"          :   "현재시가에서 코인구매가 불가능합니다."
+                    }
+                    ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+                }else{
+                    var coin_quantity = parseFloat(packet.order_amount / value.c11).toFixed(6);
+                    var query = `UPDATE users SET money = money-${packet.order_amount}, buy_sum=buy_sum+${packet.order_amount} WHERE id = ${packet.user_id};`;
+                    await this.exeQuery(query);
+                    
+                    var add_amount = Math.floor(packet.order_amount * user_info[0].pay_percent / 100);
+                    var payout_amount = packet.order_amount + add_amount;
+                    query = `INSERT INTO coin_trade_list (user_id, coin_type, cur_price, coin_quantity, order_amount, payout_rate, add_amount, payout_amount) 
+                        VALUES (${packet.user_id}, '${packet.coin_type}', ${value.c11}, ${coin_quantity}, ${packet.order_amount}, ${user_info[0].pay_percent}, ${add_amount}, ${payout_amount});`;
+                    await this.exeQuery(query);
+                    //코인구매성공
+                    var m_nCmd = constants.PKT_USER_COIN_BUY;
+                    var data = {
+                        "status"           :   1,
+                        "error_code"       :   0,
+                        "message"          :   "코인을 구매했습니다."
+                    }
+                    ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+
+                    return false;
+                }
             }
         });
 
-        var m_nCmd = constants.PKT_USER_COIN_BUY;
-        var data = {
-            "status"           :   1,
-            "error_code"       :   0,
-            "message"          :   "코인을 구매했습니다."
-        }
-        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+        
     }
 
     exeQuery(query) {
