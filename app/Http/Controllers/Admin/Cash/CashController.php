@@ -77,8 +77,8 @@ class CashController extends Controller
                             <span class="float-center text-muted">'.$name.' 정보수정</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
-                            <span class="float-center text-muted text-sm " data-id="'.$row->user_id.'">입금내역</span>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm ">입금내역</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->user_id.'">
@@ -172,8 +172,8 @@ class CashController extends Controller
                             <span class="float-center text-muted">'.$name.' 정보수정</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
-                            <span class="float-center text-muted text-sm " data-id="'.$row->user_id.'">입금내역</span>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm ">입금내역</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->user_id.'">

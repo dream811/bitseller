@@ -42,7 +42,10 @@ class User extends Authenticatable
     {
         return ($this->type == 'ADMIN') ? true : false; // this looks for an admin column in your users table
     }
-
+    public function isPartner()
+    {
+        return ($this->type == 'PARTNER') ? true : false; // this looks for an admin column in your users table
+    }
     public function userLevel()
     {
         return $this->belongsTo(UserLevel::class, 'level', 'level');

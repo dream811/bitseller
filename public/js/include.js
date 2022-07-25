@@ -47,6 +47,16 @@ myApp.controller("myController", function($scope, $http) {
         }, 2000);
     }, false);
 
+    scope.new_user_a = false;
+    scope.new_user = new Audio('/alram/user_exchange.mp3');
+    scope.new_user.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+           if(scope.new_user_a == true)
+               scope.new_user.play();
+        }, 2000);
+    }, false);
+
     if(document.getElementById("id_strAddress") != null)
         scope.ConnectSocket();
     else

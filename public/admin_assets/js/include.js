@@ -41,6 +41,17 @@ myApp.controller("myController", function($scope, $http) {
         scope.ConnectSocket();
     else
         scope.initialize();
+
+    //alarm
+    scope.user_exchange_a = false;
+    scope.user_exchange = new Audio('/alram/user_exchange.mp3');
+    scope.user_exchange.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+           if(scope.user_exchange_a == true)
+               scope.user_exchange.play();
+        }, 2000);
+    }, false);
 });
 
 function ConnectSocket()

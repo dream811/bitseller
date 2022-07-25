@@ -111,7 +111,7 @@ class UserController extends Controller
     {
         //echo Auth::id();
         $user_info = User::find(Auth::id(), ['money', 'deposit_sum']);
-        $user_info->msg_cnt = Message::where('receiver_id', Auth::id())->count();
+        $user_info->msg_cnt = Message::where('receiver_id', Auth::id())->where('is_read', 0)->count();
         return response()->json(["status" => "success", "data" => compact('user_info')]);
         
     }

@@ -46,7 +46,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script type="text/javascript" src="/plugins/moment.js"></script>
         <script type="text/javascript" src="/plugins/numeral.min.js"></script>
         <script type="text/javascript" src="/js/constant.js?{{ time() }}"></script>
-        <script type="text/javascript" src="/js/include.js?{{ time() }}"></script>
+        <script type="text/javascript" src="/admin_assets/js/include.js?{{ time() }}"></script>
         <script src="/plugins/jquery/jquery.min.js"></script>
         
         <style>
@@ -104,7 +104,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             .color_14 { background-color: #f7dc6fad }
             .color_15 { background-color: #e8daefb7 }
             .color_16 { background-color: #99a3a4c7 }
-            .color_17 { background-color: #f1948aaf  }
+            .color_17 { background-color: #f1948aaf }
             .color_18 { background-color: #f39d12a4 }
             .color_19 { background-color: #a3e4d7bb }
             .color_20 { background-color: #a569bda8 }
@@ -155,19 +155,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     </head>
     <body ng-app="myApp" ng-controller="myController" class="hold-transition sidebar-mini layout-fixed" data-panel-auto-height-mode="height" ng-cloak>
 
-        @if(Session::has("adminInfo"))
-        <input type="hidden" id="id_adminSn" value="{{Session::get('adminInfo')->nSn}}">
-        <input type="hidden" id="id_strAddress" value="{{Session::get('adminInfo')->strAddress}}">
-        @elseif(Session::has("agentInfo"))
-        <input type="hidden" id="id_agentSn" value="{{Session::get('agentInfo')->nSn}}">
-        <input type="hidden" id="id_strAddress" value="{{Session::get('adminInfo')->strAddress}}">
-        @endif
+    <input type="hidden" name="admin_id" id="admin_id" value="{{Auth::user()->id}}">
+        <input type="hidden" name="user_password" id="user_password" value="{{Auth::user()->password}}">
+        <input type="hidden" id="id_strAddress" value="ws://{{ env('EXPRESS_HOST') }}:{{ env('EXPRESS_PORT') }}">
         <input type="hidden" id="id_main" value="0">
-        <div class="wrapper">
-            
+        <div class="wrapper">            
             @yield('content')
-            <!-- Control Sidebar -->
-            
+            <!-- Control Sidebar -->            
         </div>
         <script src="/plugins/jquery-ui/jquery-ui.min.js"></script>
         <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

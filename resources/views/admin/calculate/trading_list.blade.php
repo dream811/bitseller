@@ -98,6 +98,7 @@
                 success: function ({status, data}) {
                     if(status == "success"){
                         alert('상태가 변경되었습니다.');
+                        refreshTable();
                     }else{
                         alert('상태 변경에 실패하였습니다.');
                     }

@@ -336,6 +336,34 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#new_qna_cnt').text(data.new_qnas);
                     $('#new_acc_qna_cnt').text(data.new_acc_qnas);
                     $('#new_trading_cnt').text(data.new_tradings);
+                    if(data.new_users > 0){
+                        scope.new_user.play();
+                        return;
+                    }
+                    if(data.new_levelup_cnt > 0){
+                        scope.user_exchange.play();
+                        return;
+                    }
+                    if(data.new_deposits > 0){
+                        scope.user_exchange.play();
+                        return;
+                    }
+                    if(data.new_withdraws > 0){
+                        scope.user_exchange.play();
+                        return;
+                    }
+                    if(data.new_qnas > 0){
+                        scope.user_exchange.play();
+                        return;
+                    }
+                    if(data.new_acc_qnas > 0){
+                        scope.user_exchange.play();
+                        return;
+                    }
+                    if(data.new_tradings > 0){
+                        scope.user_exchange.play();
+                        return;
+                    }
                 },
                 error: function (data) {
                 }

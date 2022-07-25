@@ -95,15 +95,23 @@
             return false;
         });
         $('body').on('click', '.btnGotoDeposit', function () {
-            window.open('/admin/user/userManage/edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            var id = $(this).attr('data-id');
+            window.open('/admin/cash/user_cash/0/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoWithdraw', function () {
-            window.open('/admin/user/userManage/edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            var id = $(this).attr('data-id');
+            window.open('/admin/cash/user_cash/1/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoTrading', function () {
-            window.open('/admin/user/userManage/edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            var id = $(this).attr('data-id');
+            window.open('/admin/calculate/user_trading/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnGotoResult', function () {
+            var id = $(this).attr('data-id');
+            window.open('/admin/calculate/user_result/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         function refreshTable() {
