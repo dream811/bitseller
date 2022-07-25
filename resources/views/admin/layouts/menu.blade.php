@@ -44,6 +44,14 @@
 						</ul>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
+								<a href="{{ route('admin.user.levelup_list') }}" class="nav-link {{ (request()->routeIs('admin.user.levelup_list')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>레벨업회원목록</p>
+								</a>
+							</li>
+						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
 								<a href="{{ route('admin.user.level_list') }}" class="nav-link {{ (request()->routeIs('admin.user.level_list')) ? 'active' : '' }}">
 									<i class="far fa-circle nav-icon"></i>
 									<p>등급관리</p>
