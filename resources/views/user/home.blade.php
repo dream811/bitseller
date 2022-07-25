@@ -246,7 +246,19 @@
             {{--  --}}
             <div class="row">
                 <div class="col-lg-12">
-                    <div class="card" style="position: fixed; z-index: 99;">
+                    <style>
+                        @media (max-width: 991px) {
+                            .buy_panel{
+                                position: relative; 
+                                z-index: 99;
+                            }
+                        }
+                        .buy_panel{
+                            position: fixed; 
+                            z-index: 99;
+                        }
+                    </style>
+                    <div class="card buy_panel" style="">
                         <div class="card-body d-flex align-items-center justify-content-center">
                             <div class="auth-form">
                                 <div class="navbar-brand dis-none align-items-center justify-content-center">
