@@ -253,9 +253,11 @@
                                 z-index: 99;
                             }
                         }
-                        .buy_panel{
-                            position: fixed; 
-                            z-index: 99;
+                        @media (min-width: 992px) {
+                            .buy_panel{
+                                position: fixed; 
+                                z-index: 99;
+                            }
                         }
                     </style>
                     <div class="card buy_panel" style="">
