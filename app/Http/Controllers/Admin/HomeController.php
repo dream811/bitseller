@@ -29,6 +29,7 @@ class HomeController extends Controller
      */
     public function index()
     {
+        // $deposit = Cash::where
         return view('admin.home');
     }
 

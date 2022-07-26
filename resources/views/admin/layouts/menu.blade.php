@@ -59,6 +59,35 @@
 							</li>
 						</ul>
 					</li>
+					{{-- <li class="nav-item {{ (request()->routeIs('admin.cash.cash_list')) ? 'menu-open' : '' }}">
+						<a href="#" class="nav-link  {{ (request()->routeIs('admin.cash.cash_list')) ? 'active' : '' }}"> <i class="fas fa-hand-holding-usd"></i>
+							<p> 파트너관리 <i class="right fas fa-angle-left"></i> </p>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('admin.cash.cash_list', 0) }}" class="nav-link {{ (request()->is('admin/cash/cash/0')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>파트너목록</p>
+								</a>
+							</li>
+						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('admin.cash.cash_list', 1) }}" class="nav-link {{ (request()->is('admin/cash/cash/1')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>입금신청</p>
+								</a>
+							</li>
+						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('admin.cash.cash_list', 1) }}" class="nav-link {{ (request()->is('admin/cash/cash/1')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>출금신청</p>
+								</a>
+							</li>
+						</ul>
+					</li> --}}
 					<li class="nav-item {{ (request()->routeIs('admin.cash.cash_list')) ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link  {{ (request()->routeIs('admin.cash.cash_list')) ? 'active' : '' }}"> <i class="fas fa-hand-holding-usd"></i>
 							<p> 입출금관리 <i class="right fas fa-angle-left"></i> </p>
@@ -168,6 +197,14 @@
 								</a>
 							</li>
 						</ul>
+						{{-- <ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('admin.setting.bank') }}" class="nav-link {{ (request()->routeIs('admin.setting.bank')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>사이트설정</p>
+								</a>
+							</li>
+						</ul> --}}
 					</li>
 				</ul>
 			</nav>

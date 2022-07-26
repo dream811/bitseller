@@ -61,23 +61,23 @@ class UserController extends Controller
                         <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$row->nickname.'</span>
                         </a>
                         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-                        <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->user_id.'">
+                        <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->id.'">
                             <span class="float-center text-muted">'.$row->nickname.' 정보수정</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
-                            <span class="float-center text-muted text-sm " data-id="'.$row->user_id.'">입금내역</span>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit" data-id="'.$row->id.'">
+                            <span class="float-center text-muted text-sm " >입금내역</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->user_id.'">
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->id.'">
                             <span class="float-center text-muted text-sm">출금내역</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoTrading" data-id="'.$row->user_id.'" >
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoTrading" data-id="'.$row->id.'" >
                             <span class="float-center text-muted text-sm" >구매내역</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoResult" data-id="'.$row->user_id.'">
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoResult" data-id="'.$row->id.'">
                             <span class="float-center text-muted text-sm">배당금내역</span>
                         </a>
                         </div>

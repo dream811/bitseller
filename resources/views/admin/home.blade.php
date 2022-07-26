@@ -116,7 +116,7 @@
               <div class="card-header">
                 <h3 class="card-title" style="font-size:14px;">
                   <i class="fas fa-chart-pie mr-1"></i>
-                  구매금액
+                  입출금액
                 </h3>
                 <!-- <div class="card-tools">
                   <ul class="nav nav-pills ml-auto">
@@ -187,7 +187,7 @@
     labels: ['1월', '2월', '3월', '4월', '5월', '6월', '7월'],
     datasets: [
       {
-        label: 'Digital Goods',
+        label: '입금',
         backgroundColor: 'rgba(60,141,188,0.9)',
         borderColor: 'rgba(60,141,188,0.8)',
         pointRadius: false,
@@ -198,7 +198,7 @@
         data: [28, 48, 40, 19, 86, 27, 90]
       },
       {
-        label: 'Electronics',
+        label: '출금',
         backgroundColor: 'rgba(210, 214, 222, 1)',
         borderColor: 'rgba(210, 214, 222, 1)',
         pointRadius: false,
