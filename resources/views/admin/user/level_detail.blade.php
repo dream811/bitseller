@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0" style="font-size:16px; font-weight:700;">코인 {{ $title }}</h1>
+                <h1 class="m-0" style="font-size:16px; font-weight:700;">등급 {{ $title }}</h1>
             </div><!-- /.col -->
             <div style="position: fixed; z-index: 99; padding: 4px; right: 20px; background-color: lightgray; border-radius: 0.5rem;">
                 <button type="submit" class="btn btn-primary btn-xs btnSave">설정저장</button>
@@ -20,7 +20,7 @@
                 <div class="card card-primary card-outline card-tabs">
                     @csrf
                     <div class="card-header">
-                        <h3 class="card-title text-sm">코인정보</h3>
+                        <h3 class="card-title text-sm">등급정보</h3>
                     </div>
                     <div class="card-body">
                         <input type="hidden" name="id" id="id" value="{{$levelId}}">
@@ -39,25 +39,25 @@
                         <div class="form-group row mb-0">
                             <label for="pay_percent" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">지급요율<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6">
-                            <input type="text" class="form-control form-control-sm" id="pay_percent" name="pay_percent" value="{{ $level->pay_percent }}" placeholder="이름을 입력하세요">
+                            <input type="text" class="form-control form-control-sm" id="pay_percent" name="pay_percent" value="{{ $level->pay_percent }}" placeholder="">
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <label for="levelup_amount" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">레벨업금액<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6">
-                            <input type="number" step="10" class="form-control form-control-sm" id="levelup_amount" name="levelup_amount" value="{{ $level->levelup_amount }}" placeholder="이름을 입력하세요">
+                            <input type="number" step="1" class="form-control form-control-sm" id="levelup_amount" name="levelup_amount" value="{{ $level->levelup_amount }}" placeholder="">
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <label for="min_limit" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">최소구매금액<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6">
-                            <input type="number" step="1" class="form-control form-control-sm" id="min_limit" name="min_limit" value="{{ $level->min_limit }}" placeholder="이름을 입력하세요">
+                            <input type="number" step="1" class="form-control form-control-sm" id="min_limit" name="min_limit" value="{{ $level->min_limit }}" placeholder="">
                             </div>
                         </div>
                         <div class="form-group row mb-0">
                             <label for="max_limit" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">최대구매금액<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6">
-                            <input type="number" step="1" class="form-control form-control-sm" id="max_limit" name="max_limit" value="{{ $level->max_limit }}" placeholder="이름을 입력하세요">
+                            <input type="number" step="1" class="form-control form-control-sm" id="max_limit" name="max_limit" value="{{ $level->max_limit }}" placeholder="">
                             </div>
                         </div>
                         <div class="form-group row mb-0">

@@ -1,4 +1,7 @@
 @extends('admin.layouts.app')
+@section('script')
+<script src="{{asset('admin_assets/js/coin/coin.js')}}"></script>
+@endsection
 @section('content')
 <div class="content-wrapper">
     <div class="content-header">
@@ -82,28 +85,28 @@
             return false;
         });
         
-        $('body').on('change', '.chk-is-use', function () {
-            var status = $(this).is(':checked') ? 1 : 0;
-            if(!confirm('사용상태를 변경하시겠습니까?')){$(this).prop('checked', status == 1 ? false : true);return}
-            var coinId = $(this).attr('data-id');
-            var action = '/admin/coin/state/' + coinId;
+        // $('body').on('change', '.chk-is-use', function () {
+        //     var status = $(this).is(':checked') ? 1 : 0;
+        //     if(!confirm('사용상태를 변경하시겠습니까?')){$(this).prop('checked', status == 1 ? false : true);return}
+        //     var coinId = $(this).attr('data-id');
+        //     var action = '/admin/coin/state/' + coinId;
             
-            $.ajax({
-                url: action,
-                data: {status},
-                type: "POST",
-                dataType: 'json',
-                success: function ({status, data}) {
-                    if(status == "success"){
-                        alert('사용상태가 변경되었습니다.');
-                    }else{
-                        alert('사용상태 변경에 실패하였습니다.');
-                    }
-                },
-                error: function (data) {
-                }
-            });
-        });
+        //     $.ajax({
+        //         url: action,
+        //         data: {status},
+        //         type: "POST",
+        //         dataType: 'json',
+        //         success: function ({status, data}) {
+        //             if(status == "success"){
+        //                 alert('사용상태가 변경되었습니다.');
+        //             }else{
+        //                 alert('사용상태 변경에 실패하였습니다.');
+        //             }
+        //         },
+        //         error: function (data) {
+        //         }
+        //     });
+        // });
         function refreshTable() {
             $('#coinTable').DataTable().ajax.reload();
         }

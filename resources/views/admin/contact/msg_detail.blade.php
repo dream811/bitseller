@@ -50,7 +50,7 @@
                                 @foreach($levels as $key=> $level)
                                     <div class="custom-control custom-radio custom-control-inline">
                                         <input class="custom-control-input" type="radio" id="chk_all{{2 + $loop->iteration}}" name="chk_all" value="{{$level->level}}"  checked >
-                                        <label for="chk_all2" class="custom-control-label pt-1" style="font-size:12px;">{{$level->name}}</label>
+                                        <label for="chk_all{{2 + $loop->iteration}}" class="custom-control-label pt-1" style="font-size:12px;">{{$level->name}}</label>
                                     </div>
                                 @endforeach
                             </div>

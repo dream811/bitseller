@@ -37,7 +37,7 @@
                             </table>
                         </form>
                     </div>
-                        
+                   
                     <!-- /.card -->
                 </div>
             </div>
@@ -62,11 +62,11 @@
             pageLength: 100,
             // fixedHeader: true,
             ajax: {
-                url: "{{ route('admin.qna.list') }}"
+                url:  @if($type1==0) "{{ route('admin.qna.list') }}" @else "{{ route('admin.qna.acc_list') }}" @endif
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false},
-                {title: "제목", data: 'subject', name: 'subject', orderable  : false , className:"text-center"},
+                {title: "제목", data: 'title', name: 'title', orderable  : false , className:"text-center"},
                 {title: "작성날짜", data: 'requested_date', name: 'requested_date', orderable  : false, className:"text-center"},
                 {title: "구분", data: 'type', name: 'type', orderable  : false, className:"text-center"},
                 {title: "작성자", data: 'user_name', name: 'user_name', orderable  : false, className:"text-center"},
@@ -77,6 +77,11 @@
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#Table_wrapper .col-md-6:eq(0)');
         $('body').on('click', '.btnEdit', function () {
+            var qnaId = $(this).attr('data-id');
+            window.open('/admin/contact/qna/' + qnaId, '문의 수정', 'scrollbars=1, resizable=1, width=1000, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnDetail', function () {
             var qnaId = $(this).attr('data-id');
             window.open('/admin/contact/qna/' + qnaId, '문의 수정', 'scrollbars=1, resizable=1, width=1000, height=620');
             return false;

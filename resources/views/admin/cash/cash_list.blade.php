@@ -74,7 +74,7 @@
                 {title: "금액", data: 'amount', name: 'amount', className: "text-right"},
                 {title: "처리날짜", data: 'accepted_date', name: 'accepted_date'},
                 {title: "상태", data: 'state', name: 'state', className: "text-right"},
-                {title: "조작", data: 'action', name: 'action', orderable:false, searchable: false, className: "text-center"},
+                {title: "조작", data: 'action', name: 'action', orderable:false, searchable: false, width:'120px',className: "text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]

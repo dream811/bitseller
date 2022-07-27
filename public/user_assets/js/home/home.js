@@ -122,7 +122,8 @@ function moneyPlus(amount)
 
 //-> 배팅금액수동입력
 function moneyPlusManual(amount) {
-  scope.amount = this_money = amount.replace(/,/g,"");
+  var this_money = amount.replace(/,/g,"");
+  scope.orderAmount = this_money*1;
   $("#order_amount").val((this_money));
   calHitMoney();
 }

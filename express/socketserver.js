@@ -99,12 +99,18 @@ class SocketServer {
             }
         }else if(packet.m_nCmd == constants.PKT_ADMIN_WITHDRAW_CONFIRM){
             this.app.cashProcess.admWithdrawConfirm(ws, packet.strValue);
+        }else if(packet.m_nCmd == constants.PKT_ADMIN_WITHDRAW_CHECK){
+            this.app.cashProcess.admWithdrawCheck(ws, packet.strValue);
         }else if(packet.m_nCmd == constants.PKT_ADMIN_WITHDRAW_CANCEL){
             this.app.cashProcess.admWithdrawCancel(ws, packet.strValue);
         }else if(packet.m_nCmd == constants.PKT_ADMIN_DEPOSIT_CONFIRM){
             this.app.cashProcess.admDepositConfirm(ws, packet.strValue);
+        }else if(packet.m_nCmd == constants.PKT_ADMIN_DEPOSIT_CHECK){
+            this.app.cashProcess.admDepositCheck(ws, packet.strValue);
         }else if(packet.m_nCmd == constants.PKT_ADMIN_DEPOSIT_CANCEL){
             this.app.cashProcess.admDepositCancel(ws, packet.strValue);
+        }else if(packet.m_nCmd == constants.PKT_ADMIN_CHANGE_COIN_STATE){
+            this.app.coinProcess.changeCoinInfo(ws, packet.strValue);
         }
         ///User
         else if(packet.m_nCmd == constants.PKT_USER_ACT_MAIN_AUTH){

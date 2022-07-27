@@ -3,8 +3,9 @@ const moment = require('moment');
 class Scrapper {
     constructor(app) {
         this.app = app;
+        let self = this;
         this.puppeteer = require('puppeteer');
-        this.scrapData();
+        this.scrapData(self);
     }
 
     scrapData() {
@@ -16,7 +17,7 @@ class Scrapper {
             } while (currentDate - date < milliseconds);
         };
         
-
+        var self = this;
         (async () => {
         const browser = await this.puppeteer.launch();
         const page = await browser.newPage();
@@ -43,13 +44,13 @@ class Scrapper {
 
                 //console.log(moment().format('YYYY-MM-DD hh:mm:ss'));
 
-                var data = await page.$$eval('#__next > div.max-w-screen-lg > div > div.mt-4.mb-8 > div:nth-child(7) > div > table > tbody > tr', rows => {
+                var data = await page.$$eval('#__next > div.max-w-screen-lg > div > div.mt-4.mb-8 > div:nth-child(7) > div > table > tbody > tr', (rows,self) => {
                     return Array.from(rows, row => {
                         const columns = row.querySelectorAll('td');
                         var scrap_data = {};
                         //코인정보
                         scrap_data.nk = columns[0].querySelector('div > div').textContent;
-                        scrap_data.ne = columns[0].querySelector('div > div:nth-child(2)').textContent;
+                        scrap_data.ne = columns[0].querySelector('div > div:nth-child(2) > span:nth-child(2)').textContent;
                         scrap_data.ic = columns[0].querySelector('div > div:nth-child(1) > img').src;
                         scrap_data.ic = scrap_data.ic.match(/.*\/(.*)$/)[1];
                         //현재가
@@ -89,12 +90,17 @@ class Scrapper {
                         // scrap_data.t11 = scrap_data.t1.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
                         // scrap_data.t2 = arr_trade_info.length > 1 ? arr_trade_info[1] : "";
                         // scrap_data.t21 = scrap_data.t2.replaceAll(',', '').replace('조 ', '').replace('억', '00000000');
-                        //if(scrap_data.ne == "WEMIX")
-                        return scrap_data;
+                        // if(this.app.coin_list[scrap_data.ne].is_use == 0)
+                        //     return ;
+                        // else
+                            return scrap_data;
                     });
                 });
+
                 var filtered = data.filter(function (el) {
-                    return el != null;
+                    //console.log(self.app.coin_list[el.ne]);
+                    var db_state = self.app.coin_list[el.ne];
+                    return el != null && (db_state != undefined && db_state.is_use == 1);
                 });
                 // console.log(filtered);
                 //로딩중에는 빈자료가 넣지 않는다

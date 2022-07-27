@@ -74,7 +74,7 @@
                 {title: "배당율", data: 'payout_rate', name: 'payout_rate', orderable: false, searchable: false, className: "text-center"},
                 {title: "총구매액", data: 'order_amount', name: 'order_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "상태", data: 'state_info', name: 'state_info',  orderable: false, searchable: false, className: "text-center"},
-                {title: "조작", data: 'action', name: 'action', width: '140px', orderable: false, searchable: false, className: "text-center"},
+                {title: "조작", data: 'action', name: 'action', width: '60px', orderable: false, searchable: false, className: "text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]

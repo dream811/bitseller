@@ -48,6 +48,10 @@ class NoticeController extends Controller
                     $element .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-secondary btnDelete">삭제</button>';
                     return $element;
                 })
+                ->addColumn('title', function ($row) {
+                    $title = '<span data-id="' . $row->id . '" style="cursor:pointer; color:#007bff" class="btnDetail">' . $row->subject . '</span>';
+                    return $title;
+                })
                 ->addColumn('popupInfo', function ($row) {
                     $popup = $row->is_popup == 1 ? "팝업공지" : "일반공지";
                     return $popup;
@@ -56,7 +60,7 @@ class NoticeController extends Controller
                     $content = '관리자';
                     return $content;
                 })
-                ->rawColumns(['check', 'popupInfo', 'writer', 'titleInfo', 'action'])
+                ->rawColumns(['check', 'popupInfo', 'writer', 'title', 'action'])
                 ->make(true);
         }
         return view('admin.contact.notice_list', compact('title'));

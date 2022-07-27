@@ -66,7 +66,7 @@
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false},
-                {title: "제목", data: 'subject', name: 'subject', orderable  : false , className:"text-center"},
+                {title: "제목", data: 'title', name: 'title', orderable  : false , className:"text-center"},
                 {title: "보낸날짜", data: 'send_date', name: 'send_date', orderable  : false, className:"text-center"},
                 {title: "상태", data: 'is_read', name: 'is_read', orderable  : false, className:"text-center"},
                 {title: "읽은날짜", data: 'read_date', name: 'read_date', orderable  : false, className:"text-center"},
@@ -76,6 +76,11 @@
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
         }).buttons().container().appendTo('#Table_wrapper .col-md-6:eq(0)');
+        $('body').on('click', '.btnDetail', function () {
+            var msgId = $(this).attr('data-id');
+            window.open('/admin/contact/msg/' + msgId, '쪽지 수정', 'scrollbars=1, resizable=1, width=1000, height=620');
+            return false;
+        });
         $('body').on('click', '.btnEdit', function () {
             var msgId = $(this).attr('data-id');
             window.open('/admin/contact/msg/' + msgId, '쪽지 수정', 'scrollbars=1, resizable=1, width=1000, height=620');

@@ -131,14 +131,40 @@ class CoinProcess {
 
     }
 
+    async admWithdrawCheck(ws, strValue){
+        var packet = JSON.parse(strValue);
+
+        var sql =  `SELECT * from users where id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
+        let user_info = await this.exeQuery(sql);
+        if(user_info.length == 0){
+            console.log("회원정보가 정확치 않습니다.");
+            ws.send("회원정보가 정확치 않습니다.");
+            return;
+        }
+
+        
+        var query = `UPDATE exchange_list SET state = 3 WHERE id = ${packet.id};`;
+        await this.exeQuery(query);
+        
+        console.log("환전대기신청이 완료되었습니다.");
+        //관리자에 전송
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "환전대기신청이 완료되었습니다."
+        }
+        ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CHECK, m_strPacket:JSON.stringify(packet)}));
+       
+    }
+
     //admin
     async admWithdrawCancel(ws, strValue){
         var packet = JSON.parse(strValue);
 
         var sql =  `SELECT * from users where id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
-        console.log(sql);
+
         let user_info = await this.exeQuery(sql);
-        console.log(user_info)
+
         if(user_info.length == 0){
             console.log("회원정보가 정확치 않습니다.");
             ws.send("회원정보가 정확치 않습니다.");
@@ -146,17 +172,16 @@ class CoinProcess {
         }
 
         sql =  `SELECT * from exchange_list where id = ${packet.id} LIMIT 1`;
-        console.log(sql);
+
         let exchange_info = await this.exeQuery(sql);
 
         var query = `UPDATE exchange_list SET state = 2, accepted_date = now() WHERE id = ${packet.id};`;
         await this.exeQuery(query);
 
-        var query = `UPDATE users SET money = money+${exchange_info[0].amount} WHERE id = ${packet.user_id};`;
+        var query = `UPDATE users SET money = money+${exchange_info[0].amount} WHERE id = ${exchange_info[0].user_id};`;
         await this.exeQuery(query);
 
         //관리자에 전송
-        var m_nCmd = constants.PKT_ADMIN_WITHDRAW_CANCEL;
         var packet = {
             "status"           :   1,
             "error_code"       :   0,
@@ -204,6 +229,37 @@ class CoinProcess {
         //유저에게 알림
         this.app.socketServer.sendMessageByUserId(exchange_info[0].user_id, JSON.stringify({m_nCmd: constants.PKT_USER_DEPOSIT_CONFIRM, m_strPacket:JSON.stringify(packet)}));
     }
+
+    async admDepositCheck(ws, strValue){
+        var packet = JSON.parse(strValue);
+
+        var sql =  `SELECT * from users where id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
+        let user_info = await this.exeQuery(sql);
+        if(user_info.length == 0){
+            console.log("회원정보가 정확치 않습니다.");
+            ws.send("회원정보가 정확치 않습니다.");
+            return;
+        }
+
+        // sql =  `SELECT * from exchange_list where id = ${packet.id} LIMIT 1`;
+        
+        // let exchange_info = await this.exeQuery(sql);
+
+        var query = `UPDATE exchange_list SET state = 3 WHERE id = ${packet.id};`;
+        await this.exeQuery(query);
+
+        
+        //ws.send("입금신청이 승인되었습니다.");
+        //관리자에 전송
+        var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CHECK;
+        var packet = {
+            "status"           :   1,
+            "error_code"       :   0,
+            "message"          :   "입금대기신청이 완료되었습니다."
+        }
+        ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
+        }
+
     //admin
     async admDepositCancel(ws, strValue){
         var packet = JSON.parse(strValue);

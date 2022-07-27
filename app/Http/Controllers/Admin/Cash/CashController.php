@@ -48,8 +48,10 @@ class CashController extends Controller
                 ->addColumn('action', function ($row) {
                     $element = '';
                     if ($row->state == 0){
-                        $element = '<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnConfirm">승인</button>';
-                        $element .= '&nbsp;&nbsp;<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-danger btnCancel">취소</button>';
+                        $element .= '<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="m-1 btn btn-xs btn-primary btnCheck">대기</button>';
+                    }else if($row->state == 3){
+                        $element .= '<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="m-1 btn btn-xs btn-success btnConfirm">승인</button>';
+                        $element .= '<button type="button" data-type="'.$row->type.'" data-id="' . $row->id . '" style="font-size:10px !important;" class="m-1 btn btn-xs btn-danger btnCancel">취소</button>';
                     }
                     return $element;
                 })
@@ -105,11 +107,13 @@ class CashController extends Controller
                 })
                 ->editColumn('state', function ($row) {
                     if ($row->state == 0) {
-                        return "대기";
+                        return "신청";
                     } else if ($row->state == 1) {
                         return "승인";
                     } else if ($row->state == 2) {
                         return "부결";
+                    } else if ($row->state == 3) {
+                        return "대기";
                     }
                 })
                 ->rawColumns(['check', 'action', 'user_name'])

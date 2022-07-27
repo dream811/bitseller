@@ -166,7 +166,13 @@
 							<li class="nav-item">
 								<a href="{{ route('admin.qna.list') }}" class="nav-link {{ (request()->routeIs('admin.qna.list')) ? 'active' : '' }}">
 									<i class="far fa-circle nav-icon"></i>
-									<p>문의관리</p>
+									<p>1:1문의관리</p>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a href="{{ route('admin.qna.acc_list') }}" class="nav-link {{ (request()->routeIs('admin.qna.acc_list')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>계좌문의관리</p>
 								</a>
 							</li>
 							<li class="nav-item">

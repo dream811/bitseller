@@ -1,5 +1,5 @@
 
-const momet = require('moment');
+const moment = require('moment');
 const constants = require('../constants');
 class CashProcess {
     
@@ -13,12 +13,12 @@ class CashProcess {
     init(self) {
     }
     trading(){
-        setInterval(this.calculateProcess, 600000, this);
+        setInterval(this.calculateProcess, 300000, this);
     }
     async calculateProcess(self){
         var dt = new Date();
         // const result = self.app.schedule_list.filter(schedule => schedule.is_use == 1 && Math.abs(new Date(dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+schedule.calculate_time) - new Date()) < 1200000 );
-        var sql = "select * from trading_schedule where is_use=1 && is_del=0 and ABS(TIME(calculate_time) - TIME('"+ dt.toLocaleTimeString() +"')) > 1200000";
+        var sql = "select * from trading_schedule where is_use=1 && is_del=0 and ABS(TIME(calculate_time) - TIME('"+ dt.toLocaleTimeString() +"')) > 600000";
         console.log(sql);
         var result = await self.exeQuery(sql);
         result.forEach(async(value, index) =>{
@@ -40,9 +40,7 @@ class CashProcess {
         var packet = JSON.parse(strValue);
 
         var sql =  `SELECT * from users left join user_level on users.level=user_level.level where users.id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
-        console.log(sql);
         let user_info = await this.exeQuery(sql);
-        console.log(user_info)
         if(user_info.length == 0){
             var m_nCmd = constants.PKT_USER_COIN_BUY;
             var data = {
@@ -65,15 +63,11 @@ class CashProcess {
             return;
         }
 
-        sql =  `SELECT * from coin_list`;
-        console.log(sql);
-        this.app.coin_list = await this.exeQuery(sql);
         var sell_limit = 0;
         if(this.app.coin_list){
-            for (const value of this.app.coin_list) {
-                if(value.key == packet.coin_type){
-                    if(value.is_use == 0){
-                        // ws.send("구매불가능한 코인입니다.");
+            for (const property in this.app.coin_list) {
+                if(property == packet.coin_type)
+                    if(this.app.coin_list[property].is_use == 0){
                         var m_nCmd = constants.PKT_USER_COIN_BUY;
                         var data = {
                             "status"           :   0,
@@ -83,12 +77,12 @@ class CashProcess {
                         ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
                         return false;
                     }else{
-                        sell_limit = value.sell_limit;
+                        sell_limit = this.app.coin_list[property].sell_limit;
                     }
-                }
-            }            
+            }
+            
         }
-       
+
         this.app.scrap_data.forEach(async (value, index, self) => {
             if(value.ne == packet.coin_type){
                 if(sell_limit > value.kp1){
@@ -125,6 +119,57 @@ class CashProcess {
         });
 
         
+    }
+
+    async changeCoinInfo(ws, strValue){
+        var packet = JSON.parse(strValue);
+
+        var sql =  `SELECT * from users left join user_level on users.level=user_level.level where users.id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
+        let user_info = await this.exeQuery(sql);
+        if(user_info.length == 0){
+            var m_nCmd = constants.PKT_USER_COIN_BUY;
+            var data = {
+                "status"           :   0,
+                "error_code"       :   1,
+                "message"          :   "회원정보가 정확치 않습니다."
+            }
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+            return;
+        }
+        if(packet.type == 0) {//상태변경
+            var query = `UPDATE coin_list SET is_use=${packet.is_use} WHERE id = ${packet.id};`;
+            await this.exeQuery(query);
+            
+            for (const property in this.app.coin_list) {
+                if(this.app.coin_list[property].id == packet.id)
+                    this.app.coin_list[property].is_use = packet.is_use;
+            }
+            var m_nCmd = constants.PKT_ADMIN_CHANGE_COIN_STATE;
+            var packet = {
+                "status"           :   1,
+                "error_code"       :   0,
+                "message"          :   "코인의 사용상태가 변경되었습니다."
+            }
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
+        }else{
+            var query = `UPDATE coin_list SET is_use=${packet.is_use}, name='${packet.name}', coin_list.key='${packet.key}', sell_limit=${packet.sell_limit}, kor_name='${packet.kor_name}' WHERE id = ${packet.id};`;
+            await this.exeQuery(query);
+            
+            for (const property in this.app.coin_list) {
+                if(this.app.coin_list[property].id == packet.id)
+                    this.app.coin_list[property].is_use = packet.is_use;
+                    this.app.coin_list[property].sell_limit = packet.sell_limit;
+                    this.app.coin_list[property].kor_name = packet.kor_name;
+                    this.app.coin_list[property].key = packet.key;
+            }
+            var m_nCmd = constants.PKT_ADMIN_CHANGE_COIN_STATE;
+            var packet = {
+                "status"           :   1,
+                "error_code"       :   0,
+                "message"          :   "코인정보가 변경되었습니다."
+            }
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
+        }
     }
 
     exeQuery(query) {

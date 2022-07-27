@@ -41,6 +41,11 @@ function initialize() {
             toastSuccess(data.message);
 			refreshTable();
             break;
+		case PKT_ADMIN_DEPOSIT_CHECK:
+			var data = JSON.parse(packet.m_strPacket);
+			toastSuccess(data.message);
+			refreshTable();
+			break;
         case PKT_ADMIN_DEPOSIT_CANCEL:
             var data = JSON.parse(packet.m_strPacket);
             toastError(data.message);
@@ -54,6 +59,11 @@ function initialize() {
         case PKT_ADMIN_WITHDRAW_CANCEL:
             var data = JSON.parse(packet.m_strPacket);
             toastError(data.message);
+			refreshTable();
+            break;
+		case PKT_ADMIN_WITHDRAW_CHECK:
+            var data = JSON.parse(packet.m_strPacket);
+            toastSuccess(data.message);
 			refreshTable();
             break;
     }
@@ -208,4 +218,16 @@ function initialize() {
       "user_password"     :   scope.userInfo.password,
     }
     SendPacket(type == 0 ? PKT_ADMIN_DEPOSIT_CANCEL : PKT_ADMIN_WITHDRAW_CANCEL, JSON.stringify(packet));
+  });
+  $('body').on('click', '.btnCheck', function () {
+    if(!confirm('대기상태로 전환시겠습니까?')){return}
+    var id = $(this).attr('data-id');
+    var type = $(this).data('type');
+    var status = 3;
+    var packet = {
+      "id"                :   id,
+      "user_id"           :   scope.userInfo.id,
+      "user_password"     :   scope.userInfo.password,
+    }
+    SendPacket(type == 0 ? PKT_ADMIN_DEPOSIT_CHECK : PKT_ADMIN_WITHDRAW_CHECK, JSON.stringify(packet));
   });

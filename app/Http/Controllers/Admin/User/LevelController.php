@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\UserLevel;
+use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
@@ -48,6 +49,11 @@ class LevelController extends Controller
                         </div>
                     </div>';
                     return $btn;
+                })
+                ->editColumn('name', function ($row) {
+                    $users = User::where('level', $row->level)->count();
+                    $value = $row->name."($users)";
+                    return $value;
                 })
                 ->addColumn('action', function ($row) {
                     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';

@@ -115,7 +115,11 @@
                                              </div>
                                              @error('password')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
-                                                   <strong>비밀번호를 입력해주세요{{--{{ $message }}--}}</strong>
+                                                   <strong>비밀번호를 확인해주세요{{--{{ $message }}--}}</strong>
+                                                </span>
+                                             @else
+                                                <span class="invalid-feedback" style="display:block" role="alert">
+                                                   <strong>8자리이상 입력해주세요{{--{{ $message }}--}}</strong>
                                                 </span>
                                              @enderror
                                           </div>
@@ -124,7 +128,7 @@
                                                 <input type="text" class="form-control" name="password_confirmation" id="password_confirmation" placeholder="password_confirmation">
                                                 <label for="password_confirmation">비밀번호 확인</label>
                                              </div>
-                                             @error('password')
+                                             @error('password_confirmation')
                                                 <span class="invalid-feedback" style="display:block" role="alert">
                                                    <strong>비밀번호가 일치하지 않습니다{{--{{ $message }}--}}</strong>
                                                 </span>

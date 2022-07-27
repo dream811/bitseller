@@ -101,10 +101,10 @@ class TradingController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     
-                    $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
-                    $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
-                    $btn = '<button type="button" data-state="1" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-info btnState">정산</button>';
-                    $btn .= '<button type="button" data-state="2" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-warning btnState">적특</button>';
+                    // $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
+                    // $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
+                    // $btn = '<button type="button" data-state="1" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-info btnState">정산</button>';
+                    $btn = '<button type="button" data-state="2" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-warning btnState">적특</button>';
                     return $btn;
                 })
                 ->rawColumns(['action','user_info', 'level'])
@@ -189,10 +189,10 @@ class TradingController extends Controller
                 })
                 ->addColumn('action', function ($row) {
                     
-                    $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
-                    $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
-                    $btn = '<button type="button" data-state="1" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-info btnState">정산</button>';
-                    $btn .= '<button type="button" data-state="2" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-warning btnState">적특</button>';
+                    // $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
+                    // $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
+                    // $btn = '<button type="button" data-state="1" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-info btnState">정산</button>';
+                    $btn = '<button type="button" data-state="2" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-warning btnState">적특</button>';
                     return $btn;
                 })
                 ->rawColumns(['action','user_info', 'level'])

@@ -168,25 +168,70 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="{{route('admin.user.new_list')}}" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명</a>
+                        <a href="{{route('admin.user.new_list')}}" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;&nbsp;신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명
+                        </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.user.levelup_list')}}" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i><span style="font-size:12px;">레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명</a>
+                        <a href="{{route('admin.user.levelup_list')}}" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명
+                        </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.cash.cash_list', 0)}}" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.cash.cash_list', 0)}}" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.cash.cash_list', 1)}}" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">출금신청:</span><code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.cash.cash_list', 1)}}" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;출금신청:</span><code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.qna.list')}}" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">1:1문의:</span><code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.qna.list')}}" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;1:1문의:</span><code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.qna.list')}}" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i><span style="font-size:12px;">계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.qna.acc_list')}}" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-dark btn-block btn-sm"><!--<i class="far fa-bell"></i>--><i class="fa fa-book"></i><span style="font-size:12px;">코인구매:</span><code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건</a>
+                        <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-dark btn-block btn-sm"><!--<i class="far fa-bell"></i>--><i class="fa fa-book"></i>
+                            <span style="font-size:12px;font-weight:bold">&nbsp;코인구매:</span><code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a>
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1 font-weight-bold" style="font-weight:bold">
+                        {{-- <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-default btn-block btn-sm text-xs"><!--<i class="far fa-bell"></i>-->
+                            <i class="fa fa-book"></i><span style="font-size:12px;">등급별현황:</span>
+                            일반회원<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                            브론즈<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                            실버<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                            골드<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a> --}}
+                        <span class="input-group input-group-sm mb-2 mr-sm-2 text-xs font-weight-bold" style="font-weight:bold;border-radius:4px !important; border:1px solid brown;height: calc(1.75rem + 2px);">
+                            {{-- <span class="input-group-prepend" >
+                                <div class="input-group-text text-xs">등급별현황:</div>
+                                &nbsp;
+                            </span>    --}}
+                            <div class="input-group-prepend" style="height: calc(1.7rem + 2px);">
+                                <div class="input-group-text text-xs" style="height: calc(1.65rem + 2px);color:rgb(231, 181, 16);font-weight:bold">브론즈</div>
+                            </div>
+                            <input type="text" id="" name="" value="0" style="height: calc(1.65rem + 2px);width:50px !important;font-weight:bold" class="text-right text-xs form-control level_1" readonly="readonly">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text text-xs" style="height: calc(1.65rem + 2px);color:rgb(153, 153, 152);font-weight:bold">실버</div>
+                            </div>
+                            <input type="text" id="" name="" value="0" style="height: calc(1.65rem + 2px);width:50px !important;font-weight:bold" class="text-right text-xs form-control level_2" readonly="readonly">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text text-xs" style="height: calc(1.65rem + 2px);color:rgb(168, 143, 2);font-weight:bold">골드</div>
+                            </div>
+                            <input type="text" id="" name="" value="0" style="height: calc(1.65rem + 2px);width:50px !important;font-weight:bold" class="text-right text-xs form-control level_3" readonly="readonly">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text text-xs" style="height: calc(1.65rem + 2px);color:green;font-weight:bold">VIP</div>
+                            </div>
+                            <input type="text" id="" name="" value="0" style="height: calc(1.65rem + 2px);width:50px !important;font-weight:bold" class="text-right text-xs form-control level_4" readonly="readonly">
+                        </span>
                     </li>
                 </ul>
                 <!-- Right navbar links -->
@@ -336,6 +381,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#new_qna_cnt').text(data.new_qnas);
                     $('#new_acc_qna_cnt').text(data.new_acc_qnas);
                     $('#new_trading_cnt').text(data.new_tradings);
+                    data.level_users.forEach((element)=>{
+                        $('.level_'+element.level).val(element.cnt+"명");
+                    });
                     if(data.new_users > 0){
                         scope.new_user.play();
                         return;

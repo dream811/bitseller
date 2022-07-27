@@ -25,22 +25,27 @@ class App {
         //웹소켓
         this.socketServer = new SocketServer(self);
         //스크레핑
-        this.coin_list = null;
+        this.coin_list = {};
         this.schedule_list = null;
         this.scrap_data = null;
-        this.scrapper = new Scrapper(self);
+        
         //트레이딩
         this.coinProcess = new CoinProcess(self);
         //캐쉬관리
         this.cashProcess = new CashProcess(self);
         //디비로딩
         this.loadDB(self);
+
+        this.scrapper = new Scrapper(self);
     }
 
     async loadDB(self) {
-        self.coin_list = await this.coinProcess.exeQuery('select * from coin_list ');
+        var db_data = await this.coinProcess.exeQuery('select * from coin_list ');
+        db_data.forEach((value) =>{
+          self.coin_list[value.key] = {id:value.id, name:value.name, key:value.key, sell_limit:value.sell_limit, is_use:value.is_use};
+        });
+
         self.schedule_list = await this.coinProcess.exeQuery('select * from trading_schedule');
-        console.log(self.coin_list);
         /**
          * 배렬 조합
          */

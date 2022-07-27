@@ -1,4 +1,5 @@
 @extends('admin.layouts.iframe')
+
 @section('content')
 <form id="userForm" method="post" action="{{ route('admin.user.save', $coinId) }}" enctype="multipart/form-data"> 
     <div class="content-header">
@@ -8,7 +9,7 @@
                 <h1 class="m-0" style="font-size:16px; font-weight:700;">코인 {{ $title }}</h1>
             </div><!-- /.col -->
             <div style="position: fixed; z-index: 99; padding: 4px; right: 20px; background-color: lightgray; border-radius: 0.5rem;">
-                <button type="submit" class="btn btn-primary btn-xs btnSave">설정저장</button>
+                <button type="button" class="btn btn-primary btn-xs btnSave">설정저장</button>
                 <button type="button" class="btn bg-indigo btn-xs btnClose">닫기</button>
             </div>
             </div><!-- /.col -->
@@ -73,7 +74,8 @@
     </div>
 </form>
 @endsection
-@section('script')    
+@section('script') 
+<script src="{{asset('admin_assets/js/coin/coin.js')}}"></script>   
     <script>
         $(document).ready(function () {
             $.ajaxSetup({
@@ -146,7 +148,7 @@
                 
             });
             
-            $('.btnClose').on('click', function (e) {
+            $('body').on('click', '.btnClose', function () {
                 window.close();
             });
             

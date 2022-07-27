@@ -143,6 +143,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         //1대1문의
 
         Route::get('contact/qna',                   [App\Http\Controllers\Admin\Contact\QNAController::class, 'index'])->name('qna.list');
+        Route::get('contact/acc_qna',               [App\Http\Controllers\Admin\Contact\QNAController::class, 'acc_index'])->name('qna.acc_list');
         Route::get('contact/qna/{id}',              [App\Http\Controllers\Admin\Contact\QNAController::class, 'show'])->name('qna.edit');
         Route::post('contact/qna/{id}',             [App\Http\Controllers\Admin\Contact\QNAController::class, 'save'])->name('qna.save');
         Route::delete('contact/qna/{id}',           [App\Http\Controllers\Admin\Contact\QNAController::class, 'delete'])->name('qna.delete');
