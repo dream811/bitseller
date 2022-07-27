@@ -33,7 +33,7 @@ class CashController extends Controller
         $title = "입금";
         if ($type == 1)
             $title = "출금";
-
+        Exchange::where('type', $type)->where('is_check', 0)->update(['is_check' => 1]);
 
         if ($request->ajax()) {
             $monies = Exchange::where('type', $type)

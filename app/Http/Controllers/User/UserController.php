@@ -72,25 +72,31 @@ class UserController extends Controller
      */
     public function change_info(Request $request)
     {
+        $nickname = $request->post('nickname');
+        $member_code = $request->post('member_code');
+        $phone = $request->post('phone');
+        if(User::where('member_code', $member_code)->where('id', '!=', Auth::id())->count()>0){
+            $message = "동일한 하부회원가입코드가 이미 존재하니 다시 입력해주세요.";
+            return response()->json(["status" => "error", "data" => compact('message')]);
+        }
         if($request->post('password') != "" && Hash::check($request->post('password'), Auth::user()->password)){
             $new_password = Hash::make($request->post('new_password'));
-            $nickname = $request->post('nickname');
-            $phone = $request->post('phone');
+            
             User::updateOrCreate(['id'=>Auth::id()],
             [
                 'password' => $new_password,
                 'nickname' => $nickname,
+                'member_code' => $member_code,
                 'phone' => $phone
             ]);
             $message = "정보를 수정하였습니다.";
             return response()->json(["status" => "success", "data" => compact('message')]);
         }else if($request->post('password') == ""){
-            $new_password = Hash::make($request->post('new_password'));
-            $nickname = $request->post('nickname');
-            $phone = $request->post('phone');
+            
             User::updateOrCreate(['id'=>Auth::id()],
             [
                 'nickname' => $nickname,
+                'member_code' => $member_code,
                 'phone' => $phone
             ]);
             $message = "정보를 수정하였습니다.";

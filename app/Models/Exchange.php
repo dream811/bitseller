@@ -18,6 +18,7 @@ class Exchange extends Model
         'accepted_date',
         'type',
         'state',
+        'is_check',
         'is_del',
     ];
 

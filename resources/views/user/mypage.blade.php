@@ -16,7 +16,7 @@
                 <nav class="small" id="elements-section">
                     <ul class="list-unstyled mb-0">
                         <li class="mt-2">
-                            <a href="{{ route('user.deposit') }}" class="active btn d-inline-flex align-items-center collapsed " >나의정보</a>
+                            <a href="{{ route('user.mypage') }}" class="active btn d-inline-flex align-items-center collapsed " >나의정보</a>
                         </li>
                     </ul>
                 </nav>
@@ -73,10 +73,8 @@
                                         </div>
                                         <div class="col-md-6 mb-4">
                                             <div class="form-floating mb-3">
-                                                <span class="form-control" type="text"  placeholder="" aria-label="">
-                                                    {{Auth::user()->str_id}}
-                                                </span>
-                                                <label for="str_id">아이디</label>
+                                                <input type="text" class="form-control" value="{{Auth::user()->member_code}}" name="member_code" id="member_code" placeholder="하부회원가입코드">
+                                                <label for="member_code">하부회원가입코드</label>
                                             </div>
                                         </div>
                                         <div class="col-md-6 mb-4">

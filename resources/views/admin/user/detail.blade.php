@@ -244,6 +244,12 @@
                             </div>
                         --}}
                         <div class="form-group row mb-0">
+                            <label for="member_code" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">하부회원가입코드</label>
+                            <div class="col-sm-9 col-md-6">
+                            <input type="text" class="form-control form-control-sm" id="member_code" name="member_code" value="{{ $user->member_code }}" placeholder="">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-0">
                             <label for="referer" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">추천인</label>
                             <div class="col-sm-9 col-md-6">
                             <input type="text" class="form-control form-control-sm" id="referer" name="referer" value="{{ $user->referer }}" placeholder="">

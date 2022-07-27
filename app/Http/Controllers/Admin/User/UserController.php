@@ -140,6 +140,7 @@ class UserController extends Controller
             'bank_id' => $request->post('bank_id'),
             'bank_account' => $request->post('bank_account'),
             'bank_user' => $request->post('bank_user'),
+            'member_code' => $request->post('member_code'),
             // 'business_number' => $request->post('txtBusinessNumber'),
             // 'business_phone' => $request->post('txtBusinessPhone'),
             // 'business_type' => $request->post('txtBusinessType'),

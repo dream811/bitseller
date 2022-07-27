@@ -37,7 +37,7 @@ class UtilController extends Controller
     
     public function referer_check(Request $request)
     {
-        $cnt = count(User::whereIn('type', ['PARTNER', 'ADMIN'])->where('str_id', $request->get('referer'))->get());
+        $cnt = count(User::whereIn('type', ['PARTNER', 'ADMIN'])->where('member_code', $request->get('referer'))->get());
         if ($cnt > 0){
             return response()->json(["status" => "success", "data" => '']);
         }else{

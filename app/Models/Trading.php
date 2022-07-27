@@ -19,6 +19,7 @@ class Trading extends Model
         'order_amount',
         'payout_rate',
         'state',
+        'is_check',
         'created_at',
         'updated_at',
         'is_del',
