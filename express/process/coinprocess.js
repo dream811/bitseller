@@ -87,7 +87,9 @@ class CashProcess {
 
         this.app.scrap_data.forEach(async (value, index, self) => {
             if(value.ne == packet.coin_type){
-                if(sell_limit > value.kp1){
+                console.log(sell_limit + "****" + value.kp1)
+                if(sell_limit*1  > value.kp1 *1){
+                    
                     //코인구매제한 값보다 낮은 경우
                     var m_nCmd = constants.PKT_USER_COIN_BUY;
                     var data = {
