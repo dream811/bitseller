@@ -54,12 +54,34 @@ class CashProcess {
             return;
         }
 
+        if(user_info[0].is_use == 0){
+            var m_nCmd = constants.PKT_USER_COIN_BUY;
+            var data = {
+                "status"           :   0,
+                "error_code"       :   6,
+                "message"          :   "회원님은 구매가 불가능합니다."
+            }
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+            return;
+        }
+
         if(user_info[0].money < packet.order_amount){
             var m_nCmd = constants.PKT_USER_COIN_BUY;
             var data = {
                 "status"           :   0,
                 "error_code"       :   2,
                 "message"          :   "보유머니가 충분하지 않습니다."
+            }
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+            return;
+        }
+
+        if(user_info[0].min_limit > packet.order_amount || user_info[0].max_limit < packet.order_amount){
+            var m_nCmd = constants.PKT_USER_COIN_BUY;
+            var data = {
+                "status"           :   0,
+                "error_code"       :   5,
+                "message"          :   "회원님 등급에서 구매불가능한 금액입니다."
             }
             ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
             return;
