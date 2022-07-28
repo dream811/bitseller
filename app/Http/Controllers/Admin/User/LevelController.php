@@ -51,7 +51,7 @@ class LevelController extends Controller
                     return $btn;
                 })
                 ->editColumn('name', function ($row) {
-                    $users = User::where('level', $row->level)->count();
+                    $users = User::where('level', $row->level)->where('type', "USER")->count();
                     $value = $row->name."($users)";
                     return $value;
                 })
