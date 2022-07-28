@@ -14,11 +14,11 @@ class Notice extends Model
     protected $fillable = ['user_id', 'subject', 'content', 'created_at', 'updated_at', 'is_pupup', 'is_del'];
     public function getCreatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('Y-m-d h:i:s');
+        return Carbon::parse($value)->format('Y-m-d H:i:s');
     }
 
     public function getUpdatedAtAttribute($value)
     {
-        return Carbon::parse($value)->format('Y-m-d h:i:s');
+        return Carbon::parse($value)->format('Y-m-d H:i:s');
     }
 }

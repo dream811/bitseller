@@ -127,8 +127,8 @@ class CashProcess {
                     
                     var add_amount = Math.floor(packet.order_amount * user_info[0].pay_percent / 100);
                     var payout_amount = packet.order_amount + add_amount;
-                    query = `INSERT INTO coin_trade_list (user_id, coin_type, cur_price, coin_quantity, order_amount, payout_rate, add_amount, payout_amount) 
-                        VALUES (${packet.user_id}, '${packet.coin_type}', ${value.c11}, ${coin_quantity}, ${packet.order_amount}, ${user_info[0].pay_percent}, ${add_amount}, ${payout_amount});`;
+                    query = `INSERT INTO coin_trade_list (user_id, coin_type, cur_price, coin_quantity, order_amount, payout_rate, add_amount, payout_amount, created_at) 
+                        VALUES (${packet.user_id}, '${packet.coin_type}', ${value.c11}, ${coin_quantity}, ${packet.order_amount}, ${user_info[0].pay_percent}, ${add_amount}, ${payout_amount}, now());`;
                     await this.exeQuery(query);
                     //코인구매성공
                     var m_nCmd = constants.PKT_USER_COIN_BUY;

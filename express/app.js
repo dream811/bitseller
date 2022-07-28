@@ -14,6 +14,7 @@ const CashProcess = require('./process/cashprocess');
 
 class App {
     constructor() {
+      	process.env.TZ = "Asia/Seoul";
         console.log('create app');
 
         this.db = null;
