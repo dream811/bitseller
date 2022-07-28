@@ -41,7 +41,7 @@ class CashProcess {
     async buyCoin(ws, strValue){
         var packet = JSON.parse(strValue);
 
-        var sql =  `SELECT * from users left join user_level on users.level=user_level.level where users.id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
+        var sql =  `SELECT users.*, user_level.pay_percent, user_level.min_limit, user_level.max_limit, user_level.can_buy from users left join user_level on users.level=user_level.level where users.id = ${packet.user_id} and password = '${packet.user_password}' LIMIT 1`;
         let user_info = await this.exeQuery(sql);
         if(user_info.length == 0){
             var m_nCmd = constants.PKT_USER_COIN_BUY;
@@ -54,7 +54,7 @@ class CashProcess {
             return;
         }
 
-        if(user_info[0].is_use == 0){
+        if(user_info[0].is_use == 0 || user_info[0].can_buy == 0){
             var m_nCmd = constants.PKT_USER_COIN_BUY;
             var data = {
                 "status"           :   0,
@@ -64,6 +64,21 @@ class CashProcess {
             ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
             return;
         }
+        var dt = new Date();
+        var sql = "select * from trading_schedule where is_use=1 and is_del=0 and ('"+ dt.toLocaleTimeString('en-US', {hour12: false}) +"' between start_time AND end_time) ";
+        console.log(sql);
+        var schedule_list = await this.exeQuery(sql);
+        if(schedule_list.length == 0){
+            var m_nCmd = constants.PKT_USER_COIN_BUY;
+            var data = {
+                "status"           :   0,
+                "error_code"       :   7,
+                "message"          :   "코인구매가 불가능한 시간이니 잠시후 다시 시도해주세요."
+            }
+            ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(data)}));
+            return;
+        }
+        
 
         if(user_info[0].money < packet.order_amount){
             var m_nCmd = constants.PKT_USER_COIN_BUY;

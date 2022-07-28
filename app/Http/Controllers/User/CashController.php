@@ -137,7 +137,7 @@ class CashController extends Controller
     {
         $title="배당금지급내역";
         if ($request->ajax()) {
-            $exchanges = Trading::where('user_id', Auth::id())->where('state', '!=', 0)->orderBy('created_at', 'DESC');
+            $exchanges = Trading::where('user_id', Auth::id())->where('state', '==', 1)->orderBy('created_at', 'DESC');
 
             return DataTables::of($exchanges)
                 ->addIndexColumn()

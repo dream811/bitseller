@@ -89,7 +89,7 @@ function SendAuthPacket()
         }
         else//게스트
         {
-            var user_id = Date.now();
+            var user_id = 0;
             scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id}));
         }
     }
@@ -103,7 +103,7 @@ function SendAuthPacket()
         }
         else//게스트
         {
-            var user_id = Date.now();
+            var user_id = 0;
             scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id}));
         }
     }

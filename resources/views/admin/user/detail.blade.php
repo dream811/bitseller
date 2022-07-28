@@ -97,19 +97,19 @@
                             <div class="col-sm-5 col-md-3">
                             <input type="number" class="form-control form-control-sm" id="money" name="money" value="{{ $user->money }}" placeholder="예치금액을 입력하세요">
                             </div>
-                            @if ($userId > 0)
+                            {{-- @if ($userId > 0)
                             <div class="col-sm-4 col-md-3">
                                 <div class="input-group input-group-sm">
                                     <span class="input-group-prepend">
                                         <button type="button" class="btn btn-sm btn-info btn-flat btnAddMoney">넣기</button>
                                     </span>
-                                    <input type="number" class="form-control form-control-sm text-right" id="add_money" name="money" value="0">
+                                    <input type="number" class="form-control form-control-sm text-right" id="add_money" name="add_money" value="0">
                                     <span class="input-group-append">
                                         <button type="button" class="btn btn-sm btn-info btn-flat btnSubMoney">빼기</button>
                                     </span>
                                 </div>
                             </div>
-                            @endif
+                            @endif --}}
                         </div>
                         <div class="form-group row mb-0">
                             <label for="money" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">총입금액</label>

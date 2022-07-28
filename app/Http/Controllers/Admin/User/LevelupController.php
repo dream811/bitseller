@@ -50,12 +50,15 @@ class LevelupController extends Controller
                 
                 ->editColumn('levelup', function ($row) {
                     
-                    $btn='<div>
-                        <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input chk-is-use" data-id="'.$row->id.'" id="chkUse_'.$row->id.'">
-                        <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>
-                        </div>
-                    </div>';
+                    // $btn='<div>
+                    //     <div class="custom-control custom-switch">
+                    //     <input type="checkbox" class="custom-control-input chk-is-use" data-id="'.$row->id.'" id="chkUse_'.$row->id.'">
+                    //     <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>
+                    //     </div>
+                    // </div>';
+                    $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnConfirm">승인</button>';
+                    $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnCancel">취소</button>';
+                    return $btn;
                     return $btn;
                 })
                 ->editColumn('level', function ($row) {

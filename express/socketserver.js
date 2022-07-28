@@ -75,6 +75,16 @@ class SocketServer {
         }
     }
 
+    sendLoggedInUserInfo(){
+        
+        for (const key in this.clients) {
+            if (this.clients[key].user_id != 0 && this.clients[key].type == 0){
+                console.log('sendLoggedInUserInfo')
+                console.log(this.clients[key].user_id);
+            }
+        }
+    }
+
     Process(ws, socket_id, packet){
         
         if(packet.m_nCmd == constants.PKT_ADMIN_ACT_MAIN_AUTH)
@@ -118,6 +128,8 @@ class SocketServer {
             for (const property in this.clients) {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
+                    this.sendLoggedInUserInfo();
+                    break;
                 }
             }
         }
@@ -127,6 +139,8 @@ class SocketServer {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
                     this.clients[property].page_type = 1;
+                    this.sendLoggedInUserInfo();
+                    break;
                 }
             }
         }
