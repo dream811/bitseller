@@ -18,12 +18,13 @@ class CashProcess {
     async calculateProcess(self){
         var dt = new Date();
         // const result = self.app.schedule_list.filter(schedule => schedule.is_use == 1 && Math.abs(new Date(dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+schedule.calculate_time) - new Date()) < 1200000 );
-        var sql = "select * from trading_schedule where is_use=1 && is_del=0 and ABS(TIME(calculate_time) - TIME('"+ dt.toLocaleTimeString() +"')) > 600000";
+        var sql = "select * from trading_schedule where is_use=1 and is_del=0 and ABS(TIME(calculate_time) - TIME('"+ dt.toLocaleTimeString() +"')) < 600";
+        console.log(sql);
         var result = await self.exeQuery(sql);
         console.log(result);
         result.forEach(async(value, index) =>{
             //if(value.calculate_time)
-            var sql = "select * from coin_trade_list where state=0 && is_del=0 and TIME(created_at) > TIME('"+ value.start_time +"') and TIME(created_at) < TIME('" + value.end_time +"')";
+            var sql = "select * from coin_trade_list where state=0 and is_del=0 and TIME(created_at) > TIME('"+ value.start_time +"') and TIME(created_at) < TIME('" + value.end_time +"')";
             console.log(sql);
             var trade_list = await self.exeQuery(sql);
             trade_list.forEach(async (val, idx)=>{
