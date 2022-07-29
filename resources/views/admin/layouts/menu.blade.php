@@ -52,6 +52,14 @@
 						</ul>
 						<ul class="nav nav-treeview">
 							<li class="nav-item">
+								<a href="javascript:goto_login_users();"  class="nav-link {{ (request()->routeIs('admin.user.login_list')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>가입회원</p>
+								</a>
+							</li>
+						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
 								<a href="{{ route('admin.user.level_list') }}" class="nav-link {{ (request()->routeIs('admin.user.level_list')) ? 'active' : '' }}">
 									<i class="far fa-circle nav-icon"></i>
 									<p>등급관리</p>
