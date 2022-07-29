@@ -75,7 +75,8 @@
                 {title: "예치금", data: 'money', name: 'money'},
                 {title: "구매금", data: 'buy_sum', name: 'buy_sum'},
                 {title: "등급", data: 'level', name: 'level', className: "text-center"},
-                {title: "레벨업", data: 'levelup', name: 'levelup', className: "text-right"},
+                {title: "상태", data: 'level_state', name: 'level_state', className: "text-center"},
+                {title: "레벨업", data: 'levelup', name: 'levelup', className: "text-right", width: '60px'},
                 // {title: "조작", data: 'action', name: 'action', orderable:false, searchable: false, className: "text-center"},
             ],
             responsive: true, lengthChange: true,
@@ -103,6 +104,52 @@
                         alert('회원등급을 레벨업하였습니다.');
                     }else{
                         alert('레벨업에 실패하였습니다.');
+                    }
+                },
+                error: function (data) {
+                }
+            });
+        });
+        $('body').on('click', '.btnConfirm', function () {
+            var status = 1;
+            if(!confirm('회원등급을 레벨업하시겠습니까?')){return;}
+            var userId = $(this).attr('data-id');
+            var action = '/admin/user/levelup/' + userId;
+            
+            $.ajax({
+                url: action,
+                data: {status},
+                type: "POST",
+                dataType: 'json',
+                success: function ({status, data}) {
+                    if(status == "success"){
+                        refreshTable();
+                        alert('회원등급을 레벨업하였습니다.');
+                    }else{
+                        alert('레벨업에 실패하였습니다.');
+                    }
+                },
+                error: function (data) {
+                }
+            });
+        });
+        $('body').on('click', '.btnCancel', function () {
+            var status = 2;
+            if(!confirm('회원레벨업을 취소하시겠습니까?')){return;}
+            var userId = $(this).attr('data-id');
+            var action = '/admin/user/levelup/' + userId;
+            
+            $.ajax({
+                url: action,
+                data: {status},
+                type: "POST",
+                dataType: 'json',
+                success: function ({status, data}) {
+                    if(status == "success"){
+                        refreshTable();
+                        alert('회원레벨업을 취소하였습니다.');
+                    }else{
+                        alert('레벨업취소에 실패하였습니다.');
                     }
                 },
                 error: function (data) {

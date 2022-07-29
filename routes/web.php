@@ -27,7 +27,7 @@ Route::post('/deleteImage',                         [App\Http\Controllers\ImageC
 Route::get('/bank_info',                            [App\Http\Controllers\User\UtilController::class, 'bank_info'])->name('bank_info');
 Route::get('/referer_check',                        [App\Http\Controllers\User\UtilController::class, 'referer_check'])->name('referer_check');
 
-Route::middleware('auth')->name('user.')->group(
+Route::middleware('user')->name('user.')->group(
     function () {
         /////////////////////////////** 입출금관리 **//////////////////////////////////
         Route::get('/deposit',                      [App\Http\Controllers\User\CashController::class, 'deposit'])->name('deposit');

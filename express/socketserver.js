@@ -7,6 +7,7 @@ class SocketServer {
         this.WebSocketServer = require('ws');
         this.wss = new WebSocketServer.Server({ port: 8080 });
         this.clients = {};
+        this.active_users = [];
         let self = this;
         this.initSocketServer(self);
     }
@@ -75,12 +76,11 @@ class SocketServer {
         }
     }
 
-    sendLoggedInUserInfo(){
+    sendLoggedInUserInfo(data){
         
-        for (const key in this.clients) {
-            if (this.clients[key].user_id != 0 && this.clients[key].type == 0){
-                console.log('sendLoggedInUserInfo')
-                console.log(this.clients[key].user_id);
+        for (const key in this.active_users) {
+            if (data.user_id != 0 && this.active_users[key].user_id != data.user_id){
+                
             }
         }
     }
@@ -128,7 +128,7 @@ class SocketServer {
             for (const property in this.clients) {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
-                    this.sendLoggedInUserInfo();
+                    this.sendLoggedInUserInfo(data);
                     break;
                 }
             }
@@ -139,7 +139,7 @@ class SocketServer {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
                     this.clients[property].page_type = 1;
-                    this.sendLoggedInUserInfo();
+                    this.sendLoggedInUserInfo(data);
                     break;
                 }
             }

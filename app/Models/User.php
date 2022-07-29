@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'nickname', 'email', 'password', 'str_id', 'level', 'type', 'is_use', 'is_del', 'phone', 'bank_id', 'bank_user', 'bank_account', 'money', 'buy_sum', 'deposit_sum', 'withdraw_sum', 'profit_sum', 'member_code', 'referer'
+        'name', 'nickname', 'email', 'password', 'str_id', 'level', 'levelup_flag', 'type', 'is_use', 'is_del', 'phone', 'bank_id', 'bank_user', 'bank_account', 'money', 'buy_sum', 'deposit_sum', 'withdraw_sum', 'profit_sum', 'member_code', 'referer'
     ];
 
     /**
@@ -45,6 +45,10 @@ class User extends Authenticatable
     public function isPartner()
     {
         return ($this->type == 'PARTNER') ? true : false; // this looks for an admin column in your users table
+    }
+    public function isUser()
+    {
+        return ($this->type == 'USER' || $this->type == 'PARTNER') ? true : false; // this looks for an admin column in your users table
     }
     public function userLevel()
     {

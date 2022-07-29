@@ -43,7 +43,7 @@ class HomeController extends Controller
         $new_users = count(User::where('is_use', 2)->get());
         $levelup_users = count(User::where('type', 'USER')->where('users.is_use', 1)->leftJoin('user_level', function($join) {
             $join->on('user_level.level', '=', 'users.level');
-        })->where('users.buy_sum', '>', DB::raw('user_level.levelup_amount'))->get());
+        })->where('users.buy_sum', '>', DB::raw('user_level.levelup_amount'))->where('users.levelup_flag', 0)->get());
         $new_deposits = count(Exchange::where('type', 0)->where('state', 0)->where('is_check', 0)->get());
         $new_withdraws = count(Exchange::where('type', 1)->where('state', 0)->where('is_check', 0)->get());
         $new_qnas = count(QNA::where('type', 0)->where('is_answer', 0)->get());

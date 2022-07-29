@@ -84,13 +84,15 @@ function SendAuthPacket()
         if(document.getElementById("user_id") != null)
         {
             var user_id = document.getElementById("user_id").value;
+            var user_level = document.getElementById("user_level").value;
             
-            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id}));
+            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id, user_level}));
         }
         else//게스트
         {
             var user_id = 0;
-            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id}));
+            var user_level = 0;
+            scope.SendPacket(PKT_USER_ACT_MAIN_AUTH, JSON.stringify({user_id, user_level}));
         }
     }
     else
@@ -99,12 +101,14 @@ function SendAuthPacket()
         if(document.getElementById("user_id") != null)
         {
             var user_id = document.getElementById("user_id").value;
-            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id}));
+            var user_level = document.getElementById("user_level").value;
+            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id, user_level}));
         }
         else//게스트
         {
             var user_id = 0;
-            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id}));
+            var user_level = 0;
+            scope.SendPacket(PKT_USER_ACT_SUB_AUTH, JSON.stringify({user_id, user_level}));
         }
     }
 }

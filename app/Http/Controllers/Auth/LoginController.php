@@ -82,4 +82,13 @@ class LoginController extends Controller
     
     //     return redirect("login")->withSuccess('Oppes! You have entered invalid credentials');
     // }
+
+    protected function authenticated(Request $request, $user)
+    {
+        if ( $user->isAdmin() ) {// do your magic here
+            return redirect()->route('admin.user.list');
+        }
+
+        return redirect('/');
+    }
 }

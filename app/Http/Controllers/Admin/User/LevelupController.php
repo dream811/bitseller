@@ -59,12 +59,16 @@ class LevelupController extends Controller
                     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnConfirm">승인</button>';
                     $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnCancel">취소</button>';
                     return $btn;
-                    return $btn;
                 })
                 ->editColumn('level', function ($row) {
                     
                     $level = $row->userLevel->name;
                     return $level;
+                })
+                ->addColumn('level_state', function ($row) {
+                    $level_state = $row->levelup_flag == 1 ? "취소":"대기";
+                    
+                    return $level_state;
                 })
                 ->addColumn('bank_name', function ($row) {
                     $bank_name = Bank::find($row->bank_id)->name;
@@ -157,9 +161,16 @@ class LevelupController extends Controller
     public function levelup($userId, Request $request)
     {
         $status = $request->post('status');
+        if($status == 2){
+            $user = User::where('id', $userId)
+            ->update(            
+                ['levelup_flag' => 1]
+            );
+            return response()->json(["status" => "success", "data" => $user]);
+        }
         $user = User::where('id', $userId)
             ->update(            
-                ['level' => DB::raw('level + 1')]
+                ['level' => DB::raw('level + 1'), 'levelup_flag' => 0]
             );
         return response()->json(["status" => "success", "data" => $user]);
     }
