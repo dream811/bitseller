@@ -89,6 +89,6 @@ class LoginController extends Controller
             return redirect()->route('admin.user.list');
         }
 
-        return redirect('/');
+        return redirect('/home');
     }
 }

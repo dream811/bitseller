@@ -197,11 +197,12 @@ class CashProcess {
             await this.exeQuery(query);
             
             for (const property in this.app.coin_list) {
-                if(this.app.coin_list[property].id == packet.id)
+                if(this.app.coin_list[property].id == packet.id){
                     this.app.coin_list[property].is_use = packet.is_use;
                     this.app.coin_list[property].sell_limit = packet.sell_limit;
                     this.app.coin_list[property].kor_name = packet.kor_name;
                     this.app.coin_list[property].key = packet.key;
+                }
             }
             var m_nCmd = constants.PKT_ADMIN_CHANGE_COIN_STATE;
             var packet = {

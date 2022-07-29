@@ -14,11 +14,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/we', function () {
-    return view('welcome');
+Route::get('/', function () {
+    if(!Auth::check())
+        return redirect('login');
+    else if( Auth::check() && Auth::user()->isAdmin() == 1)
+        return view('admin.home');
+    else
+        return redirect('/home');
 });
-
-Route::get('/',                                     [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
+// Route::group(['middleware' => ['guest']], function () {
+//     Route::get('/', function () {
+//         if()
+//             return redirect('login');
+//     });
+// });
+//Route::get('/',                                     [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
 Route::get('/resizeImage',                          [App\Http\Controllers\ImageController::class, 'resizeImage']);
 Route::post('/resizeImagePost',                     [App\Http\Controllers\ImageController::class, 'resizeImagePost'])->name('resizeImagePost');
 Route::post('/uploadImage',                         [App\Http\Controllers\ImageController::class, 'uploadImage'])->name('uploadImage');
@@ -27,8 +37,9 @@ Route::post('/deleteImage',                         [App\Http\Controllers\ImageC
 Route::get('/bank_info',                            [App\Http\Controllers\User\UtilController::class, 'bank_info'])->name('bank_info');
 Route::get('/referer_check',                        [App\Http\Controllers\User\UtilController::class, 'referer_check'])->name('referer_check');
 
-Route::middleware('auth')->name('user.')->group(
+Route::middleware('user')->name('user.')->group(
     function () {
+        Route::get('/home',                         [App\Http\Controllers\User\HomeController::class, 'index'])->name('home');
         /////////////////////////////** 입출금관리 **//////////////////////////////////
         Route::get('/deposit',                      [App\Http\Controllers\User\CashController::class, 'deposit'])->name('deposit');
         Route::get('/deposit_history',              [App\Http\Controllers\User\CashController::class, 'deposit_history'])->name('deposit_history');
@@ -78,7 +89,7 @@ Auth::routes();
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(
     function () {
-        Route::get('/',                             [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
+        Route::get('/home',                         [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
         Route::get('/realtime_info',                [App\Http\Controllers\Admin\HomeController::class, 'realtime_info'])->name('realtime_info');
         Route::get('/home_admin',                   [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
         Route::get('user/roleManage',               [App\Http\Controllers\Admin\User\RoleManageController::class, 'index'])->name('user.RoleManage');
