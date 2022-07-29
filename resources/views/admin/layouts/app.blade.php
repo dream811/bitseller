@@ -168,8 +168,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="{{route('admin.user.new_list')}}" class="btn btn-outline-danger btn-block btn-sm"><i class="fa fa-book"></i>
-                            <span style="font-size:12px;font-weight:bold">&nbsp;&nbsp;신규회원:</span><code id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</code>명
+                        <a href="#" class="btn btn-outline-danger btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-user" onclick="alert('off')"></i>
+                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;신규회원:<span id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</span>명</span>
                         </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
@@ -381,9 +382,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     $('#new_qna_cnt').text(data.new_qnas);
                     $('#new_acc_qna_cnt').text(data.new_acc_qnas);
                     $('#new_trading_cnt').text(data.new_tradings);
-                    data.level_users.forEach((element)=>{
-                        $('.level_'+element.level).val(element.cnt+"명");
-                    });
+                    // data.level_users.forEach((element)=>{
+                    //     $('.level_'+element.level).val(element.cnt+"명");
+                    // });
                     if(data.new_users > 0){
                         scope.new_user.play();
                         return;

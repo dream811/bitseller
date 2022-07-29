@@ -7,7 +7,7 @@ class SocketServer {
         this.WebSocketServer = require('ws');
         this.wss = new WebSocketServer.Server({ port: 8080 });
         this.clients = {};
-        this.active_users = [];
+        this.active_users = {};
         let self = this;
         this.initSocketServer(self);
     }
@@ -28,11 +28,15 @@ class SocketServer {
               });
             ws.on("close", () => {
                 console.log("the client has disconnected");
+                delete self.active_users[self.clients[req.headers['sec-websocket-key']].user_id];//remove active user
                 delete self.clients[req.headers['sec-websocket-key']];
+                self.sendLoggedInUser();
             });
             ws.onerror = function () {
                 console.log("Some Error occurred")
+                delete self.active_users[self.clients[req.headers['sec-websocket-key']].user_id];//remove active user
                 delete self.clients[req.headers['sec-websocket-key']];
+                self.sendLoggedInUser();
             }
             //ws.send('You successfully connected to the websocket.');
         });
@@ -66,7 +70,6 @@ class SocketServer {
     }
 
     sendMessageByUserId(user_id, message){
-        console.log(this.clients);
         for (const key in this.clients) {
             if (this.clients[key].user_id == user_id){
                 this.clients[key].ws.send(message);
@@ -76,13 +79,27 @@ class SocketServer {
         }
     }
 
-    sendLoggedInUserInfo(data){
-        
-        for (const key in this.active_users) {
-            if (data.user_id != 0 && this.active_users[key].user_id != data.user_id){
-                
+    sendMessageToAdmin(message){
+        for (const key in this.clients) {
+            if (this.clients[key].type == 1){
+                this.clients[key].ws.send(message);
             }
         }
+    }
+
+    addNewLoggedInUser(data){
+        if (data.user_id != 0 && data.user_id in this.active_users == false){
+            this.active_users[data.user_id] = {user_id : data.user_id, user_level:data.user_level }
+        }
+        console.log(this.active_users);
+        this.sendLoggedInUser();
+    }
+    sendLoggedInUser(){
+        console.log(this.active_users);
+        var m_nCmd = constants.PKT_ADMIN_LOGIN_USERS;
+        this.sendMessageToAdmin(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(this.active_users)}));
+                
+        
     }
 
     Process(ws, socket_id, packet){
@@ -97,6 +114,7 @@ class SocketServer {
                     
                 }
             }
+            this.sendLoggedInUser();
         }else if(packet.m_nCmd == constants.PKT_ADMIN_ACT_CHILD_AUTH)
         {
             var data = JSON.parse(packet.strValue);
@@ -107,6 +125,8 @@ class SocketServer {
                     this.clients[property].page_type = 1;
                 }
             }
+            this.sendLoggedInUser();
+
         }else if(packet.m_nCmd == constants.PKT_ADMIN_WITHDRAW_CONFIRM){
             this.app.cashProcess.admWithdrawConfirm(ws, packet.strValue);
         }else if(packet.m_nCmd == constants.PKT_ADMIN_WITHDRAW_CHECK){
@@ -128,7 +148,7 @@ class SocketServer {
             for (const property in this.clients) {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
-                    this.sendLoggedInUserInfo(data);
+                    this.addNewLoggedInUser(data);
                     break;
                 }
             }
@@ -139,7 +159,7 @@ class SocketServer {
                 if(property == socket_id && this.clients[property].user_id == 0){
                     this.clients[property].user_id = data.user_id;
                     this.clients[property].page_type = 1;
-                    this.sendLoggedInUserInfo(data);
+                    this.addNewLoggedInUser(data);
                     break;
                 }
             }

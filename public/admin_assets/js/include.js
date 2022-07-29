@@ -128,12 +128,13 @@ function RecvPacket(strPacket)
         //     scope.strServerTime = packet.strValue;
         //     break;
 
-        // case PKT_ADMIN_REV_LIVE_DATA:
-        //     RecvAdminLiveData(packet);
-        //     break;
+        case PKT_ADMIN_LOGIN_USERS:
+            var data = JSON.parse(packet.m_strPacket);
+            RecvAdminLoginUsers(data);
+            break;
 
         case PKT_ADMIN_ACT_MAIN_AUTH:
-            RecvAdminMainAuth(packet);
+            RecvAdminMainAuth(data);
             break;
 
         default:
@@ -150,9 +151,24 @@ function RecvAdminMainAuth(packet)
     }
 }
 
-function RecvAdminLiveData(packet)
+function RecvAdminLoginUsers(packet)
 {
-
+    var cnt_bronz = 0, cnt_silver = 0, cnt_gold = 0, cnt_vip = 0;
+    for (const key in packet) {
+        if (packet[key].user_level == 1) {
+            cnt_bronz ++;            
+        }else if(packet[key].user_level == 2) {
+            cnt_silver ++;            
+        }else if(packet[key].user_level == 3) {
+            cnt_gold ++;            
+        }else if(packet[key].user_level == 4) {
+            cnt_vip ++;            
+        }
+    }
+    $('.level_1').val(cnt_bronz+"명");
+    $('.level_2').val(cnt_silver+"명");
+    $('.level_3').val(cnt_gold+"명");
+    $('.level_4').val(cnt_vip+"명");
 }
 
 function RecvDataPacket(packet)

@@ -49,7 +49,7 @@ class HomeController extends Controller
         $new_qnas = count(QNA::where('type', 0)->where('is_answer', 0)->get());
         $new_acc_qnas = count(QNA::where('type', 1)->where('is_answer', 0)->get());
         $new_tradings = count(Trading::where('state', 0)->get());
-        $level_users = DB::select("SELECT  user_level.name, user_level.level, COUNT(users.id) AS cnt FROM user_level LEFT JOIN users  ON  user_level.level = users.level WHERE users.type='USER' GROUP BY user_level.level");
-        return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas', 'new_tradings', 'level_users')]);
+        // $level_users = DB::select("SELECT  user_level.name, user_level.level, COUNT(users.id) AS cnt FROM user_level LEFT JOIN users  ON  user_level.level = users.level WHERE users.type='USER' GROUP BY user_level.level");
+        return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas', 'new_tradings')]);
     }
 }
