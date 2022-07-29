@@ -19,18 +19,18 @@ class CashProcess {
         var dt = new Date();
         // const result = self.app.schedule_list.filter(schedule => schedule.is_use == 1 && Math.abs(new Date(dt.getFullYear()+"-"+(dt.getMonth()+1)+"-"+("0" + dt.getDate()).slice(-2)+" "+schedule.calculate_time) - new Date()) < 1200000 );
         // var sql = "select * from trading_schedule where is_use=1 and is_del=0 and ABS(TIME_TO_SEC(TIMEDIFF('"+ dt.toLocaleTimeString('en-US', {hour12: false}) +"', calculate_time))) < 600";
-        var sql = "select * from trading_schedule where is_use=1 and is_del=0 and TIME_TO_SEC(TIMEDIFF('"+ dt.toLocaleTimeString('en-US', {hour12: false}) +"', calculate_time)) > 300";
-        console.log(sql);
+        var sql = "select * from trading_schedule where is_use=1 and is_del=0 and TIME_TO_SEC(TIMEDIFF('"+ dt.toLocaleTimeString('en-US', {hour12: false}) +"', calculate_time)) > 301";
+
         var result = await self.exeQuery(sql);
-        console.log(result);
+
         result.forEach(async(value, index) =>{
             //if(value.calculate_time)
             //var sql = "select * from coin_trade_list where state=0 and is_del=0 and TIME(created_at) > TIME('"+ value.start_time +"') and TIME(created_at) < TIME('" + value.end_time +"')";
             var sql = "select * from coin_trade_list where state=0 and is_del=0 and (TIME(created_at) between CAST('"+ value.start_time +"' as time) AND CAST('"+ value.end_time +"' as time))";
-            console.log(sql);
+
             var trade_list = await self.exeQuery(sql);
             trade_list.forEach(async (val, idx)=>{
-                console.log(val.created_at)
+
                 var query = `UPDATE users SET money = money+${val.payout_amount}, profit_sum=profit_sum+${val.add_amount} WHERE id = ${val.user_id};`;
                 await self.exeQuery(query);
                 var query = `UPDATE coin_trade_list SET state=1 WHERE id = ${val.id};`;

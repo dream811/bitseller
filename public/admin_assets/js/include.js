@@ -42,13 +42,25 @@ myApp.controller("myController", function($scope, $http) {
     else
         scope.initialize();
 
-    //alarm
-    scope.user_exchange_a = false;
+    //login users
+    scope.login_ids="";
+    //alarm0
+    scope.user_exchange_0 = false;
     scope.user_exchange = new Audio('/alram/user_exchange.mp3');
     scope.user_exchange.addEventListener('ended', function() {
         this.currentTime = 0;
         setTimeout(() => {
-            if(scope.user_exchange_a == true)
+            if(scope.user_exchange_0 == true)
+               scope.user_exchange.play();
+        }, 2000);
+    }, false);
+    //alarm0
+    scope.user_exchange_1 = false;
+    scope.user_exchange = new Audio('/alram/user_exchange.mp3');
+    scope.user_exchange.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+            if(scope.user_exchange_1 == true)
                scope.user_exchange.play();
         }, 2000);
     }, false);
@@ -153,8 +165,10 @@ function RecvAdminMainAuth(packet)
 
 function RecvAdminLoginUsers(packet)
 {
+    scope.login_ids="";
     var cnt_bronz = 0, cnt_silver = 0, cnt_gold = 0, cnt_vip = 0;
     for (const key in packet) {
+        scope.login_ids += key+'|';
         if (packet[key].user_level == 1) {
             cnt_bronz ++;            
         }else if(packet[key].user_level == 2) {
@@ -165,6 +179,7 @@ function RecvAdminLoginUsers(packet)
             cnt_vip ++;            
         }
     }
+    scope.login_ids = scope.login_ids.slice(0, -1);
     $('.level_1').val(cnt_bronz+"명");
     $('.level_2').val(cnt_silver+"명");
     $('.level_3').val(cnt_gold+"명");
@@ -279,4 +294,12 @@ function initialize()
 function onSelectCustomPage()
 {
 
+}
+
+function alarm_state(id){
+
+}
+
+function goto_login_users() {
+    location.href ='/admin/user/login_list/' + scope.login_ids;
 }

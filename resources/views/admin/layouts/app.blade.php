@@ -169,49 +169,87 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> </li>
                     <li class="nav-item d-none d-sm-inline-block">
                         <a href="#" class="btn btn-outline-danger btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-user" onclick="alert('off')"></i>
-                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;신규회원:<span id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</span>명</span>
+                            <i class="far fa-bell alarm-new-user" onclick="alarm_state('0')"></i>
+                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;신규회원:
+                                <span id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</span>명
+                            </span>
                         </a>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.user.levelup_list')}}" class="btn btn-outline-success btn-block btn-sm"><i class="fa fa-bell"></i>
+                        <a href="#" class="btn btn-outline-success btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-levelup" onclick="alarm_state('1')"></i>
+                            <span onclick="location.href='{{route('admin.user.levelup_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;레벨업:
+                                <span id="new_levelup_cnt" style="margin-left:10px; font-weight:700;">0</span>명
+                            </span>
+                        </a>
+                        {{-- <a href="{{route('admin.user.levelup_list')}}" class="btn btn-outline-success btn-block btn-sm">
+                            <i class="fa fa-bell"></i>
                             <span style="font-size:12px;font-weight:bold">&nbsp;레벨업:</span><code id="new_levelup_cnt" style="margin-left:10px;font-weight:700;">0</code>명
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.cash.cash_list', 0)}}" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i>
-                            <span style="font-size:12px;font-weight:bold">&nbsp;입금신청:</span><code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.cash.cash_list', 1)}}" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i>
-                            <span style="font-size:12px;font-weight:bold">&nbsp;출금신청:</span><code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.qna.list')}}" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i>
-                            <span style="font-size:12px;font-weight:bold">&nbsp;1:1문의:</span><code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.qna.acc_list')}}" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i>
-                            <span style="font-size:12px;font-weight:bold">&nbsp;계좌문의:</span><code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-sm-inline-block ml-1">
-                        <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-dark btn-block btn-sm"><!--<i class="far fa-bell"></i>--><i class="fa fa-book"></i>
-                            <span style="font-size:12px;font-weight:bold">&nbsp;코인구매:</span><code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                        </a>
-                    </li>
-                    <li class="nav-item d-none d-sm-inline-block ml-1 font-weight-bold" style="font-weight:bold">
-                        {{-- <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-default btn-block btn-sm text-xs"><!--<i class="far fa-bell"></i>-->
-                            <i class="fa fa-book"></i><span style="font-size:12px;">등급별현황:</span>
-                            일반회원<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                            브론즈<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                            실버<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
-                            골드<code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
                         </a> --}}
-                        <span class="input-group input-group-sm mb-2 mr-sm-2 text-xs font-weight-bold" style="font-weight:bold;border-radius:4px !important; border:1px solid brown;height: calc(1.75rem + 2px);">
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="#" class="btn btn-outline-warning btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-deposit" onclick="alarm_state('2')"></i>
+                            <span onclick="location.href='{{route('admin.cash.cash_list', 0)}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;입금신청:
+                                <span id="new_deposit_cnt" style="margin-left:10px; font-weight:700;">0</span>건
+                            </span>
+                        </a>
+                        {{-- <a href="{{route('admin.cash.cash_list', 0)}}" class="btn btn-outline-warning btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;입금신청:</span>
+                            <code id="new_deposit_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a> --}}
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="#" class="btn btn-outline-info btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-withdraw" onclick="alarm_state('3')"></i>
+                            <span onclick="location.href='{{route('admin.cash.cash_list', 1)}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;출금신청:
+                                <span id="new_withdraw_cnt" style="margin-left:10px; font-weight:700;">0</span>건
+                            </span>
+                        </a>
+                        {{-- <a href="{{route('admin.cash.cash_list', 1)}}" class="btn btn-outline-info btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;출금신청:</span>
+                            <code id="new_withdraw_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a> --}}
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="#" class="btn btn-outline-primary btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-qna" onclick="alarm_state('4')"></i>
+                            <span onclick="location.href='{{route('admin.qna.list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;1:1문의:
+                                <span id="new_qna_cnt" style="margin-left:10px; font-weight:700;">0</span>건
+                            </span>
+                        </a>
+                        {{-- <a href="{{route('admin.qna.list')}}" class="btn btn-outline-primary btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;1:1문의:</span>
+                            <code id="new_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a> --}}
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="#" class="btn btn-outline-secondary btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-acc-qna" onclick="alarm_state('5')"></i>
+                            <span onclick="location.href='{{route('admin.qna.acc_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;계좌문의:
+                                <span id="new_acc_qna_cnt" style="margin-left:10px; font-weight:700;">0</span>건
+                            </span>
+                        </a>
+                        {{-- <a href="{{route('admin.qna.acc_list')}}" class="btn btn-outline-secondary btn-block btn-sm"><i class="fa fa-book"></i>
+                            <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;계좌문의:</span>
+                            <code id="new_acc_qna_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a> --}}
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1">
+                        <a href="#" class="btn btn-outline-dark btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-trading" onclick="alarm_state('6')"></i>
+                            <span onclick="location.href='{{route('admin.calculate.trading_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;코인구매:
+                                <span id="new_trading_cnt" style="margin-left:10px; font-weight:700;">0</span>건
+                            </span>
+                        </a>
+                        {{-- <a href="{{route('admin.calculate.trading_list')}}" class="btn btn-outline-dark btn-block btn-sm"><!--<i class="far fa-bell"></i>--><i class="fa fa-book"></i>
+                            <span onclick="location.href='{{route('admin.calculate.trading_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;코인구매:</span>
+                            <code id="new_trading_cnt" style="margin-left:10px;font-weight:700;">0</code>건
+                        </a> --}}
+                    </li>
+                    <li class="nav-item d-none d-sm-inline-block ml-1 " onclick="goto_login_users()" style="cursor: pointer;font-weight:bold">
+                        
+                        <span class="input-group input-group-sm mb-2 mr-sm-2 text-xs" style="font-weight:bold;border-radius:4px !important; border:1px solid brown;height: calc(1.75rem + 2px);">
                             {{-- <span class="input-group-prepend" >
                                 <div class="input-group-text text-xs">등급별현황:</div>
                                 &nbsp;
@@ -334,6 +372,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 location.href="/login";
             }
         });
+        var alarm_info = {!!Auth::user()->add_feature!!};
         function initialize()
         {
             $('#summernote').summernote({

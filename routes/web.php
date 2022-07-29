@@ -99,7 +99,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         //레벨업회원관리
         Route::get('user/levelup_list',             [App\Http\Controllers\Admin\User\LevelupController::class, 'index'])->name('user.levelup_list');
         Route::post('user/levelup/{userId}',        [App\Http\Controllers\Admin\User\LevelupController::class, 'levelup'])->name('user.levelup');
-        
+        //로그인회원
+        Route::get('user/login_list/{ids}',               [App\Http\Controllers\Admin\User\LoginUserController::class, 'index'])->name('user.login_list');
+
         //사용자관리
         Route::get('user/list',                     [App\Http\Controllers\Admin\User\UserController::class, 'index'])->name('user.list');
         Route::get('user/edit/{userId}',            [App\Http\Controllers\Admin\User\UserController::class, 'edit'])->name('user.edit');

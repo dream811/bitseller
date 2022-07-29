@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
-class UserController extends Controller
+class LoginUserController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -28,71 +28,49 @@ class UserController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index($ids, Request $request)
     {
 
-        $title = "사용자관리";
-
+        $title = "가입회원";
         if ($request->ajax()) {
-            $users = User::where('type', 'USER')
-                ->where('level', '<', 9)
-                ->where('is_del', 0);
+            $ids = explode('|', $ids);
+            //where('type', 'USER')
+            $users = User::where('is_del', 0)
+                ->whereIn('id', $ids);
                 //->orderBy('name');
 
             return DataTables::of($users)
                 ->addIndexColumn()
+                
+                // ->editColumn('is_use', function ($row) {
+                //     $checked = $row->is_use == 2 ?  "" : "checked";
+                //     $btn='<div>
+                //         <div class="custom-control custom-switch">
+                //         <input type="checkbox" class="custom-control-input chk-is-use" '.$checked.' data-id="'.$row->id.'" id="chkUse_'.$row->id.'">
+                //         <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>
+                //         </div>
+                //     </div>';
+                //     return $btn;
+                // })
                 ->addColumn('level', function ($row) {
                     $level = $row->userLevel->name;
                     return $level;
                 })
-                ->editColumn('is_use', function ($row) {
-                    $checked = $row->is_use == 1 ? "checked" : "";
-                    $btn='<div>
-                        <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input chk-is-use" '.$checked.' data-id="'.$row->id.'" id="chkUse_'.$row->id.'">
-                        <label class="custom-control-label" for="chkUse_'.$row->id.'"></label>
-                        </div>
-                    </div>';
-                    return $btn;
+                ->addColumn('bank_name', function ($row) {
+                    $bank = Bank::find($row->bank_id);
+                    $bank_name = $bank == null ? "" : $bank->name;
+                    
+                    return $bank_name;
                 })
-                ->editColumn('nickname', function($row){
-                    $tags = '<li style="list-style: none;" class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
-                        <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$row->nickname.'</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
-                        <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->id.'">
-                            <span class="float-center text-muted">'.$row->nickname.' 정보수정</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit" data-id="'.$row->id.'">
-                            <span class="float-center text-muted text-sm " >입금내역</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->id.'">
-                            <span class="float-center text-muted text-sm">출금내역</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoTrading" data-id="'.$row->id.'" >
-                            <span class="float-center text-muted text-sm" >구매내역</span>
-                        </a>
-                        <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoResult" data-id="'.$row->id.'">
-                            <span class="float-center text-muted text-sm">배당금내역</span>
-                        </a>
-                        </div>
-                    </li>';
-                    return $tags;
-                })
-                ->addColumn('action', function ($row) {
-                    $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
-                    $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
-                    return $btn;
-                })
-                ->rawColumns(['action', 'level', 'is_use', 'nickname'])
+                // ->addColumn('action', function ($row) {
+                //     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
+                //     $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
+                //     return $btn;
+                // })
+                ->rawColumns(['is_use', 'level'])
                 ->make(true);
         }
-        return view('admin.user.list', compact('title'));
+        return view('admin.user.login_list', compact('title', 'ids'));
     }
 
     //수정하려는 유저 선택(post)
@@ -106,7 +84,6 @@ class UserController extends Controller
         $user = User::where('is_del', 0)
             ->where('id', $userId)
             ->firstOrNew();
-        if($userId == 0) $user->type = "USER";
         $bank_list = Bank::where('is_use', 1)->get();
         return view('admin.user.detail', compact('title', 'userId', 'user', 'bank_list'));
     }
@@ -140,7 +117,6 @@ class UserController extends Controller
             'bank_id' => $request->post('bank_id'),
             'bank_account' => $request->post('bank_account'),
             'bank_user' => $request->post('bank_user'),
-            'member_code' => $request->post('member_code'),
             // 'business_number' => $request->post('txtBusinessNumber'),
             // 'business_phone' => $request->post('txtBusinessPhone'),
             // 'business_type' => $request->post('txtBusinessType'),
@@ -172,14 +148,10 @@ class UserController extends Controller
     public function state($userId, Request $request)
     {
         $status = $request->post('status');
-
-        
-       
         $user = User::where('id', $userId)
             ->update(            
                 ['is_use' => $status]
             );
-        //$user->image = asset('storage/'. $user->image);
         return response()->json(["status" => "success", "data" => $user]);
     }
 
