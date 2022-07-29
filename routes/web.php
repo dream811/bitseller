@@ -20,7 +20,7 @@ Route::get('/', function () {
     else if( Auth::check() && Auth::user()->isAdmin() == 1)
         return view('admin.user.list');
     else
-        return redirect('/home');
+        return view('home');
 });
 // Route::group(['middleware' => ['guest']], function () {
 //     Route::get('/', function () {

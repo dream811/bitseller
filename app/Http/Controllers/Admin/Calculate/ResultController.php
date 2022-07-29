@@ -32,7 +32,7 @@ class ResultController extends Controller
     public function index(Request $request)
     {
 
-        $title = "구매목록";
+        $title = "배당금지급내역";
 
         if ($request->ajax()) {
             $schedules = Trading::where('is_del', 0)->orderBy('created_at', 'DESC');
