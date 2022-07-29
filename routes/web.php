@@ -18,7 +18,7 @@ Route::get('/', function () {
     if(!Auth::check())
         return redirect('login');
     else if( Auth::check() && Auth::user()->isAdmin() == 1)
-        return view('admin.home');
+        return view('admin.user.list');
     else
         return redirect('/home');
 });
