@@ -95,7 +95,7 @@ class CashController extends Controller
                     return $row->type == 1 ? "출금" : "입금";
                 })
                 ->editColumn('state', function ($row) {
-                    return $row->state == 0 ? "대기" : ($row->state == 1 ? "승인" : "부결");
+                    return $row->state == 0  ? "신청" : ($row->state == 1 ? "승인" : ($row->state == 2 ? "부결" : "대기"));
                 })
 
                 ->make(true);

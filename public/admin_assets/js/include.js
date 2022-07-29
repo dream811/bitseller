@@ -48,7 +48,7 @@ myApp.controller("myController", function($scope, $http) {
     scope.user_exchange.addEventListener('ended', function() {
         this.currentTime = 0;
         setTimeout(() => {
-           if(scope.user_exchange_a == true)
+            if(scope.user_exchange_a == true)
                scope.user_exchange.play();
         }, 2000);
     }, false);
