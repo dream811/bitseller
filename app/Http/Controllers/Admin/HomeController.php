@@ -40,7 +40,7 @@ class HomeController extends Controller
      */
     public function realtime_info()
     {
-        //$alarm_info= Auth::user()->add_feature;
+        
         $new_users = count(User::where('is_use', 2)->get());
         $levelup_users = count(User::where('type', 'USER')->where('users.is_use', 1)->leftJoin('user_level', function($join) {
             $join->on('user_level.level', '=', 'users.level');
