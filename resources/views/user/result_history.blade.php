@@ -97,6 +97,7 @@
                 {title: "총구매액", data: 'order_amount', name: 'order_amount', orderable  : false, className:"text-end"},
                 {title: "배당금", data: 'add_amount', name: 'add_amount', orderable  : false, className:"text-end"},
                 {title: "지급내역", data: 'payout_amount', name: 'payout_amount', orderable  : false,className:"text-center"},
+                {title: "지급일시", data: 'calculated_at', name: 'calculated_at', orderable  : false,className:"text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]

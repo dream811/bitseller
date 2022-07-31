@@ -33,7 +33,7 @@ class CashProcess {
 
                 var query = `UPDATE users SET money = money+${val.payout_amount}, profit_sum=profit_sum+${val.add_amount} WHERE id = ${val.user_id};`;
                 await self.exeQuery(query);
-                var query = `UPDATE coin_trade_list SET state=1 WHERE id = ${val.id};`;
+                var query = `UPDATE coin_trade_list SET state=1, calculated_at=now() WHERE id = ${val.id};`;
                 await self.exeQuery(query);
             })
         });
@@ -66,7 +66,7 @@ class CashProcess {
             return;
         }
         var dt = new Date();
-        var sql = "select * from trading_schedule where is_use=1 and is_del=0 and ('"+ dt.toLocaleTimeString('en-US', {hour12: false}) +"' between start_time AND end_time) ";
+        var sql = "select * from trading_schedule where is_use=1 and is_del=0 and ('"+ dt.toLocaleTimeString('en-GB', {hour12: false}) +"' between start_time AND end_time) ";
         console.log(sql);
         var schedule_list = await this.exeQuery(sql);
         if(schedule_list.length == 0){
