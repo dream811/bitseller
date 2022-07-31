@@ -82,12 +82,12 @@ class CoinProcess {
         
         var query = `UPDATE users SET money = money-${packet.amount} WHERE id = ${packet.user_id};`;
         await this.exeQuery(query);
-        console.log("환전신청이 완료되었습니다.");
+        console.log("출금신청이 완료되었습니다.");
         var m_nCmd = constants.PKT_USER_WITHDRAW_MONEY;
         var packet = {
             "status"           :   1,
             "error_code"       :   0,
-            "message"          :   "환전신청이 완료되었습니다."
+            "message"          :   "출금신청이 완료되었습니다."
         }
         ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
     }
@@ -117,13 +117,13 @@ class CoinProcess {
         console.log(query)
         await this.exeQuery(query);
 
-        console.log("환전신청이 승인되었습니다.");
+        console.log("출금신청이 승인되었습니다.");
         //관리자에 전송
         var m_nCmd = constants.PKT_ADMIN_DEPOSIT_CONFIRM;
         var packet = {
             "status"           :   1,
             "error_code"       :   0,
-            "message"          :   "환전신청이 승인되었습니다."
+            "message"          :   "출금신청이 승인되었습니다."
         }
         ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CONFIRM, m_strPacket:JSON.stringify(packet)}));
         //유저에게 알림
@@ -146,12 +146,12 @@ class CoinProcess {
         var query = `UPDATE exchange_list SET state = 3 WHERE id = ${packet.id};`;
         await this.exeQuery(query);
         
-        console.log("환전대기신청이 완료되었습니다.");
+        console.log("출금대기신청이 완료되었습니다.");
         //관리자에 전송
         var packet = {
             "status"           :   1,
             "error_code"       :   0,
-            "message"          :   "환전대기신청이 완료되었습니다."
+            "message"          :   "출금대기신청이 완료되었습니다."
         }
         ws.send(JSON.stringify({m_nCmd: constants.PKT_ADMIN_WITHDRAW_CHECK, m_strPacket:JSON.stringify(packet)}));
        

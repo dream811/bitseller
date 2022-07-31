@@ -15,6 +15,7 @@ myApp.controller("myController", function($scope, $http) {
 
     scope.numberFormat = numberFormat;
 
+    scope.alarm_state="";
     // Page
     scope.nLimitPage = 5;
     scope.nCurPage = 1;
@@ -45,23 +46,73 @@ myApp.controller("myController", function($scope, $http) {
     //login users
     scope.login_ids="";
     //alarm0
-    scope.user_exchange_0 = false;
-    scope.user_exchange = new Audio('/alram/user_exchange.mp3');
-    scope.user_exchange.addEventListener('ended', function() {
+    scope.alarm_f_0 = false;
+    scope.alarm_0 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_0.addEventListener('ended', function() {
         this.currentTime = 0;
         setTimeout(() => {
-            if(scope.user_exchange_0 == true)
-               scope.user_exchange.play();
+            if(scope.alarm_f_0 == true)
+               scope.alarm_0.play();
         }, 2000);
     }, false);
-    //alarm0
-    scope.user_exchange_1 = false;
-    scope.user_exchange = new Audio('/alram/user_exchange.mp3');
-    scope.user_exchange.addEventListener('ended', function() {
+    //alarm1
+    scope.alarm_f_1 = false;
+    scope.alarm_1 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_1.addEventListener('ended', function() {
         this.currentTime = 0;
         setTimeout(() => {
-            if(scope.user_exchange_1 == true)
-               scope.user_exchange.play();
+            if(scope.alarm_f_1 == true)
+               scope.alarm_1.play();
+        }, 2000);
+    }, false);
+    //alarm2
+    scope.alarm_f_2 = false;
+    scope.alarm_2 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_2.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+            if(scope.alarm_f_2 == true)
+               scope.alarm_2.play();
+        }, 2000);
+    }, false);
+    //alarm3
+    scope.alarm_f_3 = false;
+    scope.alarm_3 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_3.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+            if(scope.alarm_f_3 == true)
+               scope.alarm_3.play();
+        }, 2000);
+    }, false);
+    //alarm4
+    scope.alarm_f_4 = false;
+    scope.alarm_4 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_4.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+            if(scope.alarm_f_4 == true)
+               scope.alarm_4.play();
+        }, 2000);
+    }, false);
+    //alarm5
+    scope.alarm_f_5 = false;
+    scope.alarm_5 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_5.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+            if(scope.alarm_f_5 == true)
+               scope.alarm_5.play();
+        }, 2000);
+    }, false);
+    //alarm6
+    scope.alarm_f_6 = false;
+    scope.alarm_6 = new Audio('/alram/user_exchange.mp3');
+    scope.alarm_6.addEventListener('ended', function() {
+        this.currentTime = 0;
+        setTimeout(() => {
+            if(scope.alarm_f_6 == true)
+               scope.alarm_6.play();
         }, 2000);
     }, false);
 });
@@ -296,9 +347,36 @@ function onSelectCustomPage()
 
 }
 
-function alarm_state(id){
-
-}
+// //$('body').on('click', '.fa-bell', function () {
+//     function alarm_state(id){
+    
+//     if($(this).hasClass('fa')){
+//         $(this).removeClass('fa')
+//         $(this).addClass('far')
+//     }else{
+//         $(this).removeClass('far')
+//         $(this).addClass('fa')
+//     }
+//     var userId = document.getElementById("admin_id").value;;
+//     var action = '/admin/user/alarm_state/' + userId;
+    
+//     // $.ajax({
+//     //     url: action,
+//     //     data: {id},
+//     //     type: "POST",
+//     //     dataType: 'json',
+//     //     success: function ({status, data}) {
+//     //         if(status == "success"){
+//     //           $(this).class  
+                
+//     //         }else{
+                
+//     //         }
+//     //     },
+//     //     error: function (data) {
+//     //     }
+//     // });
+// }
 
 function goto_login_users() {
     location.href ='/admin/user/login_list/' + scope.login_ids;

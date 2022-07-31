@@ -35,7 +35,7 @@ class ResultController extends Controller
         $title = "배당금지급내역";
 
         if ($request->ajax()) {
-            $schedules = Trading::where('is_del', 0)->orderBy('created_at', 'DESC');
+            $schedules = Trading::where('is_del', 0);
 
             return DataTables::of($schedules)
                 ->addIndexColumn()
@@ -62,8 +62,8 @@ class ResultController extends Controller
                             <span class="float-center text-muted text-sm">'.$name.' 정보수정</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit">
-                            <span class="float-center text-muted text-sm " data-id="'.$row->user_id.'">입금내역</span>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit" data-id="'.$row->user_id.'">
+                            <span class="float-center text-muted text-sm " >입금내역</span>
                         </a>
                         <div class="dropdown-divider"></div>
                         <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->user_id.'">

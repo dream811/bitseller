@@ -48,8 +48,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <script type="text/javascript" src="/plugins/moment.js"></script>
         <script type="text/javascript" src="/plugins/numeral.min.js"></script>
         <script type="text/javascript" src="/js/constant.js?{{ time() }}"></script>
-        <script type="text/javascript" src="/admin_assets/js/include.js?{{ time() }}"></script>
+        
         <script src="/plugins/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/admin_assets/js/include.js?{{ time() }}"></script>
         <style>
             body {
                 /* font-family: 'BareunBatang'; */
@@ -168,16 +169,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <ul class="navbar-nav">
                     <li class="nav-item"> <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a> </li>
                     <li class="nav-item d-none d-sm-inline-block">
-                        <a href="#" class="btn btn-outline-danger btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-user" onclick="alarm_state('0')"></i>
+                        <span class="btn btn-outline-danger btn-block btn-sm">
+                            <i class="far fa-bell alarm-new-user" data-id="0"></i>
                             <span onclick="location.href='{{route('admin.user.new_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;신규회원:
                                 <span id="new_user_cnt" style="margin-left:10px; font-weight:700;">0</span>명
                             </span>
-                        </a>
+                        </span>
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="#" class="btn btn-outline-success btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-levelup" onclick="alarm_state('1')"></i>
+                            <i class="far fa-bell alarm-new-levelup" data-id="1"></i>
                             <span onclick="location.href='{{route('admin.user.levelup_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;레벨업:
                                 <span id="new_levelup_cnt" style="margin-left:10px; font-weight:700;">0</span>명
                             </span>
@@ -189,7 +190,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="#" class="btn btn-outline-warning btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-deposit" onclick="alarm_state('2')"></i>
+                            <i class="far fa-bell alarm-new-deposit" data-id="2"></i>
                             <span onclick="location.href='{{route('admin.cash.cash_list', 0)}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;입금신청:
                                 <span id="new_deposit_cnt" style="margin-left:10px; font-weight:700;">0</span>건
                             </span>
@@ -201,7 +202,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="#" class="btn btn-outline-info btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-withdraw" onclick="alarm_state('3')"></i>
+                            <i class="far fa-bell alarm-new-withdraw" data-id="3"></i>
                             <span onclick="location.href='{{route('admin.cash.cash_list', 1)}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;출금신청:
                                 <span id="new_withdraw_cnt" style="margin-left:10px; font-weight:700;">0</span>건
                             </span>
@@ -213,7 +214,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="#" class="btn btn-outline-primary btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-qna" onclick="alarm_state('4')"></i>
+                            <i class="far fa-bell alarm-new-qna" data-id="4"></i>
                             <span onclick="location.href='{{route('admin.qna.list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;1:1문의:
                                 <span id="new_qna_cnt" style="margin-left:10px; font-weight:700;">0</span>건
                             </span>
@@ -225,7 +226,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="#" class="btn btn-outline-secondary btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-acc-qna" onclick="alarm_state('5')"></i>
+                            <i class="far fa-bell alarm-new-acc-qna" data-id="5"></i>
                             <span onclick="location.href='{{route('admin.qna.acc_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;계좌문의:
                                 <span id="new_acc_qna_cnt" style="margin-left:10px; font-weight:700;">0</span>건
                             </span>
@@ -237,7 +238,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     </li>
                     <li class="nav-item d-none d-sm-inline-block ml-1">
                         <a href="#" class="btn btn-outline-dark btn-block btn-sm">
-                            <i class="far fa-bell alarm-new-trading" onclick="alarm_state('6')"></i>
+                            <i class="far fa-bell alarm-new-trading" data-id="6"></i>
                             <span onclick="location.href='{{route('admin.calculate.trading_list')}}'" style="font-size:12px;font-weight:bold">&nbsp;&nbsp;코인구매:
                                 <span id="new_trading_cnt" style="margin-left:10px; font-weight:700;">0</span>건
                             </span>
@@ -373,7 +374,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             }
         });
         var add_feature = @if(Auth::user()->add_feature != "" ){!!Auth::user()->add_feature!!} @else {alarm:""} @endif;
-
+        //if(add_feature.alarm.includes('(0)')){scope.alarm_f_0=false;}
         function initialize()
         {
             $('#summernote').summernote({
@@ -415,6 +416,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 type: "GET",
                 dataType: 'json',
                 success: function ({status, data}) {
+                    scope.alarm_state = add_feature.alarm;
                     $('#new_user_cnt').text(data.new_users);
                     $('#new_levelup_cnt').text(data.levelup_users);
                     $('#new_deposit_cnt').text(data.new_deposits);
@@ -425,31 +427,31 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     // data.level_users.forEach((element)=>{
                     //     $('.level_'+element.level).val(element.cnt+"명");
                     // });
-                    if(data.new_users > 0){
+                    if(data.new_users > 0 && !scope.alarm_state.includes('(0)')){
                         scope.new_user.play();
                         return;
                     }
-                    if(data.new_levelup_cnt > 0){
+                    if(data.new_levelup_cnt > 0 && !scope.alarm_state.includes('(1)')){
                         scope.user_exchange.play();
                         return;
                     }
-                    if(data.new_deposits > 0){
+                    if(data.new_deposits > 0 && !scope.alarm_state.includes('(2)')){
                         scope.user_exchange.play();
                         return;
                     }
-                    if(data.new_withdraws > 0){
+                    if(data.new_withdraws > 0 && !scope.alarm_state.includes('(3)')){
                         scope.user_exchange.play();
                         return;
                     }
-                    if(data.new_qnas > 0){
+                    if(data.new_qnas > 0 && !scope.alarm_state.includes('(4)')){
                         scope.user_exchange.play();
                         return;
                     }
-                    if(data.new_acc_qnas > 0){
+                    if(data.new_acc_qnas > 0 && !scope.alarm_state.includes('(5)')){
                         scope.user_exchange.play();
                         return;
                     }
-                    if(data.new_tradings > 0){
+                    if(data.new_tradings > 0 && !scope.alarm_state.includes('(6)')){
                         scope.user_exchange.play();
                         return;
                     }
@@ -458,6 +460,40 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 }
             });
         }
+
+        $('body').on('click', '.fa-bell', function () {
+            var alarm = $(this);
+            
+            var alarm_id = alarm.data('id');
+            var userId = document.getElementById("admin_id").value;;
+            var action = '/admin/alarm_state/' + userId;
+            
+            $.ajax({
+                url: action,
+                data: {alarm_id},
+                type: "POST",
+                dataType: 'json',
+                success: function ({status, data}) {
+                    if(status == "success"){
+                        if(alarm.hasClass('fa')){
+                            alarm.removeClass('fa')
+                            alarm.addClass('far')
+                        }else{
+                            alarm.removeClass('far')
+                            alarm.addClass('fa')
+                        }
+                        console.log(data.add_feature)
+                        var info = JSON.parse(data.add_feature);
+                        console.log(info);
+                        scope.alarm_state = info.alarm
+                    }else{
+                        
+                    }
+                },
+                error: function (data) {
+                }
+            });
+        });
         </script>
 
         <div>

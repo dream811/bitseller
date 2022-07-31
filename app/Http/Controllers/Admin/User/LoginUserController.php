@@ -31,7 +31,7 @@ class LoginUserController extends Controller
     public function index($ids, Request $request)
     {
 
-        $title = "가입회원";
+        $title = "실시간접속자";
         if ($request->ajax()) {
             $ids = explode('|', $ids);
             //where('type', 'USER')
@@ -52,9 +52,38 @@ class LoginUserController extends Controller
                 //     </div>';
                 //     return $btn;
                 // })
-                ->addColumn('level', function ($row) {
+                ->editColumn('level', function ($row) {
                     $level = $row->userLevel->name;
                     return $level;
+                })
+                ->editColumn('nickname', function($row){
+                    $tags = '<li style="list-style: none;" class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                        <span class="badge" style="padding:0px; right:unset; top:3px; font-size:12px;">'.$row->nickname.'</span>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right" style="left: inherit; right: 0px;">
+                        <a href="javascript:void(0)" class="dropdown-item btnEditMember" data-id="'.$row->id.'">
+                            <span class="float-center text-muted">'.$row->nickname.' 정보수정</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoDeposit" data-id="'.$row->id.'">
+                            <span class="float-center text-muted text-sm " >입금내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoWithdraw" data-id="'.$row->id.'">
+                            <span class="float-center text-muted text-sm">출금내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoTrading" data-id="'.$row->id.'" >
+                            <span class="float-center text-muted text-sm" >구매내역</span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="javascript:void(0)" class="dropdown-item btnGotoResult" data-id="'.$row->id.'">
+                            <span class="float-center text-muted text-sm">배당금내역</span>
+                        </a>
+                        </div>
+                    </li>';
+                    return $tags;
                 })
                 ->addColumn('bank_name', function ($row) {
                     $bank = Bank::find($row->bank_id);
@@ -67,7 +96,7 @@ class LoginUserController extends Controller
                 //     $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
                 //     return $btn;
                 // })
-                ->rawColumns(['is_use', 'level'])
+                ->rawColumns(['is_use', 'level', 'nickname'])
                 ->make(true);
         }
         return view('admin.user.login_list', compact('title', 'ids'));

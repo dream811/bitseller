@@ -54,7 +54,7 @@
 							<li class="nav-item">
 								<a href="javascript:goto_login_users();"  class="nav-link {{ (request()->routeIs('admin.user.login_list')) ? 'active' : '' }}">
 									<i class="far fa-circle nav-icon"></i>
-									<p>가입회원</p>
+									<p>실시간접속자</p>
 								</a>
 							</li>
 						</ul>

@@ -91,6 +91,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
     function () {
         Route::get('/home',                         [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
         Route::get('/realtime_info',                [App\Http\Controllers\Admin\HomeController::class, 'realtime_info'])->name('realtime_info');
+        Route::post('/alarm_state/{userId}',        [App\Http\Controllers\Admin\HomeController::class, 'alarm_state'])->name('alarm_state');
         Route::get('/home_admin',                   [App\Http\Controllers\Admin\HomeController::class, 'index'])->name('home');
         Route::get('user/roleManage',               [App\Http\Controllers\Admin\User\RoleManageController::class, 'index'])->name('user.RoleManage');
         //신규회원관리

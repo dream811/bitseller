@@ -53,4 +53,25 @@ class HomeController extends Controller
         // $level_users = DB::select("SELECT  user_level.name, user_level.level, COUNT(users.id) AS cnt FROM user_level LEFT JOIN users  ON  user_level.level = users.level WHERE users.type='USER' GROUP BY user_level.level");
         return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas', 'new_tradings')]);
     }
+
+    public function alarm_state($userId, Request $request)
+    {
+        $user = User::find($userId);
+        $alarm_id = $request->post('alarm_id');
+        if(strpos($user->add_feature, "($alarm_id)") !== false){
+            $add_feature = str_replace("($alarm_id)","", $user->add_feature);
+        }else{
+            if(strpos($user->add_feature, ")\"") !== false){
+                $add_feature = str_replace(")\"",")($alarm_id)\"", $user->add_feature);
+            }else{
+                $add_feature = str_replace("\"\"","\"($alarm_id)\"", $user->add_feature);
+            }
+        }
+        $add_feature = str_replace("alarm","\"alarm\"", $add_feature);
+        $user->update(            
+            ['add_feature' => $add_feature]
+        );
+
+        return response()->json(["status" => "success", "data" => compact('add_feature')]);
+    }
 }

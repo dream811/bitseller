@@ -122,7 +122,6 @@
                 type: "GET",
                 dataType: 'json',
                 success: function ({status, data}) {
-                    console.log(data);
                     $('.user_money').html(data.user_info.money);
                     $('.count-mail').html(data.user_info.msg_cnt);
                     // $('#new_user_cnt').text(data.new_users);

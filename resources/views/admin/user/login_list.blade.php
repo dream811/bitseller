@@ -60,7 +60,7 @@
             processing: true,
             serverSide: true,
             searching: false,
-            scrollY: "100%",
+            scrollY: "620px",
             ajax: {
                 url: "{{ route('admin.user.login_list', $ids) }}",
                 

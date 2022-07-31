@@ -66,16 +66,16 @@
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, width: '50px', 'searchable' : false, 'exportable' : false, 'printable'  : true},
                 {title: "구매시간", data: 'created_at', name: 'created_at', width: '120px',},
-                {title: "등급", data: 'level', name: 'end_time',width: '50px',},
+                {title: "등급", data: 'level', name: 'level',width: '50px',},
                 {title: "회원", data: 'user_info', name: 'user_info', },
-                {title: "코인종목", data: 'coin_type', name: 'coin_type', orderable: false, searchable: false, className: "text-center"},
-                {title: "매수가격", data: 'cur_price', name: 'cur_price', orderable: false, searchable: false, className: "text-center"},
-                {title: "매수수량", data: 'coin_quantity', name: 'coin_quantity', orderable: false, searchable: false, className: "text-center"},
-                {title: "총구매액", data: 'order_amount', name: 'order_amount',  orderable: false, searchable: false, className: "text-center"},
-                {title: "배당율", data: 'payout_rate', name: 'payout_rate', orderable: false, searchable: false, className: "text-center"},
-                {title: "배당금", data: 'add_amount', name: 'add_amount',  orderable: false, searchable: false, className: "text-center"},
-                {title: "지급내역", data: 'payout_amount', name: 'payout_amount',  orderable: false, searchable: false, className: "text-center"},
-                {title: "지급상태", data: 'state_info', name: 'state_info', width: '140px', orderable: false, searchable: false, className: "text-center"},
+                {title: "코인종목", data: 'coin_type', name: 'coin_type',  searchable: false, className: "text-center"},
+                {title: "매수가격", data: 'cur_price', name: 'cur_price',  searchable: false, className: "text-center"},
+                {title: "매수수량", data: 'coin_quantity', name: 'coin_quantity',  searchable: false, className: "text-center"},
+                {title: "총구매액", data: 'order_amount', name: 'order_amount',   searchable: false, className: "text-center"},
+                {title: "배당율", data: 'payout_rate', name: 'payout_rate',  searchable: false, className: "text-center"},
+                {title: "배당금", data: 'add_amount', name: 'add_amount',   searchable: false, className: "text-center"},
+                {title: "지급내역", data: 'payout_amount', name: 'payout_amount',   searchable: false, className: "text-center"},
+                {title: "지급상태", data: 'state_info', name: 'state_info', width: '140px',  searchable: false, className: "text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
@@ -131,6 +131,31 @@
 
         $('body').on('click', '.btnAdd', function () {
             window.open('/admin/calculate/trading_edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnEditMember', function () {
+            var id = $(this).attr('data-id');
+            window.open('/admin/user/edit/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnGotoDeposit', function () {
+            var id = $(this).attr('data-id');
+            window.open('/admin/cash/user_cash/0/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnGotoWithdraw', function () {
+            var id = $(this).attr('data-id');
+            window.open('/admin/cash/user_cash/1/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnGotoTrading', function () {
+            var id = $(this).attr('data-id');
+            window.open('/admin/calculate/user_trading/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            return false;
+        });
+        $('body').on('click', '.btnGotoResult', function () {
+            var id = $(this).attr('data-id');
+            window.open('/admin/calculate/user_result/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         function refreshTable(){

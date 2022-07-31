@@ -56,13 +56,13 @@ class CashController extends Controller
                     return $element;
                 })
                 ->editColumn('requested_date', function ($row) {
-                    return date('Y-m-d', strtotime($row->requested_date));
+                    return date('Y-m-d H:i:s', strtotime($row->requested_date));
                 })
                 ->editColumn('accepted_date', function ($row) {
                     if($row->state == 0){
                         return "";
                     }else{
-                        return date('Y-m-d', strtotime($row->accepted_date));
+                        return date('Y-m-d H:i:s', strtotime($row->accepted_date));
                     }
                 })
                 ->addColumn('bank_user', function ($row) {
