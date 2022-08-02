@@ -23,7 +23,7 @@
     @if (Auth::check() && Auth::user()->level < 9)
         @foreach($lstNotice as $key => $infoNotice)
         
-        <div class="pop02_popup1 draggable02" id="divpopup{{ $infoNotice->id }}" style="position:absolute;top:{{ 150 + $key * 20 }}px; left:{{ 300 + $key * 60 }}px; display:none;z-index:1000;">
+        <div class="pop02_popup1 draggable02" id="divpopup{{ $infoNotice->id }}" style="position:absolute;top:{{ 150 + $key * 20 }}px; display:none;z-index:1000;">
             <div class="pop02_popup_wrap">
                 <div class="pop02_popup_btn_wrap">
                     <ul style="list-style: none">

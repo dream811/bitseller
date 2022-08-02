@@ -88,7 +88,7 @@ class NoticeController extends Controller
             [
                 'subject' => $request->post('subject'),
                 'content' => $request->post('content'),
-                'is_popup' => $request->post('chk-is-popup'),
+                'is_popup' => $request->post('chk_is_popup'),
             ]
         );
         return response()->json(["status" => "success", "data" => '성과적으로 작성되었습니다.']);

@@ -11,7 +11,7 @@ class Notice extends Model
     use HasFactory;
     protected $table = 'notice_list';
     protected $primaryKey = 'id';
-    protected $fillable = ['user_id', 'subject', 'content', 'created_at', 'updated_at', 'is_pupup', 'is_del'];
+    protected $fillable = ['user_id', 'subject', 'content', 'created_at', 'updated_at', 'is_popup', 'is_del'];
     public function getCreatedAtAttribute($value)
     {
         return Carbon::parse($value)->format('Y-m-d H:i:s');
