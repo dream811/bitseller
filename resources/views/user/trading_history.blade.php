@@ -93,7 +93,7 @@
                 {title: "총구매액", data: 'order_amount', name: 'order_amount', orderable  : false,className:"text-center"},
             ],
             responsive: true, lengthChange: true,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            
         });
         $('body').on('click', '.btnEdit', function () {
             var userId = $(this).attr('data-id');

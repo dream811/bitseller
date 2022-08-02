@@ -52,6 +52,7 @@
                                     .dataTables_info {
                                         color: white !important;
                                     }
+                                    
                                 </style>
                                 <table id="exchangeHistoryTable" class="display nowrap table-dark table-bordered" style="width:100%">
                                     
@@ -100,8 +101,8 @@
                 {title: "지급일시", data: 'calculated_at', name: 'calculated_at', orderable  : false,className:"text-center"},
             ],
             responsive: true, lengthChange: true,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#userTable_wrapper .col-md-6:eq(0)');
+            
+        });
         $('body').on('click', '.btnEdit', function () {
             var userId = $(this).attr('data-id');
             window.open('/admin/user/userManage/edit/' + userId, '정보 수정', 'scrollbars=1, resizable=1, width=1000, height=620');

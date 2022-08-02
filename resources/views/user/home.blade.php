@@ -128,11 +128,12 @@
                                 .dataTables_info {
                                     color: white !important;
                                 }
+                                
                             </style>
                             <table id="main_table" class="display nowrap table-dark table-bordered" style="width:100%">
                                 <thead style="background-color: #19191A;">
                                     <tr>
-                                        <th>이름</th>
+                                        <th width="130px;">이름</th>
                                         <th>현재가</th>
                                         <th>마켓가</th>
                                         <th>전일대비</th>
@@ -143,9 +144,9 @@
                                 </thead>
                                 <tbody style="text-align:right">
                                     <tr ng-repeat="info in lstCoinData" >
-                                        <td style="text-align:left;">
+                                        <td style="text-align:left; padding:0px">
                                             <img style="vertical-align: baseline; display: inline-block;" src="{{asset('user_assets/images/coins').'/'}}!%info.ic%!" class="img-fluid avatar avatar-30 avatar-rounded" alt="">
-                                            <span  style="display: inline-block;">
+                                            <span  style="display: inline-block; font-size: 0.85em;">
                                                 <div>!%info.nk%!</div>
                                                 <div>!%info.ne%!</div>
                                             </span>

@@ -36,8 +36,8 @@ class CashController extends Controller
         Exchange::where('type', $type)->where('is_check', 0)->update(['is_check' => 1]);
 
         if ($request->ajax()) {
-            $monies = Exchange::where('type', $type)
-                ->orderBy('id', 'DESC');
+            $monies = Exchange::where('type', $type);
+                
 
             return DataTables::eloquent($monies)
                 ->addIndexColumn()
@@ -99,10 +99,10 @@ class CashController extends Controller
                     return $tags;
                 })
                 ->editColumn('accepted_date', function ($row) {
-                    if($row->state == 0){
+                    if($row->state == 0 || $row->state == 3){
                         return "";
                     }else{
-                        return date('Y-m-d', strtotime($row->accepted_date));
+                        return date('Y-m-d H:i:s', strtotime($row->accepted_date));
                     }
                 })
                 ->editColumn('state', function ($row) {

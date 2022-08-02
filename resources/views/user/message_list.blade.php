@@ -101,7 +101,7 @@
                 {title: "조작", data: 'action', name: 'action', orderable  : false, className:"text-center"},
             ],
             responsive: true, lengthChange: true,
-            buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            
         });
         $('body').on('click', '.btnDetail', function () {
             var id = $(this).attr('data-id');

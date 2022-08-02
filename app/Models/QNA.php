@@ -11,5 +11,5 @@ class QNA extends Model
     protected $table = 'qna_list';
     protected $primaryKey = 'id';
     public $timestamps = false;
-    protected $fillable = ['user_id', 'user_name', 'subject', 'content', 'requested_date', 'answer', 'is_answer', 'answered_date', 'type', 'is_del'];
+    protected $fillable = ['user_id', 'user_name', 'subject', 'content', 'requested_date', 'answer', 'is_answer', 'is_check', 'answered_date', 'type', 'is_del'];
 }

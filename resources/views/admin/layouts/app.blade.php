@@ -427,32 +427,32 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     // data.level_users.forEach((element)=>{
                     //     $('.level_'+element.level).val(element.cnt+"명");
                     // });
-                    if(data.new_users > 0 && !scope.alarm_state.includes('(0)')){
-                        scope.new_user.play();
+                    if(data.new_users > 0){// && !scope.alarm_state.includes('(0)')
+                        scope.alarm_0.play();
                         return;
                     }
-                    if(data.new_levelup_cnt > 0 && !scope.alarm_state.includes('(1)')){
-                        scope.user_exchange.play();
+                    if(data.new_levelup_cnt > 0){// && !scope.alarm_state.includes('(1)')
+                        scope.alarm_0.play();
                         return;
                     }
-                    if(data.new_deposits > 0 && !scope.alarm_state.includes('(2)')){
-                        scope.user_exchange.play();
+                    if(data.new_deposits > 0){// && !scope.alarm_state.includes('(2)')
+                        scope.alarm_0.play();
                         return;
                     }
-                    if(data.new_withdraws > 0 && !scope.alarm_state.includes('(3)')){
-                        scope.user_exchange.play();
+                    if(data.new_withdraws > 0){// && !scope.alarm_state.includes('(3)')
+                        scope.alarm_0.play();
                         return;
                     }
-                    if(data.new_qnas > 0 && !scope.alarm_state.includes('(4)')){
-                        scope.user_exchange.play();
+                    if(data.new_qnas > 0){// && !scope.alarm_state.includes('(4)')
+                        scope.alarm_0.play();
                         return;
                     }
-                    if(data.new_acc_qnas > 0 && !scope.alarm_state.includes('(5)')){
-                        scope.user_exchange.play();
+                    if(data.new_acc_qnas > 0){// && !scope.alarm_state.includes('(5)')
+                        scope.alarm_0.play();
                         return;
                     }
-                    if(data.new_tradings > 0 && !scope.alarm_state.includes('(6)')){
-                        scope.user_exchange.play();
+                    if(data.new_tradings > 0){// && !scope.alarm_state.includes('(6)')
+                        scope.alarm_0.play();
                         return;
                     }
                 },

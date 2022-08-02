@@ -119,7 +119,7 @@ class ResultController extends Controller
     public function user_index($userId, Request $request)
     {
 
-        $title = "구매목록";
+        $title = "배당금내역";
 
         if ($request->ajax()) {
             $schedules = Trading::where('is_del', 0)->where('user_id', $userId)->orderBy('created_at', 'DESC');
@@ -173,8 +173,7 @@ class ResultController extends Controller
                     
                     return $name;
                 })
-                // ->addColumn('action', function ($row) {
-                    
+                // ->addColumn('action', function ($row) {                    
                 //     $btn = '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="btn btn-xs btn-primary btnEdit">수정</button>';
                 //     $btn .= '<button type="button" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-danger btnDelete">삭제</button>';
                 //     $btn .= '<button type="button" data-state="1" data-id="' . $row->id . '" style="font-size:10px !important;" class="ml-1 btn btn-xs btn-info btnState">정산</button>';

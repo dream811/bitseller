@@ -1,8 +1,35 @@
 <!--Nav Start-->
 <nav class="navbar navbar-expand-md navbar-dark fixed-top border-bottom iq-navbar" style="background-color:#202022">
     <div class="container navbar-inner">
-        <a href="/" class="navbar-brand">                                    
-            <svg width="36" class="text-primary" style="margin-left: 2rem; float:left;" viewBox="0 0 128 150" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <a href="/" class="navbar-brand">
+            <style>
+            @media (max-width: 767.98px) {
+                .logo-svg {
+                    margin-left: 0rem; 
+                }
+                .iq-navbar .navbar-brand {
+                    margin-left: 0rem;
+                }
+                .user-item{
+                    display : block;
+                }
+                .user-item-nav{
+                    display : none;
+                }
+              }  
+            @media (min-width: 768px) {
+                .logo-svg {
+                    margin-left: 2rem; 
+                    float:left; }
+                .user-item{
+                    display : none;
+                }
+                .user-item-nav{
+                    display : block;
+                }
+            }
+            </style>                                  
+            <svg width="36" class="text-primary logo-svg" viewBox="0 0 128 150" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <g>
                     <path d="M117.348 105.33C117.594 105.476 117.669 105.799 117.508 106.036C110.26 116.759 99.5876 125.042 87.0232 129.687C74.2883 134.395 60.2849 135.117 47.0817 131.745C33.8785 128.372 22.1759 121.086 13.7027 110.961C5.22957 100.836 0.43531 88.4101 0.0282348 75.5189C-0.37884 62.6276 3.62286 49.9548 11.4421 39.3726C19.2614 28.7905 30.4835 20.8602 43.4505 16.7536C56.4176 12.6469 70.4417 12.5815 83.4512 16.5672C96.2865 20.4995 107.462 28.1693 115.375 38.4663C115.55 38.6939 115.495 39.0214 115.256 39.1813L97.3742 51.176C97.1539 51.3238 96.8567 51.2735 96.6942 51.0637C91.6372 44.53 84.5205 39.6627 76.3537 37.1606C68.031 34.6109 59.0591 34.6527 50.7636 37.2799C42.468 39.9071 35.2888 44.9804 30.2865 51.7502C25.2842 58.5201 22.7241 66.6274 22.9846 74.8745C23.245 83.1215 26.3121 91.0709 31.7327 97.5482C37.1533 104.025 44.64 108.687 53.0866 110.844C61.5332 113.002 70.4918 112.54 78.6389 109.528C86.6324 106.573 93.4288 101.316 98.0645 94.5111C98.2142 94.2913 98.5086 94.2233 98.7376 94.3583L117.348 105.33Z" fill="#FF971D"></path>
                     <path d="M53.2837 0.5C53.2837 0.223858 53.5075 0 53.7837 0H75.6195C75.8957 0 76.1195 0.223858 76.1195 0.5V26.25H53.2837V0.5Z" fill="#FF971D"></path>
@@ -11,7 +38,32 @@
             </svg>
             <p class="h4 mt-2">OINEX</p>
         </a>
-            
+        <span class="nav-item dropdown ms-auto user-item" style="float: right;">
+            <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <img src="{{asset('user_assets/images/avatars/01.png')}}" alt="User-Profile" class="img-fluid avatar avatar-30 avatar-rounded">
+            <div class="caption ms-3 ">
+                <h6 class="mb-0 caption-title text-xs" style="font-size:12px;">{{Auth::user()->name}}({{Auth::user()->userLevel->name}})</h6>
+                <p class="mb-0 caption-sub-title text-xs" style="font-size:12px;"><span id="user_money" class="user_money" value="user_money">{{Auth::user()->money}}</span>원</p>
+                <input type="hidden" name="user_id" id="user_id" value="{{Auth::id()}}">
+                <input type="hidden" name="user_level" id="user_level" value="{{Auth::user()->level}}">
+                <input type="hidden" name="user_password" id="user_password" value="{{Auth::user()->password}}">
+            </div>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end text-xs" aria-labelledby="navbarDropdown">
+            <li class="border-0"><a class="dropdown-item" href="{{route('user.mypage')}}">나의 정보</a></li>
+            {{-- <li class="border-0"><a class="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li> --}}
+            @if(Auth::user()->isAdmin())
+                <li class="border-0"><a class="dropdown-item" href="/admin">관리자 페이지</a></li>
+            @endif
+            <li class="border-0"><hr class="m-0 dropdown-divider"></li>
+            <li class="border-0"><a class="dropdown-item" href="{{ route('logout') }}" 
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a></li>
+                        {{-- {{ __('Logout') }} --}}
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </ul>
+        </span>  
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon">
                 <span class="navbar-toggler-bar bar1 mt-2"></span>
@@ -172,7 +224,7 @@
                     
                 </li>--}}
             @else
-                <li class="nav-item dropdown ms-auto" style="float: right;">
+                <li class="nav-item dropdown ms-auto user-item-nav" style="float: right;">
                     <a class="nav-link py-0 d-flex align-items-center" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                     <img src="{{asset('user_assets/images/avatars/01.png')}}" alt="User-Profile" class="img-fluid avatar avatar-30 avatar-rounded">
                     <div class="caption ms-3 ">

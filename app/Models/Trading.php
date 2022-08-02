@@ -22,6 +22,7 @@ class Trading extends Model
         'is_check',
         'created_at',
         'updated_at',
+        'calculated_at',
         'is_del',
     ];
     public function getCreatedAtAttribute($value)

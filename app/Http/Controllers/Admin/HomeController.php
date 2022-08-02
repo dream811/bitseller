@@ -47,9 +47,9 @@ class HomeController extends Controller
         })->where('users.buy_sum', '>', DB::raw('user_level.levelup_amount'))->where('users.levelup_flag', 0)->get());
         $new_deposits = count(Exchange::where('type', 0)->where('state', 0)->where('is_check', 0)->get());
         $new_withdraws = count(Exchange::where('type', 1)->where('state', 0)->where('is_check', 0)->get());
-        $new_qnas = count(QNA::where('type', 0)->where('is_answer', 0)->get());
-        $new_acc_qnas = count(QNA::where('type', 1)->where('is_answer', 0)->get());
-        $new_tradings = count(Trading::where('state', 0)->get());
+        $new_qnas = count(QNA::where('type', 0)->where('is_answer', 0)->where('is_check', 0)->get());
+        $new_acc_qnas = count(QNA::where('type', 1)->where('is_answer', 0)->where('is_check', 0)->get());
+        $new_tradings = count(Trading::where('state', 0)->where('is_check', 0)->get());
         // $level_users = DB::select("SELECT  user_level.name, user_level.level, COUNT(users.id) AS cnt FROM user_level LEFT JOIN users  ON  user_level.level = users.level WHERE users.type='USER' GROUP BY user_level.level");
         return response()->json(["status" => "success", "data" => compact('new_users', 'levelup_users', 'new_deposits', 'new_withdraws', 'new_qnas', 'new_acc_qnas', 'new_tradings')]);
     }

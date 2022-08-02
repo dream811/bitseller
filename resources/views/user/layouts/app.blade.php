@@ -13,6 +13,11 @@
       <link rel="stylesheet" href="{{asset('user_assets/css/coinex.css?v=1.0.0')}}">
       <script src="/plugins/jquery/jquery.min.js"></script>
       <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.css">
+        <!-- jquery bootstrap data table -->
+        <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css')}}">
+        <link rel="stylesheet" href="{{asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css')}}">
       <!-- summernote -->
       <link rel="stylesheet" href="/plugins/summernote/summernote-bs4.min.css">
       <!-- Toastr -->
@@ -61,6 +66,23 @@
         <!--로고 End-->
         @include('user.layouts.menu')
       </div>
+      <style>
+        @media (max-width: 767.98px) {
+            table.dataTable td {
+                font-size: .8em;
+                padding: 4px 2px;
+            }
+            table.dataTable td div span {
+                font-size: 1.1em !important;
+            }
+            table.dataTable td div{
+                font-size: 1.0em !important;
+            }
+            table.dataTable th {
+                font-size: .9em;
+            }
+        }
+      </style>
       @yield('content')      
         <footer class="footer">
             <div class="footer-body">
@@ -109,7 +131,13 @@
     <script src="{{asset('user_assets/js/app.js')}}"></script>
     <!-- apexchart JavaScript -->
     <script src="{{asset('user_assets/js/charts/apexcharts.js')}}"></script>
-    
+    <!-- DataTables  & Plugins -->
+    <script src="{{asset('plugins/datatables/jquery.dataTables.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables-bs4/js/dataTables.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables-responsive/js/dataTables.responsive.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables-responsive/js/responsive.bootstrap4.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables-buttons/js/dataTables.buttons.min.js')}}"></script>
+    <script src="{{asset('plugins/datatables-buttons/js/buttons.bootstrap4.min.js')}}"></script>
     @guest
     @else
     <script>

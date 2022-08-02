@@ -34,7 +34,7 @@ class TradingController extends Controller
     {
 
         $title = "구매목록";
-
+        Trading::where('is_check', 0)->update(['is_check' => 1]);
         if ($request->ajax()) {
             $schedules = Trading::where('is_del', 0)->orderBy('created_at', 'DESC');
 
@@ -268,9 +268,12 @@ class TradingController extends Controller
                 ]);
             }
         }
-        
+        // $data['mb_intercept_date']  = $date->format('Y-m-d H:i:s');
         $trade->update(            
-            ['state' => $state]
+            [
+                'state' => $state,
+                'calculated_at' => $state== 1 ? Carbon::now() : NULL,
+            ]
         );
         //$user->image = asset('storage/'. $user->image);
         return response()->json(["status" => "success", "data" => $state]);

@@ -29,6 +29,7 @@ class QNAController extends Controller
     public function index(Request $request)
     {
         $title = "1대1문의";
+        QNA::where('is_check', 0)->where('type', 0)->update(['is_check' => 1]);
         if ($request->ajax()) {
             $qnas = QNA::where('is_del', 0)->where('type', 0)
                 ->orderBy('id', 'DESC');
@@ -76,6 +77,7 @@ class QNAController extends Controller
     public function acc_index(Request $request)
     {
         $title = "계좌문의";
+        QNA::where('is_check', 0)->where('type', 1)->update(['is_check' => 1]);
         if ($request->ajax()) {
             $qnas = QNA::where('is_del', 0)->where('type', 1)
                 ->orderBy('id', 'DESC');
