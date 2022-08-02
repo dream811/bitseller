@@ -90,7 +90,7 @@
                 {title: "코인명", data: 'coin_type', name: 'coin_type', orderable  : false,className:"text-center"},
                 {title: "매수가격", data: 'cur_price', name: 'cur_price', orderable  : false, className:"text-end"},
                 {title: "수량", data: 'coin_quantity', name: 'coin_quantity', orderable  : false, className:"text-end"},
-                {title: "총구매액", data: 'order_amount', name: 'order_amount', orderable  : false,className:"text-center"},
+                {title: "총구매액", data: 'order_amount', name: 'order_amount', orderable  : false,className:"text-end"},
             ],
             responsive: true, lengthChange: true,
             

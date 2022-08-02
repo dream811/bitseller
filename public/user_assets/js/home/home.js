@@ -17,6 +17,7 @@ function initialize() {
   getUserLetterList();
   scope.Math = Math;
   scope.lstCoinData;
+  scope.lstCoinOption = [];
   scope.filterCondition = {
     value: '',
     key: -1
@@ -48,6 +49,7 @@ function RecvDataPacket(packet)
   if(packet.m_nCmd == PKT_USER_COIN_DATA)
   {
     scope.lstCoinData = packet.m_strPacket;
+    getCoinOption(packet.m_strPacket);
     //scope.filterCondition.value = scope.lstCoinData[0].ne;
   }
   else if(packet.m_nCmd == PKT_USER_COIN_BUY)
@@ -140,6 +142,18 @@ function ChangeCoinType() {
   //     scope.filterCondition.key = key;
   //     scope.filterCondition.value = element.ne;
   // })
+}
+
+function getCoinOption(data) {
+    var newCoinOption = data.map((element, index)=>{
+      
+      return {nk:element.nk, ne:element.ne};
+    });
+
+    if(scope.lstCoinOption.toString() !== newCoinOption.toString()){
+      scope.lstCoinOption = newCoinOption;
+      console.log(scope.lstCoinOption);
+    }
 }
 
 function MoneyFormat(str)

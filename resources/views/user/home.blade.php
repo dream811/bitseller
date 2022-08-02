@@ -280,8 +280,8 @@
                                         <select id="coin_type" ng-model="filterCondition.key" name="coin_type" class="form-select form-select-sm" style="appearance: auto;">
                                         <option value="-1" selected>선택해주세요</option>
                                         <option
-                                                ng-selected="info.ne == lstCoinData[filterCondition.key].ne"
-                                                ng-repeat="(key, info) in lstCoinData"
+                                                ng-selected="info.ne == lstCoinOption[filterCondition.key].ne"
+                                                ng-repeat="(key, info) in lstCoinOption"
                                                 value="!%key%!" 
                                             >!%info.nk%!</option>
                                         </select>
