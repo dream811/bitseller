@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Calculate;
+namespace App\Http\Controllers\Partner\Calculate;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
