@@ -81,20 +81,21 @@
             table.dataTable th {
                 font-size: .9em;
             }
-            table.dataTable.dtr-inline.collapsed>tbody>tr>td.child{
-                cursor: default !important;
-                text-align:center;
-            }
-            table.dataTable>tbody>tr.child ul.dtr-details>li.text-center{
-                text-align: center !important;
-                width:200px;
-            }
-            table.dataTable>tbody>tr.child ul.dtr-details>li.text-end{
-                text-align: center !important;
-            }
-            table.dataTable>tbody>tr.child ul.dtr-details>li.text-start{
-                text-align: center !important;
-            }
+            
+        }
+        table.dataTable.dtr-inline.collapsed>tbody>tr>td.child{
+            cursor: default !important;
+            text-align:center;
+        }
+        table.dataTable>tbody>tr.child ul.dtr-details>li.text-center{
+            text-align: center !important;
+            width:200px;
+        }
+        table.dataTable>tbody>tr.child ul.dtr-details>li.text-end{
+            text-align: center !important;
+        }
+        table.dataTable>tbody>tr.child ul.dtr-details>li.text-start{
+            text-align: center !important;
         }
       </style>
       @yield('content')      
