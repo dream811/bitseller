@@ -1,4 +1,4 @@
-@extends('admin.layouts.iframe')
+@extends('partner.layouts.iframe')
 @section('content')
 <div class="">
     <div class="content-header">
@@ -61,7 +61,7 @@
             scrollY: "620px",
             pageLength: 100,
             ajax: {
-                url: "{{ route('admin.calculate.user_trading_list', $userId) }}"
+                url: "{{ route('user.calculate.user_trading_list', $userId) }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, width: '50px', 'searchable' : false, 'exportable' : false, 'printable'  : true},
@@ -74,7 +74,6 @@
                 {title: "배당율", data: 'payout_rate', name: 'payout_rate', orderable: false, searchable: false, className: "text-center"},
                 {title: "총구매액", data: 'order_amount', name: 'order_amount',  orderable: false, searchable: false, className: "text-center"},
                 {title: "상태", data: 'state_info', name: 'state_info',  orderable: false, searchable: false, className: "text-center"},
-                {title: "조작", data: 'action', name: 'action', width: '140px', orderable: false, searchable: false, className: "text-center"},
             ],
             responsive: true, lengthChange: true,
             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"]

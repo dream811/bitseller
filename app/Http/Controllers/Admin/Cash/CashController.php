@@ -36,7 +36,7 @@ class CashController extends Controller
         Exchange::where('type', $type)->where('is_check', 0)->update(['is_check' => 1]);
 
         if ($request->ajax()) {
-            $monies = Exchange::where('type', $type)->orderBy('created_at', 'DESC');
+            $monies = Exchange::where('type', $type)->orderBy('id', 'DESC');
                 
 
             return DataTables::eloquent($monies)

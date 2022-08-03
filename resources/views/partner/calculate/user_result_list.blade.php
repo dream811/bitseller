@@ -1,4 +1,4 @@
-@extends('admin.layouts.iframe')
+@extends('partner.layouts.iframe')
 @section('content')
 <div class="">
     <div class="content-header">
@@ -61,7 +61,7 @@
             scrollY: "620px",
             pageLength: 100,
             ajax: {
-                url: "{{ route('admin.calculate.user_result_list', $userId) }}"
+                url: "{{ route('user.calculate.user_result_list', $userId) }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, width: '50px', 'searchable' : false, 'exportable' : false, 'printable'  : true},

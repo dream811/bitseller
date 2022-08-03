@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('partner.layouts.app')
 @section('content')
 <div class="content-wrapper">
     <div class="content-header">
@@ -9,7 +9,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">관리자</a></li>
+                    <li class="breadcrumb-item"><a href="#">파트너</a></li>
                     <li class="breadcrumb-item"><a href="#">회원관리</a></li>
                     <li class="breadcrumb-item active">회원목록</li>
                     </ol>
@@ -25,11 +25,11 @@
                 <div class="card card-primary card-outline card-tabs">
                     <div class="card-header p-0 pt-1 border-bottom-0">
                         
-                        <ul class="nav float-right">
+                        {{-- <ul class="nav float-right">
                             <li class="pull-right float-right pr-1 pt-1" style="">
                                 <a href="javascript:void(0)" class="btn btn-success btn-sm btnAdd" >새로 등록</a>
                             </li>
-                        </ul>
+                        </ul> --}}
                     </div>
                     <div class="card-body" >
                         <form id="divUserForm">
@@ -62,7 +62,7 @@
             searching: false,
             scrollY: "100%",
             ajax: {
-                url: "{{ route('admin.user.list') }}"
+                url: "{{ route('user.user.list') }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false, 'exportable' : false, 'printable'  : true},

@@ -10,6 +10,7 @@ use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -31,11 +32,11 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $title = "사용자관리";
+        $title = "하부회원목록";
 
         if ($request->ajax()) {
             $users = User::where('type', 'USER')
-                ->where('level', '<', 9)
+                ->where('referer', Auth::user()->member_code)
                 ->where('is_del', 0);
                 //->orderBy('name');
 
@@ -92,7 +93,7 @@ class UserController extends Controller
                 ->rawColumns(['action', 'level', 'is_use', 'nickname'])
                 ->make(true);
         }
-        return view('admin.user.list', compact('title'));
+        return view('partner.user.list', compact('title'));
     }
 
     //수정하려는 유저 선택(post)

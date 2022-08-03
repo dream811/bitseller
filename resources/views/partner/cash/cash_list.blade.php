@@ -1,4 +1,4 @@
-@extends('admin.layouts.app')
+@extends('partner.layouts.app')
 @section('script')
 <script src="{{asset('admin_assets/js/exchange/exchange.js')}}"></script>
 @endsection
@@ -64,7 +64,7 @@
             serverSide: true,
             scrollY: "620px",
             ajax: {
-                url: "{{ route('admin.cash.cash_list', $type) }}"
+                url: "{{ route('user.cash.cash_list', $type) }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false, 'exportable' : false, 'printable'  : true},
@@ -81,37 +81,37 @@
         }).buttons().container().appendTo('#userTable_wrapper .col-md-6:eq(0)');
         $('body').on('click', '.btnEdit', function () {
             var userId = $(this).attr('data-id');
-            window.open('/admin/user/userManage/edit/' + userId, '정보 수정', 'scrollbars=1, resizable=1, width=1000, height=620');
+            window.open('/user/user/userManage/edit/' + userId, '정보 수정', 'scrollbars=1, resizable=1, width=1000, height=620');
             return false;
         });
         $('body').on('click', '.btnAdd', function () {
-            window.open('/admin/user/userManage/edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/user/user/userManage/edit/0', '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         
         $('body').on('click', '.btnEditMember', function () {
             var id = $(this).attr('data-id');
-            window.open('/admin/user/edit/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/user/user/edit/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoDeposit', function () {
             var id = $(this).attr('data-id');
-            window.open('/admin/cash/user_cash/0/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/user/cash/user_cash/0/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoWithdraw', function () {
             var id = $(this).attr('data-id');
-            window.open('/admin/cash/user_cash/1/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/user/cash/user_cash/1/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoTrading', function () {
             var id = $(this).attr('data-id');
-            window.open('/admin/calculate/user_trading/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/user/calculate/user_trading/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoResult', function () {
             var id = $(this).attr('data-id');
-            window.open('/admin/calculate/user_result/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/user/calculate/user_result/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         function refreshTable() {

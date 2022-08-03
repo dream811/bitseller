@@ -33,10 +33,13 @@ class CashController extends Controller
         $title = "입금";
         if ($type == 1)
             $title = "출금";
-        Exchange::where('type', $type)->where('is_check', 0)->update(['is_check' => 1]);
+        //Exchange::where('type', $type)->where('is_check', 0)->update(['is_check' => 1]);
 
         if ($request->ajax()) {
-            $monies = Exchange::where('type', $type)->orderBy('created_at', 'DESC');
+            $members = User::where('referer', '<>', NULL)->where('referer', Auth::user()->member_code)->pluck('id');
+            // print_r($members);
+            
+            $monies = Exchange::where('type', $type)->whereIn('user_id', $members)->orderBy('id', 'DESC');
                 
 
             return DataTables::eloquent($monies)
@@ -119,7 +122,7 @@ class CashController extends Controller
                 ->rawColumns(['check', 'action', 'user_name'])
                 ->make(true);
         }
-        return view('admin.cash.cash_list', compact('title', 'type'));
+        return view('partner.cash.cash_list', compact('title', 'type'));
     }
 
     /**
@@ -214,7 +217,7 @@ class CashController extends Controller
                 ->rawColumns(['check', 'action', 'user_name'])
                 ->make(true);
         }
-        return view('admin.cash.cash_user_list', compact('title', 'type', 'user_id'));
+        return view('partner.cash.cash_user_list', compact('title', 'type', 'user_id'));
     }
 
     /**
@@ -227,7 +230,7 @@ class CashController extends Controller
         $bank_account = ShopConfig::first()->pluck('de_bank_account');
         $moneyInfo = Money::firstOrNew(['mo_id' => $id]);
 
-        return view('admin.user.ChargeDetail', compact('moneyInfo', 'type', 'id', 'bank_account'));
+        return view('partner.user.ChargeDetail', compact('moneyInfo', 'type', 'id', 'bank_account'));
     }
     // 저장
     public function save($type = 0, $id, Request $request)

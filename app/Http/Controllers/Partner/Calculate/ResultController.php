@@ -11,6 +11,7 @@ use DateTime;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
+use Illuminate\Support\Facades\Auth;
 
 class ResultController extends Controller
 {
@@ -35,7 +36,8 @@ class ResultController extends Controller
         $title = "배당금지급내역";
 
         if ($request->ajax()) {
-            $schedules = Trading::where('is_del', 0);
+            $members = User::where('referer', '<>', NULL)->where('referer', Auth::user()->member_code)->pluck('id');
+            $schedules = Trading::where('is_del', 0)->whereIn('user_id', $members);
 
             return DataTables::of($schedules)
                 ->addIndexColumn()
@@ -108,7 +110,7 @@ class ResultController extends Controller
                 ->rawColumns(['action','user_info', 'level'])
                 ->make(true);
         }
-        return view('admin.calculate.result_list', compact('title'));
+        return view('partner.calculate.result_list', compact('title'));
     }
 
     /**
@@ -122,6 +124,7 @@ class ResultController extends Controller
         $title = "배당금내역";
 
         if ($request->ajax()) {
+            
             $schedules = Trading::where('is_del', 0)->where('user_id', $userId)->orderBy('created_at', 'DESC');
 
             return DataTables::of($schedules)
@@ -194,7 +197,7 @@ class ResultController extends Controller
                 ->rawColumns(['action','user_info', 'level'])
                 ->make(true);
         }
-        return view('admin.calculate.user_result_list', compact('title', 'userId'));
+        return view('partner.calculate.user_result_list', compact('title', 'userId'));
     }
 
     //수정하려는 유저 선택(post)
@@ -210,7 +213,7 @@ class ResultController extends Controller
             ->firstOrNew();
         $users = User::where('is_del', 0)->where('is_use', 1)->where('type', 'USER')->select('id', 'str_id', 'name', 'nickname')->get();
         $coins = Coin::where('is_use', 1)->get();
-        return view('admin.calculate.result_detail', compact('title', 'id', 'trading', 'users', 'coins'));
+        return view('partner.calculate.result_detail', compact('title', 'id', 'trading', 'users', 'coins'));
     }
     public function save(Request $request)
     {

@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class TradingController extends Controller
 {
@@ -34,9 +35,10 @@ class TradingController extends Controller
     {
 
         $title = "구매목록";
-        Trading::where('is_check', 0)->update(['is_check' => 1])->orderBy('created_at', 'DESC');
+        
         if ($request->ajax()) {
-            $schedules = Trading::where('is_del', 0)->orderBy('created_at', 'DESC');
+            $members = User::where('referer', '<>', NULL)->where('referer', Auth::user()->member_code)->pluck('id');
+            $schedules = Trading::where('is_del', 0)->whereIn('user_id', $members)->orderBy('created_at', 'DESC');
 
             return DataTables::of($schedules)
                 ->addIndexColumn()
@@ -110,7 +112,7 @@ class TradingController extends Controller
                 ->rawColumns(['action','user_info', 'level'])
                 ->make(true);
         }
-        return view('admin.calculate.trading_list', compact('title'));
+        return view('partner.calculate.trading_list', compact('title'));
     }
 
     /**
@@ -198,7 +200,7 @@ class TradingController extends Controller
                 ->rawColumns(['action','user_info', 'level'])
                 ->make(true);
         }
-        return view('admin.calculate.user_trading_list', compact('title', 'userId'));
+        return view('partner.calculate.user_trading_list', compact('title', 'userId'));
     }
 
     //수정하려는 유저 선택(post)

@@ -80,12 +80,28 @@ Route::middleware('user')->name('user.')->group(
         Route::post('/message/{id}',                [App\Http\Controllers\User\MessageController::class, 'save'])->name('message.save');
         Route::put('/message/{id}',                 [App\Http\Controllers\User\MessageController::class, 'read'])->name('message.read');
         Route::delete('/message/{id}',              [App\Http\Controllers\User\MessageController::class, 'delete'])->name('message.delete');
+
+        //사용자관리
+        Route::get('/user/list',                    [App\Http\Controllers\Partner\User\UserController::class, 'index'])->name('user.list');
+        Route::get('/user/edit/{userId}',           [App\Http\Controllers\Partner\User\UserController::class, 'edit'])->name('user.edit');
+        //입출금
+        Route::get('cash/cash/{type}',              [App\Http\Controllers\Partner\Cash\CashController::class, 'index'])->name('cash.cash_list');
+        //Route::get('cash/cash/{type}/{id}',         [App\Http\Controllers\Admin\Cash\CashController::class, 'show'])->name('cash.cash_edit');
+        //유저별 입출금
+        Route::get('cash/user_cash/{type}/{user_d}',[App\Http\Controllers\Partner\Cash\CashController::class, 'user_index'])->name('cash.user_cash_list');
+        //회원별구매내역
+        Route::get('calculate/user_trading/{userId}',[App\Http\Controllers\Partner\Calculate\TradingController::class, 'user_index'])->name('calculate.user_trading_list');
+        //구매내역
+        Route::get('calculate/trading',             [App\Http\Controllers\Partner\Calculate\TradingController::class, 'index'])->name('calculate.trading_list');
+        //회원별배당금지급내역
+        Route::get('calculate/user_result/{userId}',[App\Http\Controllers\Partner\Calculate\ResultController::class, 'user_index'])->name('calculate.user_result_list');
+        //배당금지급내역
+        Route::get('calculate/result',              [App\Http\Controllers\Partner\Calculate\ResultController::class, 'index'])->name('calculate.result_list');
+        //실시간정보
+        Route::get('/realtime_info',                [App\Http\Controllers\Partner\HomeController::class, 'realtime_info'])->name('realtime_info');
     }
 );
 Auth::routes();
-
-
-
 
 Route::middleware('admin')->prefix('admin')->name('admin.')->group(
     function () {
@@ -101,7 +117,7 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         Route::get('user/levelup_list',             [App\Http\Controllers\Admin\User\LevelupController::class, 'index'])->name('user.levelup_list');
         Route::post('user/levelup/{userId}',        [App\Http\Controllers\Admin\User\LevelupController::class, 'levelup'])->name('user.levelup');
         //로그인회원
-        Route::get('user/login_list/{ids}',               [App\Http\Controllers\Admin\User\LoginUserController::class, 'index'])->name('user.login_list');
+        Route::get('user/login_list/{ids}',         [App\Http\Controllers\Admin\User\LoginUserController::class, 'index'])->name('user.login_list');
 
         //사용자관리
         Route::get('user/list',                     [App\Http\Controllers\Admin\User\UserController::class, 'index'])->name('user.list');
