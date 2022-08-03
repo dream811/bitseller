@@ -51,8 +51,8 @@ class Scrapper {
                         //코인정보
                         scrap_data.nk = columns[0].querySelector('div > div').textContent;
                         scrap_data.ne = columns[0].querySelector('div > div:nth-child(2) > span:nth-child(2)').textContent;
-                        scrap_data.ic = columns[0].querySelector('div > div:nth-child(1) > img').src;
-                        scrap_data.ic = scrap_data.ic.match(/.*\/(.*)$/)[1];
+                        // scrap_data.ic = columns[0].querySelector('div > div:nth-child(1) > img').src;
+                        // scrap_data.ic = scrap_data.ic.match(/.*\/(.*)$/)[1];
                         //현재가
                         var cur_price = columns[1].innerText.trim();
                         var arr_cur_price = cur_price.split('\n');
@@ -64,13 +64,13 @@ class Scrapper {
                         scrap_data.kp = columns[2].querySelector('div:nth-child(1)').textContent;
                         scrap_data.kp1 = scrap_data.kp.replace('%', '');
                         scrap_data.ka = columns[2].querySelector('div:nth-child(2)').textContent;
-                        scrap_data.ka1 = scrap_data.ka.replaceAll(',', '');
+                        // scrap_data.ka1 = scrap_data.ka.replaceAll(',', '');
                         //전일대비
                         var yesterday_info = columns[3].innerText.trim().replace('%', '');
                         var arr_yesterday_info = yesterday_info.split('\n');
                         scrap_data.yp = arr_yesterday_info[0];
                         scrap_data.ya = arr_yesterday_info[1];
-                        scrap_data.ya1 = scrap_data.ya.replaceAll(',', '');
+                        // scrap_data.ya1 = scrap_data.ya.replaceAll(',', '');
                         // //최대가
                         // var highest_info = columns[4].innerText.trim();
                         // var arr_highest_info = highest_info.split('%');
