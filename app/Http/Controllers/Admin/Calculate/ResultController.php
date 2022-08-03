@@ -35,7 +35,7 @@ class ResultController extends Controller
         $title = "배당금지급내역";
 
         if ($request->ajax()) {
-            $schedules = Trading::where('is_del', 0);
+            $schedules = Trading::where('is_del', 0)->orderBy('created_at', 'DESC');
 
             return DataTables::of($schedules)
                 ->addIndexColumn()
