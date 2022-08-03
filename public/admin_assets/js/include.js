@@ -379,5 +379,10 @@ function onSelectCustomPage()
 // }
 
 function goto_login_users() {
-    location.href ='/admin/user/login_list/' + scope.login_ids;
+    if(scope.login_ids == ""){
+        location.href ='/admin/user/login_list/0';
+    }else{
+        location.href ='/admin/user/login_list/' + scope.login_ids;
+    }
+    
 }

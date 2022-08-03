@@ -373,7 +373,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 location.href="/login";
             }
         });
-        var add_feature = @if(Auth::user()->add_feature != "" ){!!Auth::user()->add_feature!!} @else {alarm:""} @endif;
+        var add_feature = {alarm:""};//@if(Auth::user()->add_feature != "" ){!!Auth::user()->add_feature!!} @else {alarm:""} @endif;
         //if(add_feature.alarm.includes('(0)')){scope.alarm_f_0=false;}
         function initialize()
         {
