@@ -34,7 +34,7 @@ class TradingController extends Controller
     {
 
         $title = "구매목록";
-        Trading::where('is_check', 0)->update(['is_check' => 1])->orderBy('created_at', 'DESC');
+        Trading::where('is_check', 0)->update(['is_check' => 1]);
         if ($request->ajax()) {
             $schedules = Trading::where('is_del', 0)->orderBy('created_at', 'DESC');
 
