@@ -109,12 +109,13 @@ Route::middleware('partner')->prefix('partner')->name('partner.')->group(
     function () {
         //사용자관리
         Route::get('/user/list',                    [App\Http\Controllers\Partner\User\UserController::class, 'index'])->name('user.list');
-        Route::get('/user/edit/{userId}',           [App\Http\Controllers\Partner\User\UserController::class, 'edit'])->name('user.edit');
+        Route::get('user/edit/{userId}',            [App\Http\Controllers\Partner\User\UserController::class, 'edit'])->name('user.edit');
+        Route::post('user/edit/{userId}',           [App\Http\Controllers\Partner\User\UserController::class, 'save'])->name('user.save');
         //입출금
         Route::get('cash/cash/{type}',              [App\Http\Controllers\Partner\Cash\CashController::class, 'index'])->name('cash.cash_list');
         //Route::get('cash/cash/{type}/{id}',         [App\Http\Controllers\Admin\Cash\CashController::class, 'show'])->name('cash.cash_edit');
         //유저별 입출금
-        Route::get('cash/user_cash/{type}/{user_d}',[App\Http\Controllers\Partner\Cash\CashController::class, 'user_index'])->name('cash.user_cash_list');
+        Route::get('cash/user_cash/{type}/{user_id}',[App\Http\Controllers\Partner\Cash\CashController::class, 'user_index'])->name('cash.user_cash_list');
         //회원별구매내역
         Route::get('calculate/user_trading/{userId}',[App\Http\Controllers\Partner\Calculate\TradingController::class, 'user_index'])->name('calculate.user_trading_list');
         //구매내역
@@ -158,6 +159,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         Route::delete('user/level_edit/{levelId}',  [App\Http\Controllers\Admin\User\LevelController::class, 'delete'])->name('user.level_delete');
         Route::post('user/level_state/{levelId}',   [App\Http\Controllers\Admin\User\LevelController::class, 'state'])->name('user.level_state');
         Route::post('user/level_buy_state/{levelId}',[App\Http\Controllers\Admin\User\LevelController::class, 'buy_state'])->name('user.level_buy_state');
+        //파트너관리
+        Route::get('partner/list',                     [App\Http\Controllers\Admin\Partner\PartnerController::class, 'index'])->name('partner.list');
+
         //유저별 입출금
         Route::get('cash/user_cash/{type}/{user_d}',[App\Http\Controllers\Admin\Cash\CashController::class, 'user_index'])->name('cash.user_cash_list');
         //입출금

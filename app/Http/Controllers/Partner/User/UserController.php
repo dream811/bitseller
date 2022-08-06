@@ -109,7 +109,7 @@ class UserController extends Controller
             ->firstOrNew();
         if($userId == 0) $user->type = "USER";
         $bank_list = Bank::where('is_use', 1)->get();
-        return view('admin.user.detail', compact('title', 'userId', 'user', 'bank_list'));
+        return view('partner.user.detail', compact('title', 'userId', 'user', 'bank_list'));
     }
     public function save(Request $request)
     {

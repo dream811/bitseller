@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin\User;
+namespace App\Http\Controllers\Admin\Partner;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
-class UserController extends Controller
+class PartnerController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -31,10 +31,10 @@ class UserController extends Controller
     public function index(Request $request)
     {
 
-        $title = "사용자관리";
+        $title = "파트너관리";
 
         if ($request->ajax()) {
-            $users = User::where('type', 'USER')
+            $users = User::where('type', 'Partner')
                 ->where('level', '<', 9)
                 ->where('is_del', 0);
                 //->orderBy('name');
@@ -92,7 +92,7 @@ class UserController extends Controller
                 ->rawColumns(['action', 'level', 'is_use', 'nickname'])
                 ->make(true);
         }
-        return view('admin.user.list', compact('title'));
+        return view('admin.partner.list', compact('title'));
     }
 
     //수정하려는 유저 선택(post)
@@ -108,7 +108,7 @@ class UserController extends Controller
             ->firstOrNew();
         if($userId == 0) $user->type = "USER";
         $bank_list = Bank::where('is_use', 1)->get();
-        return view('admin.user.detail', compact('title', 'userId', 'user', 'bank_list'));
+        return view('partner.user.detail', compact('title', 'userId', 'user', 'bank_list'));
     }
     public function save(Request $request)
     {
@@ -136,7 +136,7 @@ class UserController extends Controller
             'nickname' => $request->post('nickname'),
             'referer' => $request->post('referer'),
             'is_use' => $request->post('is_use'),
-            'type' => $request->post('type'),
+            'type' => 'USER',
             'bank_id' => $request->post('bank_id'),
             'bank_account' => $request->post('bank_account'),
             'bank_user' => $request->post('bank_user'),

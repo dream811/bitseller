@@ -166,12 +166,12 @@
                             <label for="" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">사용상태<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6 mt-1">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="custom-control-input" type="radio" id="is_use1" name="is_use" value="0" @if( !$user->is_use ) checked @endif>
-                                    <label for="is_use1" class="custom-control-label pt-1" style="font-size:12px;" >차단</label>
+                                    <input class="custom-control-input" type="radio" id="is_use1" name="is_use" value="1" @if( $user->is_use ) checked @endif>
+                                    <label for="is_use1" class="custom-control-label pt-1" style="font-size:12px;" >사용</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="custom-control-input" type="radio" id="is_use2" name="is_use" value="1" @if( $user->is_use ) checked @endif>
-                                    <label for="is_use2" class="custom-control-label pt-1" style="font-size:12px;">사용</label>
+                                    <input class="custom-control-input" type="radio" id="is_use2" name="is_use" value="0" @if( !$user->is_use ) checked @endif>
+                                    <label for="is_use2" class="custom-control-label pt-1" style="font-size:12px;">차단</label>
                                 </div>
                             </div>
                         </div>

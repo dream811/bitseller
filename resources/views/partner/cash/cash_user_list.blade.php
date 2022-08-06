@@ -64,7 +64,7 @@
             serverSide: true,
             scrollY: "620px",
             ajax: {
-                url: "{{ route('user.cash.user_cash_list', [$type, $user_id]) }}"
+                url: "{{ route('partner.cash.user_cash_list', [$type, $user_id]) }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false, 'exportable' : false, 'printable'  : true},
@@ -91,27 +91,27 @@
         
         $('body').on('click', '.btnEditMember', function () {
             var id = $(this).attr('data-id');
-            window.open('/user/user/edit/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/partner/user/edit/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoDeposit', function () {
             var id = $(this).attr('data-id');
-            window.open('/user/cash/user_cash/0/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/partner/cash/user_cash/0/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoWithdraw', function () {
             var id = $(this).attr('data-id');
-            window.open('/user/cash/user_cash/1/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/partner/cash/user_cash/1/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoTrading', function () {
             var id = $(this).attr('data-id');
-            window.open('/user/calculate/user_trading/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/partner/calculate/user_trading/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         $('body').on('click', '.btnGotoResult', function () {
             var id = $(this).attr('data-id');
-            window.open('/user/calculate/user_result/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
+            window.open('/partner/calculate/user_result/'+id, '정보 추가', 'scrollbars=1, resizable=1, width=800, height=620');
             return false;
         });
         function refreshTable() {

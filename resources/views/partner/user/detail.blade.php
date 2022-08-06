@@ -1,6 +1,6 @@
 @extends('admin.layouts.iframe')
 @section('content')
-<form id="userForm" method="post" action="{{ route('admin.user.save', $userId) }}" enctype="multipart/form-data"> 
+<form id="userForm" method="post" action="{{ route('partner.user.save', $userId) }}" enctype="multipart/form-data"> 
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -166,11 +166,11 @@
                             <label for="" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">사용상태<code style="color:red !important;">[필수]</code></label>
                             <div class="col-sm-9 col-md-6 mt-1">
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="custom-control-input" type="radio" id="is_use1" name="is_use" value="1" @if( !$user->is_use ) checked @endif>
+                                    <input class="custom-control-input" type="radio" id="is_use1" name="is_use" value="1" @if( $user->is_use ) checked @endif>
                                     <label for="is_use1" class="custom-control-label pt-1" style="font-size:12px;" >사용</label>
                                 </div>
                                 <div class="custom-control custom-radio custom-control-inline">
-                                    <input class="custom-control-input" type="radio" id="is_use2" name="is_use" value="0" @if( $user->is_use ) checked @endif>
+                                    <input class="custom-control-input" type="radio" id="is_use2" name="is_use" value="0" @if( !$user->is_use ) checked @endif>
                                     <label for="is_use2" class="custom-control-label pt-1" style="font-size:12px;">차단</label>
                                 </div>
                             </div>
@@ -254,6 +254,13 @@
                             <div class="col-sm-9 col-md-6">
                             <input type="text" class="form-control form-control-sm" id="referer" name="referer" value="{{ $user->referer }}" placeholder="">
                             </div>
+                        </div>
+                        <div class="form-group row mb-0">
+                            <label for="rate" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">롤링요율<code style="color:red !important;">[필수]</code></label>
+                            <div class="col-sm-5 col-md-3">
+                            <input type="number" step="0.01" max="100", min="0" class="form-control form-control-sm" id="rate" name="rate" value="{{ $user->rate }}" placeholder="">
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
@@ -376,6 +383,12 @@
                     alert('계좌번호를 입력해주세요!');
                     return false;
                 }
+
+                var rate = $("#rate").val();
+                if(rate == ""){
+                    alert('롤링요율을 입력해주세요!');
+                    return false;
+                }
                 // var txtBusinessNumber = $("#txtBusinessNumber").val();
                 // if(txtBusinessNumber == ""){
                 //     alert('사업자등록번호를 입력해주세요!');
@@ -412,7 +425,7 @@
                 var userId = $("#id").val();
                 var action ="/admin/user/check";
                 if(userId != 0){
-                    action = "/admin/user/edit/"+userId;
+                    action = "/partner/user/edit/"+userId;
                     //formData.submit();
                     $.ajax({
                         url: action,
@@ -455,7 +468,7 @@
                                     return;
                                 }
 
-                                action = "/admin/user/edit/"+userId;
+                                action = "/partner/user/edit/"+userId;
                                 //formData.submit();
                                 $.ajax({
                                     url: action,

@@ -67,6 +67,19 @@
 							</li>
 						</ul>
 					</li>
+					<li class="nav-item {{ (request()->routeIs('admin.partner*')) ? 'menu-open' : '' }}">
+						<a href="#" class="nav-link {{ (request()->routeIs('admin.partner*')) ? 'active' : '' }}"> <i class="fas fa-address-card"></i>
+							<p> 파트너관리 <i class="right fas fa-angle-left"></i> </p>
+						</a>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{ route('admin.partner.list') }}" class="nav-link {{ (request()->routeIs('admin.partner.list')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>파트너목록</p>
+								</a>
+							</li>
+						</ul>
+					</li>
 					{{-- <li class="nav-item {{ (request()->routeIs('admin.cash.cash_list')) ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link  {{ (request()->routeIs('admin.cash.cash_list')) ? 'active' : '' }}"> <i class="fas fa-hand-holding-usd"></i>
 							<p> 파트너관리 <i class="right fas fa-angle-left"></i> </p>
