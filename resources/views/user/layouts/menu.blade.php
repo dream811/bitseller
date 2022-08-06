@@ -244,7 +244,6 @@
                     @if(Auth::user()->isAdmin())
                         <li class="border-0"><a class="dropdown-item" href="/admin">관리자 페이지</a></li>
                     @endif
-                    <li class="border-0"><a class="dropdown-item" href="/user/list">파트너 페이지</a></li>
                     <li class="border-0"><hr class="m-0 dropdown-divider"></li>
                     <li class="border-0"><a class="dropdown-item" href="{{ route('logout') }}" 
                         onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a></li>

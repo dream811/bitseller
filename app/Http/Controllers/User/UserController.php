@@ -86,7 +86,7 @@ class UserController extends Controller
             [
                 'password' => $new_password,
                 'nickname' => $nickname,
-                'member_code' => $member_code,
+                // 'member_code' => $member_code,
                 'phone' => $phone
             ]);
             $message = "정보를 수정하였습니다.";

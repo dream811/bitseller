@@ -59,7 +59,7 @@
         var table = $('#userTable').DataTable({
             processing: true,
             serverSide: true,
-            searching: false,
+            // searching: false,
             scrollY: "100%",
             ajax: {
                 url: "{{ route('admin.user.list') }}"
@@ -76,6 +76,7 @@
                 {title: "입금합계", data: 'deposit_sum', name: 'deposit_sum'},
                 {title: "출금합계", data: 'withdraw_sum', name: 'withdraw_sum'},
                 {title: "등급", data: 'level', name: 'level', className: "text-center"},
+                {title: "롤링요율", data: 'rate', name: 'rate', className: "text-right"},
                 {title: "사용상태", data: 'is_use', name: 'is_use', className: "text-right"},
                 {title: "조작", data: 'action', name: 'action', orderable:false, searchable: false, className: "text-center"},
             ],

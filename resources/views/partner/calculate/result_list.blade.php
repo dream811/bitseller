@@ -61,7 +61,7 @@
             scrollY: "620px",
             pageLength: 100,
             ajax: {
-                url: "{{ route('user.calculate.result_list') }}"
+                url: "{{ route('partner.calculate.result_list') }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, width: '50px', 'searchable' : false, 'exportable' : false, 'printable'  : true},

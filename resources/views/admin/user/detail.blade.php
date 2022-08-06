@@ -255,6 +255,13 @@
                             <input type="text" class="form-control form-control-sm" id="referer" name="referer" value="{{ $user->referer }}" placeholder="">
                             </div>
                         </div>
+                        <div class="form-group row mb-0">
+                            <label for="rate" class="text-left text-sm-right col-sm-3 col-md-2 col-form-label">롤링요율<code style="color:red !important;">[필수]</code></label>
+                            <div class="col-sm-5 col-md-3">
+                            <input type="number" step="0.01" max="100", min="0" class="form-control form-control-sm" id="rate" name="rate" value="{{ $user->rate }}" placeholder="">
+                            </div>
+                            
+                        </div>
                     </div>
                 </div>
             </div>
