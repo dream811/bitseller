@@ -39,6 +39,7 @@ class CoinProcess {
                 "message"          :   "회원정보가 정확치 않습니다."
             }
             ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
+            return;
         }
 
         sql = `INSERT INTO exchange_list (user_id, amount, type) 
@@ -258,7 +259,7 @@ class CoinProcess {
             "message"          :   "입금대기신청이 완료되었습니다."
         }
         ws.send(JSON.stringify({m_nCmd, m_strPacket: JSON.stringify(packet)}));
-        }
+    }
 
     //admin
     async admDepositCancel(ws, strValue){
