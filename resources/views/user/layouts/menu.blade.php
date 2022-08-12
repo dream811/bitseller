@@ -59,12 +59,15 @@
                 <li class="border-0"><a class="dropdown-item" href="/user/list">파트너 페이지</a></li>
             @endif --}}
             <li class="border-0"><hr class="m-0 dropdown-divider"></li>
-            <li class="border-0"><a class="dropdown-item" href="{{ route('logout') }}" 
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a></li>
-                        {{-- {{ __('Logout') }} --}}
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
+            <li class="border-0">
+                <a class="dropdown-item" href="{{ route('logout') }}" 
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃
+            </a>
+            </li>
+                    {{-- {{ __('Logout') }} --}}
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
             </ul>
         </span>  
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -239,15 +242,16 @@
                     </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end text-xs" aria-labelledby="navbarDropdown">
-                    <li class="border-0"><a class="dropdown-item" href="{{route('user.mypage')}}">나의 정보</a></li>
-                    {{-- <li class="border-0"><a class="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li> --}}
-                    @if(Auth::user()->isAdmin())
-                        <li class="border-0"><a class="dropdown-item" href="/admin">관리자 페이지</a></li>
-                    @endif
-                    <li class="border-0"><hr class="m-0 dropdown-divider"></li>
-                    <li class="border-0"><a class="dropdown-item" href="{{ route('logout') }}" 
-                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a></li>
-                                {{-- {{ __('Logout') }} --}}
+                        <li class="border-0"><a class="dropdown-item" href="{{route('user.mypage')}}">나의 정보</a></li>
+                        {{-- <li class="border-0"><a class="dropdown-item" href="../dashboard/app/user-privacy-setting.html">Privacy Setting</a></li> --}}
+                        @if(Auth::user()->isAdmin())
+                            <li class="border-0"><a class="dropdown-item" href="/admin">관리자 페이지</a></li>
+                        @endif
+                        <li class="border-0"><hr class="m-0 dropdown-divider"></li>
+                        <li class="border-0"><a class="dropdown-item" href="{{ route('logout') }}" 
+                            onclick="event.preventDefault(); document.getElementById('logout-form').submit();">로그아웃</a>
+                        </li>
+                        {{-- {{ __('Logout') }} --}}
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                             @csrf
                         </form>

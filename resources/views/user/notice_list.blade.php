@@ -90,7 +90,7 @@
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false},
                 {title: "제목", data: 'title', name: 'title', orderable  : false ,className:"text-center"},
-                {title: "작성일", data: 'updated_at', name: 'updated_at', orderable  : false,className:"text-center"},
+                // {title: "작성일", data: 'updated_at', name: 'updated_at', orderable  : false,className:"text-center"},
                 {title: "작성자", data: 'writer', name: 'writer', orderable  : false,className:"text-center"},
             ],
             responsive: true, lengthChange: true,
