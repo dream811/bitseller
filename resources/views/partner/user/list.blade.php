@@ -62,7 +62,7 @@
             searching: false,
             scrollY: "100%",
             ajax: {
-                url: "{{ route('partner.partner.list') }}"
+                url: "{{ route('partner.user.list') }}"
             },
             columns: [
                 {title: "No", data: 'DT_RowIndex', name: 'DT_RowIndex', 'render' : null, orderable  : false, 'searchable' : false, 'exportable' : false, 'printable'  : true},
