@@ -106,7 +106,7 @@ class MessageController extends Controller
     //     if ($request->ajax()) {
     //         return response()->json(["status" => "success", "data" => compact('qna')]);
     //     }else{
-    //         $data = '<script>alert("문의가 성과적으로 등록되었습니다.");window.opener.location.reload();window.close();</script>';
+    //         $data = '<script>alert("문의가 성공적으로 등록되었습니다.");window.opener.location.reload();window.close();</script>';
     //         return view('test', compact('data'));
     //     }
     // }

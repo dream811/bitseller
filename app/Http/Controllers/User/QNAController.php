@@ -90,7 +90,7 @@ class QNAController extends Controller
     public function save($id, Request $request)
     {
         if($request->post('type')){
-            $ready_bankQna = QNA::where('type', 1)->where('is_answer', 0)->get();
+            $ready_bankQna = QNA::where('type', 1)->where('user_id', Auth::id())->where('is_answer', 0)->get();
             if(count($ready_bankQna)){
                 $message = "아직 대기중인 계좌문의가 있습니다.";
                 return response()->json(["status" => "error", "data" => compact('message')]);
@@ -110,7 +110,7 @@ class QNAController extends Controller
         if ($request->ajax()) {
             return response()->json(["status" => "success", "data" => compact('qna')]);
         }else{
-            $data = '<script>alert("문의가 성과적으로 등록되었습니다.");window.opener.location.reload();window.close();</script>';
+            $data = '<script>alert("문의가 성공적으로 등록되었습니다.");window.opener.location.reload();window.close();</script>';
             return view('test', compact('data'));
         }
     }
