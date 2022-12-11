@@ -172,6 +172,14 @@
 								</a>
 							</li>
 						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="/admin/calculate/history_list" class="nav-link {{ (request()->routeIs('admin.calculate.history_list')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>일/월별 입출금</p>
+								</a>
+							</li>
+						</ul>
 					</li>
 					<li class="nav-item {{ (request()->is('admin/contact*')) ? 'menu-open' : '' }}">
 						<a href="#" class="nav-link {{ (request()->is('admin/contact*')) ? 'active' : '' }}"> <i class="fas fa-user-astronaut"></i>

@@ -52,7 +52,7 @@ class MsgController extends Controller
                     return $element;
                 })
                 ->addColumn('title', function ($row) {
-                    $title = '<span data-read="'.$row->is_read.'" data-id="' . $row->id . '" style="cursor:pointer; color:#007bff" class="btnDetail">' . $row->subject . '</span>';
+                    $title = '<span data-read="'.$row->is_read.'" data-id="' . $row->id . '" style="cursor:pointer; color:#007bff" class="dtlPartner">' . $row->subject . '</span>';
                     return $title;
                 })
                 

@@ -92,6 +92,14 @@
 								</a>
 							</li>
 						</ul>
+						<ul class="nav nav-treeview">
+							<li class="nav-item">
+								<a href="{{route('partner.calculate.history_list')}}" class="nav-link {{ (request()->routeIs('partner.calculate.history_list')) ? 'active' : '' }}">
+									<i class="far fa-circle nav-icon"></i>
+									<p>일/월별 입출금</p>
+								</a>
+							</li>
+						</ul>
 					</li>
 					
 				</ul>

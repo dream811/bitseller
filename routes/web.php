@@ -124,6 +124,9 @@ Route::middleware('partner')->prefix('partner')->name('partner.')->group(
         Route::get('calculate/user_result/{userId}',[App\Http\Controllers\Partner\Calculate\ResultController::class, 'user_index'])->name('calculate.user_result_list');
         //배당금지급내역
         Route::get('calculate/result',              [App\Http\Controllers\Partner\Calculate\ResultController::class, 'index'])->name('calculate.result_list');
+        //
+        Route::get('calculate/history_list',        [App\Http\Controllers\Partner\Calculate\HistoryController::class, 'index'])->name('calculate.history_list');
+
         //실시간정보
         Route::get('/realtime_info',                [App\Http\Controllers\Partner\HomeController::class, 'realtime_info'])->name('realtime_info');
     }
@@ -199,6 +202,9 @@ Route::middleware('admin')->prefix('admin')->name('admin.')->group(
         Route::delete('calculate/result_edit/{id}', [App\Http\Controllers\Admin\Calculate\ResultController::class, 'delete'])->name('calculate.result_delete');
         Route::post('calculate/result_state/{id}',  [App\Http\Controllers\Admin\Calculate\ResultController::class, 'state'])->name('calculate.result_state');
 
+        //일월 입출금내역
+        Route::get('calculate/history_list',        [App\Http\Controllers\Admin\Calculate\HistoryController::class, 'index'])->name('calculate.history_list');
+        Route::get('calculate/partner_history/{id}/{fromDate}/{toDate}',[App\Http\Controllers\Admin\Calculate\HistoryController::class, 'partner_history'])->name('calculate.partner_history');
         //1대1문의
 
         Route::get('contact/qna',                   [App\Http\Controllers\Admin\Contact\QNAController::class, 'index'])->name('qna.list');
